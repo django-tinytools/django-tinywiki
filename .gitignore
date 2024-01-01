@@ -1,0 +1,13 @@
+# editor files
+.vscode
+*~
+*.swp
+*.tmp
+*.temp
+
+# pyhton venv
+venv
+venv/*
+python-venv
+python-venv/*
+

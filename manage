@@ -1,0 +1,26 @@
+#!/bin/sh
+
+SELF="`realpath "$0"`"
+BASEDIR="`dirname "$SELF"`"
+
+HAVE_PYTHON_VENV="NO"
+
+if [ -f "${BASEDIR}/python-venv/bin/activate" ]; then
+    HAVE_PYTHON_VENV="YES"
+    . "${BASEDIR}/python-venv/bin/activate"
+elif [ -f "${BASEDIR}/venv/bin/activate" ]; then
+    HAVE_PYTHON_VENV="YES"
+    . "${BASEDIR}/venv/bin/activate"
+elif [ -f "`dirname "${BASEDIR}"`/venv/bin/activate" ]; then
+    HAVE_PTHON_VENV="YES"
+    . "`dirname "${BASEDIR}"`/venv/bin/activate"
+elif [ -f "`dirname "${BASEDIR}"`/python-venv/bin/activate" ]; then
+    HAVE_PYTHON_VENV="YES"
+    . "`dirname "${BASEDIR}"`/python-venv/bin/activate"
+fi
+
+python "${BASEDIR}/manage.py" "$@"
+
+if [ "$HAVE_PYTHON_VENV" = "YES" ]; then
+    deactivate
+fi
