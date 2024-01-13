@@ -11,3 +11,5 @@ venv/*
 python-venv
 python-venv/*
 
+# sqlite test database
+db.sqlite3

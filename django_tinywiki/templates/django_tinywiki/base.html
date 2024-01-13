@@ -1,0 +1,38 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html {% if lang %}lang="{{ lang }}"{% endif %}>
+    <head>
+        <meta encoding="UTF-8">
+        <title>{% if head_title %}{{ head_title }}{% else %}tinywiki{%endif%}</title>
+    </head>
+    <body>
+        <div class="header">
+            <span class="header-title">{{ header_title }}</span></br>
+            <span class="header-subtitle">{{ header_subtitle }}</span>
+        </div>
+        <nav class="nav">
+            {% if user_can_create_pages %}
+            <a class="nav-item" href="{{ create_url }}">{{ "Create a new Page" }}</a>
+            {% endif %}
+            {% if user_can_edit_page %}
+            <a class="nav-item" href="{{ edit_url }}">{% translate "Edit Page" %}</a>
+            {% endif %}
+
+            <span class="align-left">
+            {% if user.is_authenticated %}
+                <a class="nav-item" href="{{ logout_url }}">{% translate "Log out" %}</a>
+            {% else %}
+                <a class="nav-item" href="{{ login_url }}">{% translate "Log in" %}</a>
+                <a class="nav-item" href="{{ signup_url }}">{% translate "Sign up" %}</a>
+            {% endif %}
+            </span>
+        </nav>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer>
+            Powered by <strong>TinyWiki</strong>
+        </footer>
+    </body>
+</html>

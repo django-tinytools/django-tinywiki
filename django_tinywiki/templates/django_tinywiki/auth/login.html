@@ -1,0 +1,16 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block content %}
+<form class="login-form" method="post">
+    {% csrf_token %}
+    {{ form.name.label_tag }}<br>
+    {{ form.name }}<br>
+    <hr>
+    {{ form.password.label_tag }}<br>
+    {{ form.password }}<br>
+    <hr>
+
+    <input type="submit" value="{% translate 'Log in' %}">
+</form>
+{% endblock %}
