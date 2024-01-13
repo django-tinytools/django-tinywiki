@@ -5,7 +5,10 @@
 *.tmp
 *.temp
 
-# pyhton venv
+# python
+__pycache__
+
+# python venv
 venv
 venv/*
 python-venv
