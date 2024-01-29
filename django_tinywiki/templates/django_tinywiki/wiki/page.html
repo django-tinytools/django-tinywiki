@@ -1,4 +1,15 @@
 {% extends base_template %}
+{% load i18n %}
+
 {% block content %}
 {% autoescape off %}{{ content }}{% endautoescape %}
+{% if user_can_edit_page %}
+<h1>{% translate "Linked Images" %}</h1>
+<a href="">{% translate "Upload image" %}</a>
+{% if images %}
+<ul>
+    {% for img in images %}<li><a href="{{ img.image.url }}">{{ img.id }}{% if img.alt %} - {{ img.alt }} {% endif %}</a></li>{% endfor %}
+</ul>
+{% endif %}
+{% endif %}
 {% endblock %}

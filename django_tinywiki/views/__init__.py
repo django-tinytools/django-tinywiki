@@ -5,4 +5,4 @@ from .wiki import (
     WikiEditView,
 )
 
-from . import auth
+from . import auth,manage

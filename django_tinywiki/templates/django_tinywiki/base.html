@@ -4,6 +4,7 @@
     <head>
         <meta encoding="UTF-8">
         <title>{% if head_title %}{{ head_title }}{% else %}tinywiki{%endif%}</title>
+        <link rel="stylesheet" href="{{ css }}">
     </head>
     <body>
         <div class="header">
@@ -29,6 +30,8 @@
         </nav>
         <div class="content">
             {% block content %}
+            <h1>{% translate "Under Construction" %}</h1>
+            <p>{% blocktranslate %}This page is currently under development! It will soon be available.{% endblocktranslate %}</p>
             {% endblock %}
         </div>
         <footer>

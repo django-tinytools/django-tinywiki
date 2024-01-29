@@ -1,5 +1,5 @@
 from django.views import View
-
+from django.urls import reverse
 from .. import settings
 from django.contrib.auth.models import Group
 
@@ -11,6 +11,8 @@ class ViewBase(View):
     home_url = settings.TINYWIKI_HOME_URL
     page_view_url = settings.TINYWIKI_PAGE_VIEW_URL
     page_edit_url = settings.TINYWIKI_PAGE_EDIT_URL
+    page_create_url = settings.TINYWIKI_PAGE_CREATE_URL
+    page_new_url = settings.TINYWIKI_PAGE_NEW_URL
     login_url = settings.TINYWIKI_LOGIN_URL
     logout_url = settings.TINYWIKI_LOGOUT_URL
     signup_url = settings.TINYWIKI_SIGNUP_URL
@@ -27,7 +29,17 @@ class ViewBase(View):
 
         return False
 
+    def get_user_is_wiki_admin(self,user):
+        if user.is_authenticated:
+            if user.is_superuser:
+                return True
+            return bool(user.groups.filter(name='wiki-admin'))
+        return False
+            
     def get_user_can_edit_page(self,user,page=None):
+        if page is None:
+            return False
+        
         if user.is_authenticated:
             if user.is_superuser:
                 return True
@@ -54,16 +66,24 @@ class ViewBase(View):
         return False
 
     def get_context(self,request,page=None,**kwargs):
+        if page is None:
+            edit_url = ""
+        else:
+            edit_url = reverse(self.page_edit_url,kwargs={'page':page.slug})
+
         context = {
             'base_template': self.base_template,
             'css': self.css,
             'user_can_create_pages': self.get_user_can_create_pages(request.user),
             'user_can_edit_page': self.get_user_can_edit_page(request.user,page),
+            'user_is_wiki_admin': self.get_user_is_wiki_admin(request.user),
             'header_title': self.header_title,
             'login_url': self.login_url,
             'logout_url': self.logout_url,
             'signup_url': self.signup_url,
             'home_url': self.home_url,
+            'edit_url': edit_url,
+            'create_url': reverse(self.page_new_url)
         }
         context.update(kwargs)
         context.update(self.context_callback(request))

@@ -1,0 +1,12 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block content %}
+{% if init_success %}
+<h1>{% translate "Intialization/Update success" %}</h1>
+<p>{% blocktranslate %}TinyWiki has been updated successfully!{% endblocktranslate %}</p>
+{% else %}
+<h1>{% translate "Initialization/Update failed" %}</h1>
+<p>{% blocktranslate %}The initialization/update of TinyWiki failed!{% endblocktranslate %}</p>
+{% endif %}
+{% endblock %}

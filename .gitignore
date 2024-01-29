@@ -4,6 +4,7 @@
 *.swp
 *.tmp
 *.temp
+*.core
 
 # python
 __pycache__

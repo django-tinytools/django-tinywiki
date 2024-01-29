@@ -3,6 +3,7 @@ from django.contrib.auth.models import User as UserModel
 from django.utils.translation import gettext_lazy as _, gettext_noop as N_
 from django.utils.module_loading import import_string
 from django.urls import reverse_lazy
+import os
 
 TINYWIKI_VERSION = "0.1.0"
 
@@ -24,27 +25,25 @@ TINYWIKI_BASE_TEMPLATE = getattr(django_settings,
 TINYWIKI_PAGE_VIEW_TEMPLATE = getattr(django_settings,
                                       "TINYWIKI_PAGE_VIEW_TEMPLATE",
                                       "django_tinywiki/wiki/page.html")
-TINYWIKI_PAGE_VIEW_URL = getattr(django_settings,
-                                 "TINYWIKI_PAGE_VIEW_URL",
-                                 reverse_lazy("tinywiki:page_view"))
+TINYWIKI_PAGE_VIEW_URL = getattr(django_settings,"TINYWIKI_PAGE_VIEW_URL","tinywiki:page")
 TINYWIKI_PAGE_EDIT_TEMPLATE = getattr(django_settings,
                                       "TINYWIKI_PAGE_EDIT_TEMPLATE",
                                       "django_tinywiki/wiki/edit.html")
-TINYWIKI_PAGE_EDIT_URL = getattr(django_settings,
-                                 "TINYWIKI_PAGE_EDIT_URL",
-                                 reverse_lazy("tinywiki:page_edit"))
+TINYWIKI_PAGE_EDIT_URL = getattr(django_settings,"TINYWIKI_PAGE_EDIT_URL","tinywiki:page-edit")
 TINYWIKI_PAGE_CREATE_TEMPLATE = getattr(django_settings,
                                         "TINYWIKI_PAGE_CREATE_TEMPLATE",
                                         "django_tinywiki/wiki/create.html")
-TINYWIKI_PAGE_CREATE_URL = getattr(django_settings,
-                                   "TINYWIKI_PAGE_CREATE_URL",
-                                   reverse_lazy("tinywiki:page_create"))
+TINYWIKI_PAGE_CREATE_URL = getattr(django_settings,"TINYWIKI_PAGE_CREATE_URL","tinywiki:page-create")
+TINYWIKI_PAGE_NEW_TEMPLATE = getattr(django_settings,
+                                     "TINYWIKI_PAGE_NEW_TEMPLATE",
+                                     TINYWIKI_PAGE_CREATE_TEMPLATE)
+TINYWIKI_PAGE_NEW_URL = getattr(django_settings,'TINYWIKI_PAGE_NEW_URL','tinywiki:page-new')
 TINYWIKI_STYLE = getattr(django_settings,
                          "TINYWIKI_STYLE",
                          "default")
 TINYWIKI_CSS = getattr(django_settings,
                        "TINYWIKI_CSS",
-                       "/{url}/django_tinywiki/styles/{style}.css".format(
+                       "{url}django_tinywiki/styles/{style}.css".format(
                             url=django_settings.STATIC_URL,
                             style=TINYWIKI_STYLE))
 
@@ -54,6 +53,19 @@ TINYWIKI_MARKDOWN_EXTENSIONS = getattr(django_settings,
 TINYWIKI_CONTEXT_CALLBACK = getattr(django_settings,
                                     "TINYWIKI_CONTEXT_CALLBACK",
                                     None)
+
+TINYWIKI_DEFAULT_LANGUAGE = getattr(django_settings,"TINYWIKI_DEFAULT_LANGUAGE","en")
+
+if not hasattr(django_settings,"MEDIA_URL"):
+    django_settings.MEDIA_URL = "/media"
+
+TINYWIKI_MEDIA_ROOT = getattr(django_settings,
+                              "TINYWIKI_MEDIA_ROOT",
+                              os.path.join(django_settings.BASE_DIR,"media"))
+TINYWIKI_MEDIA_URL = getattr(django_settings,
+                             "TINYWIKI_MEDIA_URL",
+                             django_settings.MEDIA_URL)
+
 AUTH_USER_MODEL = getattr(django_settings,
                           "AUTH_USER_MODEL",
                           UserModel)
@@ -62,16 +74,16 @@ if TINYWIKI_IS_MAIN_APP:
     TINYWIKI_LOGIN_URL = getattr(django_settings,
                                 "TINYWIKI_LOGIN_URL",
                                 reverse_lazy("tinywiki:auth-login"))
-    #TINYWIKI_SIGNUP_URL = getattr(django_settings,
-    #                              "TINYWIKI_SIGNUP_URL",
-    #                              reverse_lazy("tinywiki:auth-signup"))
-    #TINYWIKI_LOGOUT_URL = getattr(django_settings,
-    #                              "TINYWIKI_LOGOUT_URL",
-    #                              reverse_lazy("tinywiki:auth-logout"))
+    TINYWIKI_SIGNUP_URL = getattr(django_settings,
+                                  "TINYWIKI_SIGNUP_URL",
+                                  reverse_lazy("tinywiki:auth-signup"))
+    TINYWIKI_LOGOUT_URL = getattr(django_settings,
+                                  "TINYWIKI_LOGOUT_URL",
+                                  reverse_lazy("tinywiki:auth-logout"))
 else:
-    TINYWIKI_LOGIN_URL = getattr(django_settings,"TINYWIKI_LOGIN_URL","login/")
-TINYWIKI_SIGNUP_URL = getattr(django_settings,"TINYWIKI_SIGNUP_URL","signup/")
-TINYWIKI_LOGOUT_URL = getattr(django_settings,"TINYWIKI_LOGOUT_URL","logout/")
+    TINYWIKI_LOGIN_URL = getattr(django_settings,"TINYWIKI_LOGIN_URL","/login/")
+    TINYWIKI_SIGNUP_URL = getattr(django_settings,"TINYWIKI_SIGNUP_URL","/signup/")
+    TINYWIKI_LOGOUT_URL = getattr(django_settings,"TINYWIKI_LOGOUT_URL","/logout/")
 
 TINYWIKI_GROUPS = [
     "wiki-admin",
@@ -85,8 +97,12 @@ TINYWIKI_LANGUAGES = [
 ]
 
 BUILTIN_MARKDOWN_EXTENSIONS = [
+    "toc",
+    "fenced_code",
+    "tables",
     "django_tinywiki.markdown_extensions:DjangoURLExtension",
     "django_tinywiki.markdown_extensions:TinywikiLinkExtension",
+    "django_tinywiki.markdown_extensions:DelExtension",
 ]
 
 # snaitize context callback

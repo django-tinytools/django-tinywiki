@@ -3,39 +3,35 @@ from xml.etree import ElementTree as etree
 from markdown import extensions
 from django.shortcuts import reverse
 from django.utils.html import escape
+import sys
 
 #from .. import settings
 
 class DjangoURLInlineProcessor(InlineProcessor):
     def handleMatch(self,m,data):
-        x = m.group(1).split('|',1)
-        django_url_vec = x[0].split(None)
-        if len(django_url_vec) == 1:
+        django_url = m.group(2)
+        title = m.group(1)
+
+        if not '|' in django_url:
             try:
-                url = reverse(django_url_vec[0])
-            except:
+                url = reverse(django_url)
+            except Exception as error:
+                print("[tinywiki:django-link] {}!".format(error),file=sys.stderr)
                 url = ""
         else:
+            urlvec=django_url.split('|')
             try:
-                url = reverse(django_url_vec[0],args=tuple(django_url_vec[1:]))
-            except:
+                url = reverse(urlvec[0],args=urlvec[1:])
+            except Exception as error:
+                print("[tinywiki:django-link] {}!".format(error),file=sys.stderr)
                 url = ""
 
-        if len(x) == 1:
-            if url:
-                title = escape(url)
-            else:
-                title = "Illegal Link"
-        else:
-            title = escape(x[1])
-
-
-        element = etree.Element("a",attrs={'href':url})
+        element = etree.Element("a",attrib={'href':url})
         element.text = title
 
         return element, m.start(0), m.end(0)
 
 class DjangoURLExtension(extensions.Extension):
     def extendMarkdown(self,md):
-        LINK_PATTERN="[[url:$(.*?)]]"
-        md.inlinePatterns.register(DjangoURLInlineProcessor(LINK_PATTERN,md),"django_url",20)
+        LINK_PATTERN="\$\[(.*?)\]\((.+?)\)"
+        md.inlinePatterns.register(DjangoURLInlineProcessor(LINK_PATTERN,md),"django_url",175)
