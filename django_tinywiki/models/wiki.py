@@ -87,21 +87,27 @@ class WikiImage(models.Model):
                                   on_delete=models.SET_NULL,
                                   null=True,
                                   related_name="images")
+    builtin_id = models.IntegerField(null=True,
+                                     unique=True)
     alt = models.CharField(max_length=1024,
                            null=True,
                            blank=True)
     description = models.CharField(max_length=1024,
                                    null=True,
                                    blank=True)
-    image = models.ImageField(upload_to='images/wiki/original')
-    image_wiki = models.ImageField(upload_to='images/wiki/view',
-                                   null=True)
-    image_preview = models.ImageField(upload_to='images/wiki/preview',
-                                      null=True)
-    image_sidebar = models.ImageField(upload_to="images/wiki/sidebar",
-                                      null=True)
+    image = models.ImageField(upload_to='images/original',
+                              storage=settings.TINYWIKI_MEDIA_STORAGE)
+    image_wiki = models.ImageField(storage=settings.TINYWIKI_MEDIA_STORAGE,
+                                   null=True,
+                                   upload_to='images/wiki')
+    image_preview = models.ImageField(storage=settings.TINYWIKI_MEDIA_STORAGE,
+                                      null=True,
+                                      upload_to='images/preview')
+    image_sidebar = models.ImageField(storage=settings.TINYWIKI_MEDIA_STORAGE,
+                                      null=True,
+                                      upload_to='images/sidebar')
     uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL,
                                     on_delete=models.SET_NULL,
                                     null=True)
     uploaded_on = models.DateTimeField(auto_now_add=True)
-    builtin_id = models.IntegerField(null=True)
+    

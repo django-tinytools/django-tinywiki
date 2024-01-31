@@ -3,6 +3,8 @@ from django.contrib.auth.models import User as UserModel
 from django.utils.translation import gettext_lazy as _, gettext_noop as N_
 from django.utils.module_loading import import_string
 from django.urls import reverse_lazy
+from django.core.files.storage import FileSystemStorage
+
 import os
 
 TINYWIKI_VERSION = "0.1.0"
@@ -61,10 +63,21 @@ if not hasattr(django_settings,"MEDIA_URL"):
 
 TINYWIKI_MEDIA_ROOT = getattr(django_settings,
                               "TINYWIKI_MEDIA_ROOT",
-                              os.path.join(django_settings.BASE_DIR,"media"))
+                              os.path.join(django_settings.BASE_DIR,"media","wiki"))
 TINYWIKI_MEDIA_URL = getattr(django_settings,
                              "TINYWIKI_MEDIA_URL",
-                             django_settings.MEDIA_URL)
+                             django_settings.MEDIA_URL + "wiki/")
+
+TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
+                                 "TINYWIKI_MEDIA_STORAGE",
+                                 FileSystemStorage(location=TINYWIKI_MEDIA_ROOT,
+                                                   base_url=TINYWIKI_MEDIA_URL))
+
+TINYWIKI_BUILTIN_PAGES = getattr(django_settings,"TINYWIKI_BUILTIN_PAGES",None)
+
+TINYWIKI_IMAGE_WIKI_WIDTH = 820
+TINYWIKI_IMAGE_PREVIEW_WIDTH = 256
+TINYWIKI_IMAGE_SIDEBAR_WIDTH = 240
 
 AUTH_USER_MODEL = getattr(django_settings,
                           "AUTH_USER_MODEL",

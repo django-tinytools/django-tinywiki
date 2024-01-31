@@ -3,6 +3,7 @@ from .. import settings
 from django.shortcuts import render
 from ..functions import init_app
 from django.urls import reverse_lazy
+from django.conf import settings as django_settings
 class ManageView(ViewBase):
     def get(self,request):
         context = self.get_context(request)
@@ -11,11 +12,15 @@ class ManageView(ViewBase):
 class InitializeView(ViewBase):
     template="django_tinywiki/manage/initialize.html"
     def get(self,request):
-        try:
+        if not django_settings.DEBUG:
+            try:
+                init_app(request.user)
+                init_success = True
+            except:
+                init_success = False
+        else:
             init_app(request.user)
             init_success = True
-        except:
-            init_success = False
 
         context = self.get_context(request,init_success=init_success)
         
