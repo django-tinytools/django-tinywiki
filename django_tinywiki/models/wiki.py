@@ -104,3 +104,4 @@ class WikiImage(models.Model):
                                     on_delete=models.SET_NULL,
                                     null=True)
     uploaded_on = models.DateTimeField(auto_now_add=True)
+    builtin_id = models.IntegerField(null=True)
