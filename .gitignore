@@ -17,3 +17,7 @@ python-venv/*
 
 # sqlite test database
 db.sqlite3
+
+# static and media files
+static/*
+media/*
