@@ -23,3 +23,6 @@ urlpatterns = [
     path("",include('django_tinywiki.urls')),
     path('admin/', admin.site.urls),
 ]
+
+if django_settings.DEBUG:
+    urlpatterns += static(django_settings.MEDIA_URL, document_root=django_settings.MEDIA_ROOT)
