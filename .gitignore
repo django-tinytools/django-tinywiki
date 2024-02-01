@@ -19,5 +19,6 @@ python-venv/*
 db.sqlite3
 
 # static and media files
+django_tinywiki/builtin-wiki-pages/*-builtin-*.[jpg,png]
 static/*
 media/*
