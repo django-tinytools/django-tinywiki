@@ -20,20 +20,6 @@ import re
 
 
 def init_app(user):
-    def init_wiki_media_directories():
-        directories= [
-            'images/wiki/original',
-            'images/wiki/view',
-            'images/wiki/preview',
-            'images/wiki/sidebar'
-        ]
-        root_dir = settings.TINYWIKI_MEDIA_ROOT
-        for i in directories:
-            directory = os.path.join(root_dir,i)
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-                print("[mkdir] {}".format(directory))
-    
     def init_languages():
         for lcode,lname in settings.TINYWIKI_LANGUAGES:
             try:
@@ -133,9 +119,6 @@ def init_app(user):
                 )
                 print("[django-tinywiki] Page \"{slug}\" created".format(slug=page.slug))
 
-            media_root = Path(settings.TINYWIKI_MEDIA_ROOT)
-            img_prefix = "images"
-
             if 'images' in spec:
                 for img_spec in spec['images']:
                     try:
@@ -154,48 +137,47 @@ def init_app(user):
                     
                     print(builtin_id)
 
+                    root_dir = Path(os.path.dirname(from_file))
+
                     try:
                         wi = WikiImage.objects.get(builtin_id=builtin_id)
                     except WikiImage.DoesNotExist:
                         fname = os.path.basename(from_file)
                         new_fname = "builtin-{}{}".format(builtin_id,os.path.splitext(fname)[1])
-                        original_path = media_root / img_prefix / "original" / new_fname
-                        wiki_path = media_root / img_prefix / "wiki" / new_fname
-                        sidebar_path = media_root / img_prefix / "sidebar" / new_fname
-                        preview_path = media_root / img_prefix / "preview" / new_fname
+                        original_path = root_dir / ("original-" + new_fname)
+                        wiki_path = root_dir / ("wiki-" + new_fname)
+                        sidebar_path = root_dir / ("sidebar-" + new_fname)
+                        preview_path = root_dir / ("preview-" + new_fname)
 
                         copyfile(from_file,original_path)
                         img = PIL.Image.open(from_file)
                         width,height = img.size
-                        img.close()
+                        
 
                         if img.width > settings.TINYWIKI_IMAGE_WIKI_WIDTH:
-                            original_img = PIL.Image.open(from_file)
                             new_size = (settings.TINYWIKI_IMAGE_WIKI_WIDTH,
                                         int((height * (settings.TINYWIKI_IMAGE_WIKI_WIDTH / width)) + 0.5))
-                            original_img.resize(new_size)
-                            original_img.save(wiki_path)
-                            original_img.close()
+                            wiki_img = img.resize(new_size)
+                            wiki_img.save(wiki_path)
+                            wiki_img.close()
                         else:
                             copyfile(from_file,wiki_path)
 
                         if width > settings.TINYWIKI_IMAGE_PREVIEW_WIDTH:
-                            original_img = PIL.Image.open(from_file)
                             new_size = (settings.TINYWIKI_IMAGE_PREVIEW_WIDTH,
                                         int((height * (settings.TINYWIKI_IMAGE_PREVIEW_WIDTH / width)) + 0.5))
-                            original_img.resize(new_size)
-                            original_img.save(preview_path)
-                            original_img.close()
+                            prev_img = img.resize(new_size)
+                            prev_img.save(preview_path)
+                            prev_img.close()
                         else:
                             copyfile(from_file,preview_path)
 
                         if width > settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH:
-                            original_img = PIL.Image.open(from_file)
                             new_size = (settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH,
                                         int((height * (settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH / width)) + 0.5))
-                            original_img.resize(new_size)
-                            original_img.save(sidebar_path)
-                            original_img.close()
+                            sidebar_img = img.resize(new_size)
+                            sidebar_img.save(sidebar_path)
+                            sidebar_img.close()
                         else:
                             copyfile(from_file,sidebar_path)
 
@@ -216,7 +198,8 @@ def init_app(user):
                             with open(sidebar_path,'rb') as sidebar_fp:
                                 sidebar_file = File(sidebar_fp,name=new_fname)
                                 wi.image_sidebar = sidebar_file
-                                wi.save()                      
+                                wi.save()
+                        img.close()
 
                     re_pattern = "\!\[\[\-\-{}\-\-\]\]".format(builtin_id)
                     recp = re.compile(re_pattern)
@@ -228,7 +211,6 @@ def init_app(user):
         raise RuntimeError(
             "Unable to initialize \"django-tinywiki\" because user \"{user}\" is not a superuser!".format(user=user))
 
-    init_wiki_media_directories()
     init_languages()
     init_groups()
     create_media_dirs()
