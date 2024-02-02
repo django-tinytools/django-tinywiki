@@ -89,9 +89,7 @@ class WikiImage(models.Model):
                                   related_name="images")
     builtin_id = models.IntegerField(null=True,
                                      unique=True)
-    alt = models.CharField(max_length=1024,
-                           null=True,
-                           blank=True)
+    alt = models.CharField(max_length=1024)
     description = models.CharField(max_length=1024,
                                    null=True,
                                    blank=True)

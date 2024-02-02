@@ -54,3 +54,11 @@ class PageForm(forms.Form):
                                     required=False,
                                     label=_("Reason for editing this page"))
     
+class ImageUploadForm(forms.Form):
+    alt_text = forms.CharField(max_length=1024,
+                               required=True,
+                               label=_("Alternative Text"))
+    description = forms.CharField(max_length=1024,
+                                  required=False,
+                                  label=_("Descriptions"))
+    image = forms.ImageField(label=_("Image to upload"))

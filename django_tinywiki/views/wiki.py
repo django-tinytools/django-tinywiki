@@ -1,8 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.utils.translation import gettext
 from django.contrib.auth import get_user_model
+from django.core.files import File
+
+from PIL import Image
 
 import re
 
@@ -17,7 +20,10 @@ from ..models import (
     WikiImage
 )
 
-from ..forms.wiki import PageForm
+from ..forms.wiki import (
+    PageForm,
+    ImageUploadForm,
+)
 
 import os
 
@@ -31,6 +37,7 @@ from .view import ViewBase
 
 class WikiPageView(ViewBase):
     page_template = settings.TINYWIKI_PAGE_VIEW_TEMPLATE
+    image_upload_url = settings.TINYWIKI_IMAGE_UPLOAD_URL
 
     def get_context(self,request,page=None,**kwargs):
         context = super().get_context(request,page=page,**kwargs)
@@ -39,12 +46,13 @@ class WikiPageView(ViewBase):
                 'slug':page.slug,
                 'title': page.title,
                 'language': page.language.code,
-                'edit_page': self.get_user_can_edit_page(request.user,page)
+                'edit_page': self.get_user_can_edit_page(request.user,page),
             }
             context.update({
                 "header_subtitle": page.title,
                 "title":page.title,
-                "content": render_markdown(page.content,page_context)
+                "content": render_markdown(page.content,page_context),
+                'image_upload_url': reverse(self.image_upload_url,kwargs={'page':page.slug}),
             })
 
         return context
@@ -244,11 +252,94 @@ class WikiEditView(ViewBase):
         return render(request,self.base_template,context)
     
 class WikiImageUploadView(ViewBase):
-    def get(self,request,page):
-        try:
-            p = WikiPage.objects.get(slug=page)
-        except:
-            p = None
+    template = settings.TINYWIKI_IMAGE_UPLOAD_TEMPLATE
+    image_upload_directory = settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY
 
-        context = self.get_context(request=request,page=p)
-        return render(request,self.base_template,context)
+    def get(self,request,page):
+        p = get_object_or_404(WikiPage,slug=page)
+
+        form = ImageUploadForm()
+
+        context = self.get_context(request=request,page=p,form=form)
+        return render(request,self.template,context)
+
+    def post(self,request,page):
+        p = get_object_or_404(WikiPage,slug=page)
+
+        form = ImageUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+
+            img_create_kwargs = {
+                    'wiki_page': p,
+                    'alt': form.cleaned_data['alt_text'],
+                    'description': form.cleaned_data['description'],
+                    'image': form.cleaned_data['image'],
+                    'uploaded_by': request.user,
+            }
+            image = p.images.create(**img_create_kwargs)
+            image.save()
+
+            orig_img = Image.open(image.image.path,'r')
+            wrkdir = os.path.join(self.image_upload_directory,str(p.id))
+
+            if not os.path.exists(wrkdir):
+                os.makedirs(wrkdir)
+            orig_name = image.image.path
+            fn,fext=os.path.splitext(os.path.basename(orig_name))
+
+
+            wiki_name = os.path.join(wrkdir,fn + '.wiki' + fext)
+            preview_name = os.path.join(wrkdir,fn + '.preview' + fext)
+            sidebar_name = os.path.join(wrkdir,fn + '.sidebar' + fext)
+
+            
+            width,height = orig_img.size
+
+            if width > settings.TINYWIKI_IMAGE_WIKI_WIDTH:
+                new_size = (settings.TINYWIKI_IMAGE_WIKI_WIDTH, int((height * (settings.TINYWIKI_IMAGE_WIKI_WIDTH / width)) + 0.5))
+                wiki_img = orig_img.resize(new_size)
+                wiki_img.save(wiki_name)
+                wiki_img.close()
+            else:
+                wiki_name = orig_name
+            
+            if width > settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH:
+                new_size = (settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH, int((height * (settings.TINYWIKI_IMAGE_PREVIEW_WIDTH / width))+ 0.5))
+                sb_img = orig_img.resize(new_size)
+                sb_img.save(sidebar_name)
+                sb_img.close()
+            else:
+                sidebar_name = orig_name
+
+            if width > settings.TINYWIKI_IMAGE_PREVIEW_WIDTH:
+                new_size = (settings.TINYWIKI_IMAGE_PREVIEW_WIDTH, int((height * (settings.TINYWIKI_IMAGE_PREVIEW_WIDTH / width)) + 0.5))
+                prev_img = orig_img.resize(new_size)
+                prev_img.save(preview_name)
+                prev_img.close()
+            else:
+                preview_name = orig_name
+
+            orig_img.close()
+
+            with (open(wiki_name,'rb') as wf, open(sidebar_name,'rb') as sf, open(preview_name,'rb') as pf):
+                wiki_file = File(wf,name=os.path.basename(wiki_name))
+                sidebar_file = File(sf,name=os.path.basename(sidebar_name))
+                preview_file = File(pf,name=os.path.basename(preview_name))
+
+                image.image_wiki = wiki_file
+                image.image_sidebar = sidebar_file
+                image.image_preview = preview_file
+                image.save()
+                
+            if preview_name != orig_name:
+                os.unlink(preview_name)
+            if sidebar_name != orig_name:
+                os.unlink(sidebar_name)
+            if wiki_name != orig_name:
+                os.unlink(wiki_name)
+
+            return redirect(reverse(self.page_view_url,kwargs={'page':page}))
+        
+        context = self.get_context(request=request,page=p,form=form)
+
+        return render(request,self.template,context)

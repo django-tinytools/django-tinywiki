@@ -63,10 +63,20 @@ if not hasattr(django_settings,"MEDIA_URL"):
 
 TINYWIKI_MEDIA_ROOT = getattr(django_settings,
                               "TINYWIKI_MEDIA_ROOT",
-                              os.path.join(django_settings.BASE_DIR,"media","wiki"))
+                              django_settings.BASE_DIR / "media" / "wiki")
 TINYWIKI_MEDIA_URL = getattr(django_settings,
                              "TINYWIKI_MEDIA_URL",
                              django_settings.MEDIA_URL + "wiki/")
+
+TINYWIKI_IMAGE_UPLOAD_URL = getattr(django_settings,
+                                    "TINYWIKI_IMAGE_UPLOAD_URL",
+                                    'tinywiki:image-upload')
+TINYWIKI_IMAGE_UPLOAD_TEMPLATE = getattr(django_settings,
+                                         "TINYWIKI_IMAGE_UPLOAD_TEMPLATE",
+                                         'django_tinywiki/wiki/image-upload.html')
+TINYWIKI_IMAGE_UPLOAD_DIRECTORY = getattr(django_settings,
+                                          "TINYWIKI_IMAGE_UPLOAD_DIRECTORY",
+                                          django_settings.BASE_DIR / '.uploads' / 'wiki-images')
 
 TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
                                  "TINYWIKI_MEDIA_STORAGE",
