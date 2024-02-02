@@ -10,7 +10,7 @@ urlpatterns = [
     path("edit/<slug:page>/",views.WikiEditView.as_view(),name="page-edit"),
     path("create/",views.WikiCreateView.as_view(),name="page-new"),
     path("create/<slug:page>/",views.WikiCreateView.as_view(),name="page-create"),
-    #path("image-upload/<slug:page>",views.WikiImageUpload.as_view(),name="image-upload"),
+    path("upload/image/<slug:page>/",views.WikiImageUploadView.as_view(),name="image-upload"),
     path("manage/",views.manage.ManageView.as_view(),name="manage"),
     path("manage/init",views.manage.InitializeView.as_view(),name="manage-init"),
     path("manage/page/",views.manage.PageListView.as_view(),name="manage-pagelist"),
@@ -29,3 +29,4 @@ if settings.TINYWIKI_IS_MAIN_APP:
         path("signup/",views.auth.SignupView.as_view(),name="auth-signup"),
         path("profile/",views.auth.ProfileView.as_view(),name="auth-profile"),
     ]
+

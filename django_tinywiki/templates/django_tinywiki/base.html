@@ -2,14 +2,15 @@
 <!DOCTYPE html>
 <html {% if lang %}lang="{{ lang }}"{% endif %}>
     <head>
-        <meta encoding="UTF-8">
+        <meta charset="UTF-8" />
         <title>{% if head_title %}{{ head_title }}{% else %}tinywiki{%endif%}</title>
         <link rel="stylesheet" href="{{ css }}">
     </head>
     <body>
         <div class="header">
-            <span class="header-title">{{ header_title }}</span></br>
-            <span class="header-subtitle">{{ header_subtitle }}</span>
+                {% if header_logo %}<div class="header-logo"><img src="{{ header_logo }}" alt="{% translate 'Header Logo' %}"/>{% endif %}
+                <div class="header-title">{{ header_title }}</div>
+                {% if header_subtitle %}</br><div class="header-subtitle">{{ header_subtitle }}</div>{% endif %}
         </div>
         <nav class="nav">
             {% if user_can_create_pages %}

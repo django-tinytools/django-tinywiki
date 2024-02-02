@@ -17,7 +17,7 @@ BUILTIN_PAGES = [
         'slug': 'en-tinywiki-markdown',
         'images': [
             {
-                'builtin_id': 1,
+                'builtin_id': -1,
                 'file': os.path.join(basedir,'Lama.jpg'),
                 'alt': "Picture of a lama",
                 'description': "A test image",
@@ -37,7 +37,7 @@ BUILTIN_PAGES = [
         'slug': 'de-tinywiki-markdown',
         'images': [
             {
-                'builtin_id': 2,
+                'builtin_id': -2,
                 'file': os.path.join(basedir,'Lama.jpg'),
                 'alt': "Bild von einem Lama",
                 'description': "Ein Testbild",

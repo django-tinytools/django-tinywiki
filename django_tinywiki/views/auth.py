@@ -46,7 +46,7 @@ class LoginView(ViewBase):
             if user is not None:
                 login(request,user)
                 if "next" in request.GET:
-                    return redirect(urlsafe_base64_decode(request.GET['next']))
+                    return redirect(urlsafe_base64_decode(request.GET['next']).decode('utf-8'))
                 return redirect(self.home_url)
 
         context['form'] = LoginForm()

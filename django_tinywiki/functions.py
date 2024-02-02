@@ -72,7 +72,7 @@ def init_app(user):
             if not os.path.isfile(spec['file']):
                 continue
 
-            with open(spec['file'],"r") as content_file:
+            with open(spec['file'],"r",encoding="utf-8") as content_file:
                 content = content_file.read()
 
             try:
@@ -135,26 +135,30 @@ def init_app(user):
                     except:
                         continue
                     
-                    print(builtin_id)
-
                     root_dir = Path(os.path.dirname(from_file))
 
                     try:
                         wi = WikiImage.objects.get(builtin_id=builtin_id)
                     except WikiImage.DoesNotExist:
                         fname = os.path.basename(from_file)
-                        new_fname = "builtin-{}{}".format(builtin_id,os.path.splitext(fname)[1])
-                        original_path = root_dir / ("original-" + new_fname)
-                        wiki_path = root_dir / ("wiki-" + new_fname)
-                        sidebar_path = root_dir / ("sidebar-" + new_fname)
-                        preview_path = root_dir / ("preview-" + new_fname)
+                        if os.path.splitext(fname)[1] == 'svg':
+                            convert = False
+                        else:
+                            convert = True
+
+                        new_fname = "builtin.{}{}".format(builtin_id,os.path.splitext(fname)[1])
+                        original_path = root_dir / ("original." + new_fname)
+                        wiki_path = root_dir / ("wiki." + new_fname)
+                        sidebar_path = root_dir / ("sidebar." + new_fname)
+                        preview_path = root_dir / ("preview." + new_fname)
 
                         copyfile(from_file,original_path)
+                        
                         img = PIL.Image.open(from_file)
                         width,height = img.size
                         
 
-                        if img.width > settings.TINYWIKI_IMAGE_WIKI_WIDTH:
+                        if convert and img.width > settings.TINYWIKI_IMAGE_WIKI_WIDTH:
                             new_size = (settings.TINYWIKI_IMAGE_WIKI_WIDTH,
                                         int((height * (settings.TINYWIKI_IMAGE_WIKI_WIDTH / width)) + 0.5))
                             wiki_img = img.resize(new_size)
@@ -201,7 +205,7 @@ def init_app(user):
                                 wi.save()
                         img.close()
 
-                    re_pattern = "\!\[\[\-\-{}\-\-\]\]".format(builtin_id)
+                    re_pattern = "\!\[\[\-\-[\-]?{}\-\-\]\]".format(builtin_id)
                     recp = re.compile(re_pattern)
                     page.content = re.sub(recp,"![[{}]]".format(wi.id),page.content)
                     page.save()
@@ -243,4 +247,22 @@ def render_markdown(string,context=None):
 
     c = Context(context)
     t = Template(string)
-    return markdown_to_html(t.render(c))
+    if context and 'slug' in context:
+        slug = context['slug']
+    else:
+        slug = None
+
+    if context and 'edit_page' in context:
+        edit_page = context['edit_page']
+    else:
+        edit_page = False
+        
+
+    s = t.render(c)
+    return markdown.markdown(s,extensions=settings.TINYWIKI_MARKDOWN_EXTENSIONS,
+                             extension_configs={
+                                "django_tinywiki.markdown_extensions:TinywikiLinkedImagesExtension": {
+                                   'wiki_page': slug,
+                                   'edit_page': edit_page,
+                               }
+                            })

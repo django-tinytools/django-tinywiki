@@ -76,8 +76,8 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
 TINYWIKI_BUILTIN_PAGES = getattr(django_settings,"TINYWIKI_BUILTIN_PAGES",None)
 
 TINYWIKI_IMAGE_WIKI_WIDTH = 860
-TINYWIKI_IMAGE_PREVIEW_WIDTH = 256
-TINYWIKI_IMAGE_SIDEBAR_WIDTH = 240
+TINYWIKI_IMAGE_PREVIEW_WIDTH = ((860 - 30) // 4)
+TINYWIKI_IMAGE_SIDEBAR_WIDTH = 200
 
 AUTH_USER_MODEL = getattr(django_settings,
                           "AUTH_USER_MODEL",
@@ -115,6 +115,7 @@ BUILTIN_MARKDOWN_EXTENSIONS = [
     "tables",
     "django_tinywiki.markdown_extensions:DjangoURLExtension",
     "django_tinywiki.markdown_extensions:TinywikiImageExtension",
+    "django_tinywiki.markdown_extensions:TinywikiLinkedImagesExtension",
     "django_tinywiki.markdown_extensions:TinywikiLinkExtension",
     "django_tinywiki.markdown_extensions:DelExtension",
 ]

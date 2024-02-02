@@ -1,14 +1,14 @@
 # TinyWiki Markdown Syntax
 
-## Table of contents
+## Table of Contents
 
 [TOC]
 
 ## Introduction
 
-*Markdown* is a simple markup language that allows to render it content in
-*HTML*. *TinyWiki* uses *Markdown* for its Wiki-pages. *Github* for example
-uses *Markdown* too for its README-files.
+**Markdown** is a simple markup language that allows to render it content in
+HTML. TinyWiki uses Markdown for its Wiki-pages. Github for example
+uses Markdown too for its README-files.
 
 This short guide gives you an overview of the *Markdown*-syntax.
 
@@ -178,7 +178,7 @@ It renders to:
 ## Tables
 
 With pipes (```|```) markdown tables are created. Every column is sepearated 
-by a pyipe. To create header rows, underline them with a dash ```-```.
+by a pipe. To create header rows, underline them with a dash ```-```.
 
 Here an example:
 ```
@@ -206,10 +206,9 @@ to start a mulitline code block. To end the code block place three backticks
 at the start of an otherwise empty line.
 
 ```
- ``` Code comes here ```
+ Text ```Code comes here``` text
 
- ``` { .markdown }
-
+ ```
  Multiple 
  lines
  of 
@@ -217,10 +216,11 @@ at the start of an otherwise empty line.
  ```
 ```
 
-It redners to:  
-``` Code comes here ```
+It renders to:
 
-``` { .markdown }
+Text ```Code comes here``` text
+
+```
 Multiple 
 lines
 of 
@@ -247,10 +247,11 @@ This renders to:
 
 To provide wiki links in pages use the format ```[[slug]]```.
 
-
 To create a link with an alternate link text, set the link text enclosed in
 two sqaure braces followed by the slug ind round braces. It has the format 
 ```[[Link Text]](slug)```.
+
+**_TinyWiki Links_ are a TinyWiki extension!**
 
 ```
 * [[en-tinywiki-index]]
@@ -266,6 +267,8 @@ This is rendered as:
 * [[Django's TinyWiki Homepage]](en-tinywiki-index) 
 * [[This page does not exist]](link-does-not-exist)
 
+
+
 ### Django Links
 
 To add django-links use the ```$[text](app:name)``` notation. *app* is the
@@ -275,6 +278,8 @@ using the function ```django.shortcuts.reverse()```.
 
 If you need variables in the url use the ```$[text](app:name|variable|...)```
 notation, where variables are seperated by a pipe ```|```.
+
+**_Django Links_ are a TinyWiki extension and not part of the Django-Framework itself!**
 
 Here is an example:
 
@@ -288,18 +293,68 @@ Here is an example:
 
 ## Images
 
-Embedding images work by using ```![alt text](image_url)```. To embed wiki images
-use ```![[image-id]]```.
+Embedding images work by using ```![alt text](image_url)```. 
+
+To embed wiki images use ```![[image-id]]```. 
+Builtin pages can link against builtin image ids with 
+```![[!builtin-image-id]]```. Negative numbers for *builtin-image-id*s are
+reserved for the TinyWiki images. So use positive integers for your
+*builtin-image-id*s.
+
+**_Wiki Images_ and _Builtin Images_ are a TinyWiki extension!**
+
 
 ```
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
-![[--1--]]
+![[---1--]]
+![[!-1]]
 ```
 
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
-![[--1--]]
+![[---1--]]
+
+![[!-1]]
 
 
-**TODO**
+To show all the linked images for a wiki page use the ```[WIKI-IMAGES]``` tag.
+This tag generates a grid with the preview of your images.
+
+Example:
+
+```
+### Linked Images
+
+[WIKI-IMAGES]
+```
+
+This renders to:
+
+### Linked Images
+
+[WIKI-IMAGES]
+
+## Generate a *Table of Contents*
+
+To create a dynamically created *Table of Contents* use the ```[TOC]``` tag
+in a own paragraph.
+
+**_TOC_ is a Python markdown extension!**
+
+Example:
+
+```
+...
+
+[TOC]
+
+...
+```
+
+It renders to  
+...
+
+[TOC]
+
+...

@@ -2,6 +2,7 @@ from django.views import View
 from django.urls import reverse
 from .. import settings
 from django.contrib.auth.models import Group
+from django.utils.http import urlsafe_base64_encode
 
 class ViewBase(View):
     base_template = settings.TINYWIKI_BASE_TEMPLATE
@@ -50,22 +51,25 @@ class ViewBase(View):
                 return False
 
             if page.userlock:
-                if page.created_by.id == user.id:
+                if page.user.id == user.id:
                     return True
                 return False
 
-            if user.groups.filter('wiki-author'):
+            if user.groups.filter(name='wiki-author'):
                 return True
-
+            
+            if user.groups.filter(name='wiki-editor') and user.id == page.user.id:
+                return True
+            
         return False
 
-    def user_can_delete_pages(self,user):
+    def get_user_can_delete_pages(self,user):
         if user.is_authenticated:
             if user.is_superuser or user.groups.filter(name="wiki-admin"):
                 return True
         return False
 
-    def get_context(self,request,page=None,**kwargs):
+    def get_context(self,request,page=None,login_url=None,**kwargs):
         if page is None:
             edit_url = ""
         else:
@@ -78,7 +82,7 @@ class ViewBase(View):
             'user_can_edit_page': self.get_user_can_edit_page(request.user,page),
             'user_is_wiki_admin': self.get_user_is_wiki_admin(request.user),
             'header_title': self.header_title,
-            'login_url': self.login_url,
+            'login_url': self.login_url if not login_url else login_url,
             'logout_url': self.logout_url,
             'signup_url': self.signup_url,
             'home_url': self.home_url,
@@ -89,3 +93,6 @@ class ViewBase(View):
         context.update(self.context_callback(request))
 
         return context
+    
+    def build_login_url(self,request):
+        return self.login_url + "?next=" + urlsafe_base64_encode(request.build_absolute_uri().encode('utf-8'))

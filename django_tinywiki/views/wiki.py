@@ -35,16 +35,23 @@ class WikiPageView(ViewBase):
     def get_context(self,request,page=None,**kwargs):
         context = super().get_context(request,page=page,**kwargs)
         if page:
+            page_context = {
+                'slug':page.slug,
+                'title': page.title,
+                'language': page.language.code,
+                'edit_page': self.get_user_can_edit_page(request.user,page)
+            }
             context.update({
                 "header_subtitle": page.title,
                 "title":page.title,
-                "content": render_markdown(page.content)
+                "content": render_markdown(page.content,page_context)
             })
 
         return context
 
     def get(self,request,page):
 
+        page_context = {}
         try:
             p = WikiPage.objects.get(slug=page)
             pattern = re.compile("\!\[\[([0-9]+?)\]\]")
@@ -60,10 +67,10 @@ class WikiPageView(ViewBase):
                 if i.id not in re_linked_images:
                     orphaned_images.append(i)   
             
-
             context = self.get_context(request=request,page=p,
                                        images=page_images,
-                                       orphaned_images=orphaned_images)
+                                       orphaned_images=orphaned_images,
+                                       login_url=self.build_login_url(request))
 
         except WikiPage.DoesNotExist:
             if self.get_user_can_create_pages(request.user):
@@ -83,7 +90,7 @@ class WikiPageView(ViewBase):
             context.update({
                 'header_subtitle': title,
                 'title': title,
-                'content': render_markdown(page_content)
+                'content': render_markdown(page_content,page_context)
             })
 
         return render(request,self.page_template,context)
@@ -234,4 +241,14 @@ class WikiEditView(ViewBase):
 
         context = self.get_context(request=request,page=p,form=form,slug=p.slug)
 
+        return render(request,self.base_template,context)
+    
+class WikiImageUploadView(ViewBase):
+    def get(self,request,page):
+        try:
+            p = WikiPage.objects.get(slug=page)
+        except:
+            p = None
+
+        context = self.get_context(request=request,page=p)
         return render(request,self.base_template,context)
