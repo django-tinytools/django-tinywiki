@@ -1,7 +1,7 @@
 {% extends base_template %}
 {% load i18n %}
 
-{% block content %}
+{% block main %}
 <h1>{% translate "Successfully logged out!" %}</h1>
 <p>{% blocktranslate %}You logged out successfully.{% endblocktranslate %}</p>
 <p><div class="link-button"><a href="{{ home_url }}">{% translate "Return to main page" %}</a></div></p>

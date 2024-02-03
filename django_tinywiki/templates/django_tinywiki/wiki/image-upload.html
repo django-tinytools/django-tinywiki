@@ -1,19 +1,26 @@
 {% extends base_template %}
 {% load i18n %}
 
-{% block content %}
+{% block main %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.errors }}
-    {{ form.alt_text.label_tag }}<br>
-    {{ form.alt_text }}<br>
-    <hr><br>
-    {{ form.description.label_tag }}<br>
-    {{ form.description }}<br>
-    <hr><br>
-    {{ form.image.label_tag }}<br>
-    {{ form.image }} <br>
-    <hr><br>
-    <input type="submit" value="{% translate 'Upload' %}">
+    <p>
+        {{ form.errors }}
+    </p>
+    <p>
+        {{ form.alt_text.label_tag }}<br>
+        {{ form.alt_text }}
+    </p>
+    <p>
+        {{ form.description.label_tag }}<br>
+        {{ form.description }}
+    </p>
+    <p>
+        {{ form.image.label_tag }}<br>
+        {{ form.image }}
+    </p>
+    <div class="align-right">
+        <input type="submit" value="{% translate 'Upload' %}">
+    </div>
 </form>
 {% endblock %}

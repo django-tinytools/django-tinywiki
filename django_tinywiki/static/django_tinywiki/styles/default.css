@@ -31,6 +31,28 @@ pre code {
     padding: 0px;
 }
 
+label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+input[type=text],textarea,input[type=number],input[type=password] {
+    width:100%;
+    border:1px solid black;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+textarea {
+    height: 600px;
+}
+
+.align-right {
+    width: 100%;
+    align-content: right;
+    text-align: right;
+}
+
 .header {
     background-color: aqua;
     padding: 10px;
@@ -67,7 +89,7 @@ pre code {
     grid-column: 1;
 }
 
-.content {
+.main {
     margin: 20px;
     padding: 20px;
     background-color: white;
@@ -86,5 +108,16 @@ pre code {
 
 .wiki-linked-image-grid-item {
     max-width: 100%;
+    background-color: lightgrey;
+    padding-bottom: 3px;
+}
+
+.wiki-image {
+    background-color: lightgrey;
+}
+
+.wiki-image span {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 

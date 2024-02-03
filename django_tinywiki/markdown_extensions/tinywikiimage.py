@@ -10,6 +10,36 @@ from xml.etree import ElementTree as etree
 from django.urls import reverse
 from ..models.wiki import WikiImage,WikiPage
 
+class ImageInlineProcessor(InlineProcessor):
+    def handleMatch(self, m: Match, data):
+        image_alt = m.group(1)
+        image_desc = m.group(1)
+        image_url = m.group(2)
+
+        element = etree.Element("div",attrib={'class':"wiki-image"})
+        element.append(etree.Element("img",attrib={"alt":image_alt,"src":image_url}))
+        element.append(etree.Element("br"))
+        desc_element = etree.Element("span")
+        desc_element.text = image_desc
+        element.append(desc_element)
+
+        return element, m.start(0), m.end(0)
+
+class ImageDescriptionInlineProcessor(InlineProcessor):
+    def handleMatch(self, m: Match, data):
+        image_alt = m.group(1)
+        image_desc = m.group(2)
+        image_url = m.group(3)
+
+        element = etree.Element("div",attrib={'class':"wiki-image"})
+        element.append(etree.Element("img",attrib={"alt":image_alt,"src":image_url}))
+        element.append(etree.Element("br"))
+        desc_element = etree.Element("span")
+        desc_element.text = image_desc
+        element.append(desc_element)
+
+        return element, m.start(0), m.end(0)
+
 class TinywikiImageInlineProcessor(InlineProcessor):
     def handleMatch(self, m: Match[str], data):
         try:
@@ -67,6 +97,13 @@ class TinywikiBuiltinImageInlineProcessor(InlineProcessor):
 
             element = etree.Element("div",attrib={'class':'wiki-image'})
             link_element = etree.Element("a",attrib={'href':img.image.url})
+            link_element.append(etree.Element("img",attrib={'alt':img.alt,'src':img.image_wiki.url}))
+            link_element.append(etree.Element("br"))
+            desc_element = etree.Element("span")
+            desc_element.text = img.description
+            link_element.append(desc_element)
+            element.append(link_element)
+            
 
         except WikiImage.DoesNotExist:
             element = etree.Element("div",attrib={'class':'wiki-image image-not-found'})
@@ -106,7 +143,11 @@ class TinywikiLinkedImagesInlineProcessor(InlineProcessor):
                                                                'alt':wi.alt,
                                                                'src':wi.image_preview.url}))
             img_text_element = etree.Element("div",attrib={'class':'wiki-linked-image-grid-item-text'})
-            img_text_element.text = "{img_id} - {img_alt}".format(img_id=wi.id,img_alt=wi.alt)
+            if wi.description:
+                img_text = wi.description
+            else:
+                img_text = wi.alt
+            img_text_element.text = "#{img_id} - {img_text}".format(img_id=wi.id,img_text=img_text)
             img_link_element.append(img_text_element)
             img_div_element.append(img_link_element)
             grid_element.append(img_div_element)
@@ -118,10 +159,14 @@ class TinywikiLinkedImagesInlineProcessor(InlineProcessor):
 
 class TinywikiImageExtension(extensions.Extension):
     def extendMarkdown(self, md: Markdown):
-        LINK_PATTERN = "\!\[\[([0-9]+?)\]\]"
-        LINK_PATTERN_BUILTIN = "\!\[\[\!([\-]?[0-9]+?)\]\]"
-        md.inlinePatterns.register(TinywikiImageInlineProcessor(LINK_PATTERN,md),"tinywiki-image",180)
-        md.inlinePatterns.register(TinywikiBuiltinImageInlineProcessor(LINK_PATTERN_BUILTIN,md),"tinywiki-builtin-image",180)
+        LINK_PATTERN_TW = "\!\[\[([0-9]+?)\]\]"
+        LINK_PATTERN_TW_BUILTIN = "\!\[\[\!([\-]?[0-9]+?)\]\]"
+        LINK_PATTER_DESC_URL = "\!\[(.*?)\]\[(.*?)\]\((.+?)\)"
+        LINK_PATTERN_URL = "\!\[(.*?)\]\((.+?)\)"
+        md.inlinePatterns.register(TinywikiImageInlineProcessor(LINK_PATTERN_TW,md),"tinywiki-image",180)
+        md.inlinePatterns.register(TinywikiBuiltinImageInlineProcessor(LINK_PATTERN_TW_BUILTIN,md),"tinywiki-builtin-image",180)
+        md.inlinePatterns.register(ImageDescriptionInlineProcessor(LINK_PATTER_DESC_URL,md),"image-desc",180)
+        md.inlinePatterns.register(ImageInlineProcessor(LINK_PATTERN_URL,md),'image',175)
 
 class TinywikiLinkedImagesExtension(extensions.Extension):
     def __init__(self,wiki_page=None,edit_page=False,**kwargs: Any) -> None:

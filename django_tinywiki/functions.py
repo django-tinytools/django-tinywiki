@@ -266,3 +266,6 @@ def render_markdown(string,context=None):
                                    'edit_page': edit_page,
                                }
                             })
+
+def user_is_superuser(user):
+    return (user and user.is_authenticated and user.is_superuser)

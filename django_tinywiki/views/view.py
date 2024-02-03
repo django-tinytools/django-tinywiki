@@ -95,4 +95,4 @@ class ViewBase(View):
         return context
     
     def build_login_url(self,request):
-        return self.login_url + "?next=" + urlsafe_base64_encode(request.build_absolute_uri().encode('utf-8'))
+        return self.login_url + "?n=" + urlsafe_base64_encode(request.build_absolute_uri().encode('utf-8'))

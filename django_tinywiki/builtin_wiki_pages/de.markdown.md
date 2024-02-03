@@ -104,6 +104,20 @@ Tildezeichen einbettet ```~~text~~```.
 ***kursiv und fett***,
 ~~durchgestrichen~~
 
+## Copyright usw.
+
+Um ein Copyright Zeichen (C) wird mit ```(C)```, eine registrierte
+Handelsmarke (R) mit ```(R)``` und ein Warenzeichen mit (TM) mit
+```(TM)``` dargestellt.
+
+```
+(C) 2024 Django(R) TinyWiki(TM)
+```
+
+(C) 2024 Django(R) TinyWiki(TM)
+
+**_CopyrightExtension_ ist eine TinyWiki erweiterung und kein Markdown Standard!**
+
 ## Zitate
 
 Um ein Zitat hinzuzufügen, beginne einen Absatz mit einem Größerzeichen
@@ -122,7 +136,7 @@ Um ein Zitat hinzuzufügen, beginne einen Absatz mit einem Größerzeichen
 ### Zitate und Absätze
 
 Um ein, mehrere Absätze umspannended Zitat, zu erzeugen, plaziere bis auf ein
-">" leere Zeilen als Absatztrenner zwischen den Zitattext.
+```>``` leere Zeilen als Absatztrenner zwischen den Zitattext.
 
 ```
 > Das ist der erste Absatz.
@@ -138,7 +152,8 @@ Um ein, mehrere Absätze umspannended Zitat, zu erzeugen, plaziere bis auf ein
 
 ### Verschachtelte Zitate
 
-Verschachtelte Zitate werden erzeugt, in dem man mehrere Größerzeichen verwendet.
+Verschachtelte Zitate werden erzeugt, in dem man mehrere Größerzeichen
+```>>``` verwendet.
 
 ```
 > Das ist ein Zitat.
@@ -322,6 +337,7 @@ Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---2--]]
+
 ![[!-2]]
 ```
 
@@ -330,6 +346,7 @@ Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---2--]]
+
 ![[!-2]]
 
 Um die verknüpften Bilder deiner TinyWiki-Seite anzuzeigen, nutze den Tag

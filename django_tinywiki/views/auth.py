@@ -14,8 +14,10 @@ class LoginView(ViewBase):
 
     def get(self,request):
         if request.user.is_authenticated:
-            if 'next' in request.GET:
-                return redirect(urlsafe_base64_decode(request.GET['next']))
+            if 'n' in request.GET:
+                return redirect(urlsafe_base64_decode(request.GET['n']).decode('utf-8'))
+            elif 'next' in request.GET:
+                return redirect(request.GET['next'])
             return redirect(reverse(self.home_url))
         form = LoginForm()
         context = self.get_context(request,form=form)
@@ -45,8 +47,10 @@ class LoginView(ViewBase):
                 
             if user is not None:
                 login(request,user)
-                if "next" in request.GET:
-                    return redirect(urlsafe_base64_decode(request.GET['next']).decode('utf-8'))
+                if "n" in request.GET:
+                    return redirect(urlsafe_base64_decode(request.GET['n']).decode('utf-8'))
+                elif "next" in request.GET:
+                    return redirect(request.GET['next'])
                 return redirect(self.home_url)
 
         context['form'] = LoginForm()

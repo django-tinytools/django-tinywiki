@@ -4,6 +4,10 @@ from django.views import View
 from django.utils.translation import gettext
 from django.contrib.auth import get_user_model
 from django.core.files import File
+from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 from PIL import Image
 
@@ -52,6 +56,8 @@ class WikiPageView(ViewBase):
                 "header_subtitle": page.title,
                 "title":page.title,
                 "content": render_markdown(page.content,page_context),
+                "edit-page": render_markdown(False),
+                "page": page,
                 'image_upload_url': reverse(self.image_upload_url,kwargs={'page':page.slug}),
             })
 
@@ -112,7 +118,11 @@ class WikiIndexView(WikiPageView):
 class WikiCreateView(ViewBase):
     template = settings.TINYWIKI_PAGE_EDIT_TEMPLATE
     
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
     def get(self,request,page=None):
+        if not self.get_user_can_create_pages(request.user):
+            raise PermissionDenied
+        
         context=self.get_context(request=request)
         if page:
             try:
@@ -129,7 +139,11 @@ class WikiCreateView(ViewBase):
         context['form'] = PageForm(form_defaults)
         return render(request,self.template,context)
 
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
     def post(self,request,page=None):
+        if not self.get_user_can_create_pages(request.user):
+            raise PermissionDenied
+        
         context = self.get_context(request=request,page=page)
 
         form = PageForm(request.POST)
@@ -171,12 +185,15 @@ class WikiCreateView(ViewBase):
 class WikiEditView(ViewBase):
     template = settings.TINYWIKI_PAGE_EDIT_TEMPLATE
 
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
     def get(self,request,page):
-        
         try:
             p = WikiPage.objects.get(slug=page)
         except WikiPage.DoesNotExist:
             return redirect(reverse(settings.TINYWIKI_PAGE_CREATE_URL,kwargs={'page':page}))
+        
+        if not self.get_user_can_edit_page(request.user,p):
+            raise PermissionDenied
         
         if p.user:
             page_user_id = p.user.id
@@ -198,12 +215,15 @@ class WikiEditView(ViewBase):
         
         return render(request,self.template,context)
     
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
     def post(self,request,page):
-        
         try:
             p = WikiPage.objects.get(id=page)
         except WikiPage.DoesNotExist:
             return redirect(reverse(settings.TINYWIKI_PAGE_CREATE_URL,kwargs={'page':page}))
+        
+        if not self.get_user_can_edit_page(request.user,p):
+            raise PermissionDenied
         
         form = PageForm(request.POST)
         if form.is_valid():
