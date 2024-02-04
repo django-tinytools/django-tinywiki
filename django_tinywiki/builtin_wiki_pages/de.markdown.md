@@ -81,7 +81,7 @@ Das ist eine neue Zeile.
 Um einen Text *kursiv* zu machen, bette den Text zwischen einem Sternzeichen
 ```*text*``` oder einem Unterstrich ein ```_text_```.
 
-Um einen Text **fett** zu machen, bette den Text zwichen zwei Sternzeichen
+Um einen Text **fett** zu machen, bette den Text zwischen zwei Sternzeichen
 ```**text**``` oder zwei Unterstrichen ein ```__text__```.
 
 Um einen Text ***fett und kursiv zu machen*** nutze drei Sternzeichen
@@ -94,6 +94,7 @@ Tildezeichen einbettet ```~~text~~```.
 *kursiv*,
 **fett**,
 ***kursiv und fett***,
+**_fett und krusiv_ - nur mehr fett**,
 ~~durchgestrichen~~
 ```
 
@@ -102,6 +103,7 @@ Tildezeichen einbettet ```~~text~~```.
 *kursiv*,
 **fett**,
 ***kursiv und fett***,
+**_fett und krusiv_ - nur mehr fett**,
 ~~durchgestrichen~~
 
 ## Copyright usw.
