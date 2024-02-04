@@ -3,15 +3,6 @@
 
 {% block main %}
 {% autoescape off %}{{ content }}{% endautoescape %}
-{% if user_can_edit_page %}
-<h1>{% translate "Linked Images" %}</h1>
-<a href="{{ image_upload_url }}">{% translate "Upload image" %}</a>
-{% if images %}
-<ul>
-    {% for img in images %}<li><a href="{{ img.image.url }}"><img style="width:128;" src="{{ img.image_preview.url }}"><br>{{ img.id }}{% if img.alt %} - {{ img.alt }} {% endif %}</a></li>{% endfor %}
-</ul>
-{% endif %}
-{% endif %}
 <div class="wiki-userinfo">
     <p>
         &copy;
@@ -28,4 +19,20 @@
         <strong>{% translate 'Reason:' %}</strong> {% if page.edited_reason %}{{ page.edited_reason }}{% else %}{% translate 'No reason given' %}{% endif %}
     </p>
 </div>
+
+{% if user_can_edit_page %}
+    <h2>{% translate "Linked Images" %}</h2>
+    <a href="{{ image_upload_url }}">{% translate "Upload image" %}</a>
+    {% if images %}
+    <div class="wiki-linked-image-grid">
+        {% for img in images %}
+        <div class="wiki-linked-image-grid-item">
+            <a href="{{ img.image.url }}">
+                <img src="{{ img.image_preview.url }}"><br>
+                #{{ img.id }}{% if img.description %} - {{ img.description }}{% else %} - {{ img.alt }}{% endif %}
+            </a>
+        </div>{% endfor %}
+    </div>
+    {% endif %}
+{% endif %}
 {% endblock %}
