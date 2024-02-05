@@ -99,14 +99,20 @@ if TINYWIKI_IS_MAIN_APP:
                                 reverse_lazy("tinywiki:auth-login"))
     TINYWIKI_SIGNUP_URL = getattr(django_settings,
                                   "TINYWIKI_SIGNUP_URL",
-                                  reverse_lazy("tinywiki:auth-signup"))
+                                  getattr(django_settings,"SIGNUP_URL",reverse_lazy("tinywiki:auth-signup")))
     TINYWIKI_LOGOUT_URL = getattr(django_settings,
                                   "TINYWIKI_LOGOUT_URL",
-                                  reverse_lazy("tinywiki:auth-logout"))
+                                  getattr(django_settings,"LOGOUT_URL",reverse_lazy("tinywiki:auth-logout")))
 else:
-    TINYWIKI_LOGIN_URL = getattr(django_settings,"TINYWIKI_LOGIN_URL","/login/")
-    TINYWIKI_SIGNUP_URL = getattr(django_settings,"TINYWIKI_SIGNUP_URL","/signup/")
-    TINYWIKI_LOGOUT_URL = getattr(django_settings,"TINYWIKI_LOGOUT_URL","/logout/")
+    TINYWIKI_LOGIN_URL = getattr(django_settings,
+                                 "TINYWIKI_LOGIN_URL",
+                                 getattr(django_settings,"LOGIN_URL","/login/"))
+    TINYWIKI_SIGNUP_URL = getattr(django_settings,
+                                  "TINYWIKI_SIGNUP_URL",
+                                  getattr(django_settings,"SIGNUP_URL","/logout"))
+    TINYWIKI_LOGOUT_URL = getattr(django_settings,
+                                  "TINYWIKI_LOGOUT_URL",
+                                  getattr(django_settings,"LOGOUT_URL","/signup/"))
 
 TINYWIKI_GROUPS = [
     "wiki-admin",

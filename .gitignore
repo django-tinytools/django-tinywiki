@@ -24,3 +24,6 @@ django_tinywiki/builtin_wiki_pages/*-builtin-*.png
 static/*
 media/*
 .uploads/*
+
+# secret key file
+tinywiki/secret_key.py

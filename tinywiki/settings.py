@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,6 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-m$swuawgcaehq0ds@@)swpi+x)ilzh-de72pd161*8-bxi1-)4'
+
+if os.path.isfile(Path(__file__).resolve().parent / "secret_key.py"):
+    from . import secret_key
+    if hasattr(secret_key,"SECRET_KEY"):
+        SECRET_KEY = secret_key.SECRET_KEY
+    
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -105,13 +113,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGES = [
+    ('en',_("English")),
+    ('de',_("German")),
+]
 USE_I18N = True
 
 USE_TZ = True
-
+TIME_ZONE = 'UTC'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -125,5 +134,6 @@ MEDIA_URL = "media/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_CHARSET = 'utf-8'
 
 TINYWIKI_IS_MAIN_APP = True

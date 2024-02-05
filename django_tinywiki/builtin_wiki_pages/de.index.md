@@ -29,4 +29,10 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 
 ## Installation
 
-TODO
+### Download per git
+
+**TODO** - Github Repository anlegen
+
+``` {.sh}
+$ git clone git://git.cmoser.eu/django/django-tinywiki
+```
