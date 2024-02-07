@@ -31,8 +31,51 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 
 ### Download per git
 
-**TODO** - Github Repository anlegen
-
 ``` {.sh}
 $ git clone git://git.cmoser.eu/django/django-tinywiki
 ```
+
++ **TODO** - Github Repository anlegen  
++ **TODO** - pip installation bereitstellen  
++ **TODO** - setup.py
+
+## TinyWiki testen
+
+Um *django-tinywiki* zu testen, lade es em besten über git herunter. Das 
+Git-Repository beinhaltet das komplette Django Projekt. Erstelle danach ein
+Python-Venv mit dem Namen *venv* oder *python-venv* direkt im 
+Projektverzeichnis. Aktiviere das Venv und installiere im Anschluß die 
+benötigten Abhängigkeiten, lege einen Superuser account an und initialisiere
+TinyWiki.
+
+``` {.sh}
+$ # django-tinywiki per git herunterladen
+$ git clone git://git.cmoser.eu/django/django-tinywiki
+
+$ # ins django-tinywiki Verzeichnis wechseln
+$ cd django-tinywiki
+
+$ # Venv initialisieren
+$ python -m venv --system-site-packages python-venv
+
+# # Venv aktivieren
+$ . python-venv/bin/activate
+
+$ # Abhängigkeiten installieren
+$ pip install -r requirements.txt
+
+$ # Superuser anlegen
+$ ./manage createsuperuser --email email@example.com --username nutzername
+
+$ # TinyWiki initialisieren
+$ ./manage runscript initapp
+```
+
+Danach kann der Wiki ausgeführt werden.
+
+``` {.sh}
+./manage runserver
+```
+
+Es emfielt sich unter Windows [MSYS2](https://www.msys2.org/) zu verwenden, 
+da das *manage* script für *sh* geschrieben wurde.

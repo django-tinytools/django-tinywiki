@@ -14,7 +14,7 @@
         </div>
         <nav class="nav">
             {% if user_can_create_pages %}
-            <a class="nav-item" href="{{ create_url }}">{{ "Create a new Page" }}</a>
+            <a class="nav-item" href="{{ create_url }}">{% translate "Create a new Page" %}</a>
             {% endif %}
             {% if user_can_edit_page %}
             <a class="nav-item" href="{{ edit_url }}">{% translate "Edit Page" %}</a>

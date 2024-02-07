@@ -1,0 +1,4 @@
+django>=4.2
+django-extras
+pillow>=10.2
+markdown
