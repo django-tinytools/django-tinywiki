@@ -32,7 +32,7 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 ### Download per git
 
 ``` {.sh}
-$ git clone git://git.cmoser.eu/django/django-tinywiki
+$ git clone https://github.com/c9moser/django/django-tinywiki
 ```
 
 + **TODO** - Github Repository anlegen  
@@ -50,7 +50,7 @@ TinyWiki.
 
 ``` {.sh}
 $ # django-tinywiki per git herunterladen
-$ git clone git://git.cmoser.eu/django/django-tinywiki
+$ git clone https://github.com/c9moser/django/django-tinywiki.git
 
 $ # ins django-tinywiki Verzeichnis wechseln
 $ cd django-tinywiki
@@ -67,7 +67,7 @@ $ pip install -r requirements.txt
 $ # Superuser anlegen
 $ ./manage createsuperuser --email email@example.com --username nutzername
 
-$ # TinyWiki initialisieren
+$ # TinyWiki initialisieren (TODO)
 $ ./manage runscript initapp
 ```
 

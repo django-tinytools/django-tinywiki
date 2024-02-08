@@ -113,6 +113,7 @@ else:
     TINYWIKI_LOGOUT_URL = getattr(django_settings,
                                   "TINYWIKI_LOGOUT_URL",
                                   getattr(django_settings,"LOGOUT_URL","/signup/"))
+    TINIWIKI_USER = getattr(django_settings,"TINYWIKI_USER",{"username":"TinyWiki Team","email":"tinywiki@cmoser.eu"})
 
 TINYWIKI_GROUPS = [
     "wiki-admin",
