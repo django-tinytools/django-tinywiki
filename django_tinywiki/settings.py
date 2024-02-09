@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 
 import os
 
-TINYWIKI_VERSION = "0.1.0"
+TINYWIKI_VERSION = "0.0.1"
 
 TINYWIKI_IS_MAIN_APP = getattr(django_settings,"TINYWIKI_IS_MAIN_APP",False)
 
@@ -85,13 +85,13 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
 
 TINYWIKI_BUILTIN_PAGES = getattr(django_settings,"TINYWIKI_BUILTIN_PAGES",None)
 
-TINYWIKI_IMAGE_WIKI_WIDTH = 860
-TINYWIKI_IMAGE_PREVIEW_WIDTH = ((860 - 30) // 4)
-TINYWIKI_IMAGE_SIDEBAR_WIDTH = 200
+TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",860)
+TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",((860 - 30) // 4))
+TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",200)
 
-AUTH_USER_MODEL = getattr(django_settings,
-                          "AUTH_USER_MODEL",
-                          UserModel)
+TINYWIKI_AUTH_USER_MODEL = getattr(django_settings,
+                                   "TINYWIKI_AUTH_USER_MODEL",
+                                   getattr(django_settings,"AUTH_USER_MODEL","django.contrib.auth.models.User"))
 
 if TINYWIKI_IS_MAIN_APP:
     TINYWIKI_LOGIN_URL = getattr(django_settings,
@@ -113,12 +113,14 @@ else:
     TINYWIKI_LOGOUT_URL = getattr(django_settings,
                                   "TINYWIKI_LOGOUT_URL",
                                   getattr(django_settings,"LOGOUT_URL","/signup/"))
-    TINIWIKI_USER = getattr(django_settings,"TINYWIKI_USER",{"username":"TinyWiki Team","email":"tinywiki@cmoser.eu"})
+
+TINYWIKI_USER = getattr(django_settings,"TINYWIKI_USER",{"username":"TinyWiki Team","email":"tinywiki@cmoser.eu"})
+
 
 TINYWIKI_GROUPS = [
-    "wiki-admin",
-    "wiki-author",
-    "wiki-editor",
+    ("wiki-admin",[]),
+    ("wiki-author",[]),
+    ("wiki-editor",[]),
 ]
 
 TINYWIKI_LANGUAGES = [

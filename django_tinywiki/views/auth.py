@@ -14,17 +14,21 @@ class LoginView(ViewBase):
 
     def get(self,request):
         if request.user.is_authenticated:
+            print("USER ALREADY LOGGED IN")
             if 'n' in request.GET:
                 return redirect(urlsafe_base64_decode(request.GET['n']).decode('utf-8'))
             elif 'next' in request.GET:
                 return redirect(request.GET['next'])
-            return redirect(reverse(self.home_url))
+            return redirect(self.home_url)
+        
         form = LoginForm()
         context = self.get_context(request,form=form)
-
         return render(request,self.template,context)
 
     def post(self,request):
+        if request.user.is_authenticated:
+            return redirect(self.home_url)
+        
         form = LoginForm(request.POST)
         context = self.get_context(request)
 

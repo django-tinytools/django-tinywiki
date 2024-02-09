@@ -1,15 +1,14 @@
 Metadata-Version: 2.1
 Name: django-tinywiki
 Version: 0.0.1
-Summary: A small wiki app for django
-Author-email: Christian Moser <christian@cmoser.eu>
+Summary: A simple wiki app for the django framework
+Home-page: https://github.com/c9moser/django-tinywiki
+Author: Christian Moser
+Author-email: christian@cmoser.eu
 License: BSD-3-Clause
-Project-URL: Homepage, https://github.com/c9moser/django-tinywiki.git
-Project-URL: Issues, https://github.com/c9moser/django-tinywiki/issues
-Classifier: Programming Language :: Python :: 3
-Classifier: Operating System :: OS Independent
-Requires-Python: >=3.9
-Description-Content-Type: text/markdown
+Project-URL: Homepage, https://github.com/c9moser/django-tinywiki
+Project-URL: Issues, https://www.github.com/c9moser/django-tinywiki/issues
+Requires-Python: >= 3.9
 License-File: LICENSE
 Requires-Dist: django>=4.2
 Requires-Dist: django-extras

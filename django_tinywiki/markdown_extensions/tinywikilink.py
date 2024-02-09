@@ -1,6 +1,7 @@
 from markdown.inlinepatterns import InlineProcessor
-from xml.etree import ElementTree as etree
 from markdown import extensions
+from xml.etree import ElementTree as etree
+
 from django.shortcuts import reverse
 from django.utils.html import escape
 

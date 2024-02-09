@@ -27,3 +27,6 @@ media/*
 
 # secret key file
 tinywiki/secret_key.py
+
+# appsettings
+tinywiki/appsettings.py

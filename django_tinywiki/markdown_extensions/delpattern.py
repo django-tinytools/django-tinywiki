@@ -1,5 +1,4 @@
 from markdown.inlinepatterns import SimpleTagInlineProcessor
-from xml.etree import ElementTree as etree
 from markdown import extensions
 
 

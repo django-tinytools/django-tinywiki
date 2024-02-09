@@ -1,6 +1,7 @@
 LICENSE
 README.md
 pyproject.toml
+setup.py
 django_tinywiki/__init__.py
 django_tinywiki/admin.py
 django_tinywiki/apps.py
@@ -12,6 +13,7 @@ django_tinywiki/urls.py
 django_tinywiki.egg-info/PKG-INFO
 django_tinywiki.egg-info/SOURCES.txt
 django_tinywiki.egg-info/dependency_links.txt
+django_tinywiki.egg-info/not-zip-safe
 django_tinywiki.egg-info/requires.txt
 django_tinywiki.egg-info/top_level.txt
 django_tinywiki/builtin_wiki_pages/Lama.jpg
@@ -45,6 +47,8 @@ django_tinywiki/migrations/__init__.py
 django_tinywiki/models/__init__.py
 django_tinywiki/models/language.py
 django_tinywiki/models/wiki.py
+django_tinywiki/scripts/__init__.py
+django_tinywiki/scripts/initapp.py
 django_tinywiki/views/__init__.py
 django_tinywiki/views/auth.py
 django_tinywiki/views/manage.py

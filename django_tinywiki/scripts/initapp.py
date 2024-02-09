@@ -11,7 +11,7 @@ def run():
     UserModel = get_user_model()
     user = None
     try:
-        user = UserModel.objects.get(email=settings.TINIWIKI_USER["email"])
+        user = UserModel.objects.get(email=settings.TINYWIKI_USER["email"])
         try:
             user.is_superuser = True
             user.save()
@@ -19,7 +19,7 @@ def run():
             pass
     except UserModel.DoesNotExist:
         try:
-            user = UserModel.create_superuser(**settings.TINIWIKI_USER)
+            user = UserModel.objects.create(**settings.TINYWIKI_USER)
             user.password = get_random_string(length=32)
             try:
                 user.is_superuser = True
@@ -27,8 +27,8 @@ def run():
                 pass
             user.save()
         except Exception as err:
-            print(_("Unable to create TinyWiki user! ({error_message})").format(str(err)),file=sys.stderr)
-            for i in UserModel.objects.filter(is_supersuer=True).order_by('id'):
+            print(_("Unable to create TinyWiki user! ({error_message})").format(error_message=str(err)),file=sys.stderr)
+            for i in UserModel.objects.filter(is_superuser=True).order_by('id'):
                 if i.is_superuser:
                     user = i
                     break

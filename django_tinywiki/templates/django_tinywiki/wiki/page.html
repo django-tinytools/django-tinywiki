@@ -4,20 +4,17 @@
 {% block main %}
 {% autoescape off %}{{ content }}{% endautoescape %}
 <div class="wiki-userinfo">
-    <p>
-        &copy;
-        {% if page.created_on.year == page.edited_on.year %}
-            {{ page.created_on.year }}
-        {% else %}
-            {{ page.created_on.year }}-{{ page.edited_on.year }}
-        {% endif %}
-        {% if page.user.username %}{{ page.user.username }}{% else %}{% translate 'Unknown User' %}{% endif %}
-    </p>
-    <p>
-        <strong>{% translate 'Latest edit on:' %}</strong> {{ page.edited_on}}<br>
-        {% if page.edited_by %}<strong>{% translate 'Edited by:'%}</strong> {{ page.edited_by.username }}<br>{% endif %}
-        <strong>{% translate 'Reason:' %}</strong> {% if page.edited_reason %}{{ page.edited_reason }}{% else %}{% translate 'No reason given' %}{% endif %}
-    </p>
+    &copy;
+    {% if page.created_on.year == page.edited_on.year %}
+        {{ page.created_on.year }}
+    {% else %}
+        {{ page.created_on.year }}-{{ page.edited_on.year }}
+    {% endif %}
+    {% if page.user.username %}{{ page.user.username }}{% else %}{% translate 'Unknown User' %}{% endif %}
+    <br><br>
+    <strong>{% translate 'Latest edit on:' %}</strong> {{ page.edited_on}}<br>
+    {% if page.edited_by %}<strong>{% translate 'Edited by:'%}</strong> {{ page.edited_by.username }}<br>{% endif %}
+    <strong>{% translate 'Reason:' %}</strong> {% if page.edited_reason %}{{ page.edited_reason }}{% else %}{% translate 'No reason given' %}{% endif %}
 </div>
 
 {% if user_can_edit_page %}

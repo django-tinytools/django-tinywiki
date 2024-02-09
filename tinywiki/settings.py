@@ -27,6 +27,8 @@ if os.path.isfile(Path(__file__).resolve().parent / "secret_key.py"):
     from . import secret_key
     if hasattr(secret_key,"SECRET_KEY"):
         SECRET_KEY = secret_key.SECRET_KEY
+    if hasattr(secret_key,"SECRET_KEY_FALLBACKS"):
+        SECRET_KEY_FALLBACKS = secret_key.SECRET_KEY_FALLBACKS
     
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -138,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_CHARSET = 'utf-8'
 
 TINYWIKI_IS_MAIN_APP = True
+
+if os.path.isfile(Path(__file__).resolve().parent / "project_settings.py"):
+    from .project_settings import *
