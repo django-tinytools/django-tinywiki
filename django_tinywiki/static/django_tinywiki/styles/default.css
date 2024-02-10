@@ -4,6 +4,7 @@
 body {
     margin: 0px;
     background-color: darkgray;
+    display:grid;
 }
 
 img {
@@ -58,12 +59,23 @@ textarea {
 }
 
 .header {
-    background-color: aqua;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: #0d1117;
+    color: #e6edf3;
     padding: 10px;
     display: grid;
     column-gap: 10px;
 }
 
+nav {
+    padding-right: 10px;
+    padding-left: 10px;
+    grid-row:2;
+    grid-column-start: 1;
+    grid-column-end:4;
+}
 .header_logo {
     grid-column: 0;
     grid-row-start: 1;
@@ -93,7 +105,9 @@ textarea {
     grid-column: 1;
 }
 
-.main {
+main {
+    grid-row:2;
+    grid-column:2;
     margin: 20px;
     padding: 20px;
     background-color: white;
@@ -134,6 +148,12 @@ textarea {
 }
 
 footer {
+    grid-row:4;
+    grid-column-start:1;
+    grid-column-end: 4;
     padding-left:20px;
     padding-bottom:5px;
+    padding-top:3px;
+    background-color: #0d1117;
+    color: #e6edf3;
 }
