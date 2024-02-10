@@ -1,7 +1,7 @@
 from .view import ViewBase
 from .. import settings
 from django.shortcuts import render
-from ..functions import init_app
+from ..functions.init import init_app
 from django.urls import reverse_lazy
 from django.conf import settings as django_settings
 from ..decorators import perm_superuser

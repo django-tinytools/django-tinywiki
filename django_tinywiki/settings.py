@@ -92,8 +92,6 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
                                  FileSystemStorage(location=TINYWIKI_MEDIA_ROOT,
                                                    base_url=TINYWIKI_MEDIA_URL))
 
-TINYWIKI_BUILTIN_PAGES = getattr(django_settings,"TINYWIKI_BUILTIN_PAGES",None)
-
 TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",860)
 TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",((860 - 30) // 4))
 TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",200)

@@ -19,6 +19,7 @@ class WikiPage(models.Model):
         null=False,
         related_name="tinywiki_pages")
     content = models.TextField(null=False,blank=True)
+    contentfile_md5 = models.CharField(null=True,max_length=32,default=None)
     user = models.ForeignKey(settings.TINYWIKI_AUTH_USER_MODEL,
                              on_delete=models.SET_NULL,
                              null=True,

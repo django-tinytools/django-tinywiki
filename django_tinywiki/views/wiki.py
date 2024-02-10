@@ -32,7 +32,7 @@ from ..forms.wiki import (
 
 import os
 
-from ..functions import (
+from ..functions.functions import (
     user_can_create_pages,
     get_language_code,
     render_markdown)

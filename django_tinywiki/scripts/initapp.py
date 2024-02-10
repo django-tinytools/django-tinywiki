@@ -21,10 +21,7 @@ def run():
         try:
             user = UserModel.objects.create(**settings.TINYWIKI_USER)
             user.password = get_random_string(length=32)
-            try:
-                user.is_superuser = True
-            except:
-                pass
+            user.is_superuser = True
             user.save()
         except Exception as err:
             print(_("Unable to create TinyWiki user! ({error_message})").format(error_message=str(err)),file=sys.stderr)
@@ -35,7 +32,7 @@ def run():
     if user is None:
         raise LookupError("No user to select to initialize TinyWiki! ABORTING!")
     
-    func.init_app(user)
+    func.init.init_app(user)
 
 
 
