@@ -93,6 +93,17 @@ It renders to:
 ***bold and italic***
 ~~crossed out~~
 
+## Copyright and such
+
+A copyright sign (C) is created with ```(C)```, a Registered Trademark (R) is
+created with ```(R)``` and a Trademark (TM) with ```(TM)```.
+
+``` { .markdown }
+(C) 2024 Django(R) TinyWiki(TM)
+```
+
+(C) 2024 Django(R) TinyWiki(TM)
+
 ## Blockquotes
 
 To add a blockquote, place a *>* in front of a paragraph.
