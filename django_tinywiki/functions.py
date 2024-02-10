@@ -154,7 +154,9 @@ def init_app(user):
                     except:
                         continue
                     
-                    root_dir = Path(os.path.dirname(from_file))
+                    root_dir = Path(settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY)
+                    if not os.path.exists(root_dir):
+                        os.makedirs(root_dir)
 
                     try:
                         wi = WikiImage.objects.get(builtin_id=builtin_id)
