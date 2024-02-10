@@ -7,6 +7,7 @@ from django.core.files import File
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound
 
 
 from PIL import Image
@@ -91,22 +92,7 @@ class WikiPageView(ViewBase):
             if self.get_user_can_create_pages(request.user):
                 return redirect(reverse(settings.TINYWIKI_PAGE_CREATE_URL,args=[page]))
 
-            context = self.get_context(request)
-
-            content_file = os.path.join(os.path.dirname(__file__),"en.404.md")
-            title = _("404 - Page not found!")
-            check_file = os.path.join(os.path.dirname(__file__),'.'.join((get_language_code,"404","md")))
-            if os.path.isfile(check_file):
-                content_file = check_file
-
-            with open(content_file,"r") as ifile:
-                page_content = ifile.read()
-
-            context.update({
-                'header_subtitle': title,
-                'title': title,
-                'content': render_markdown(page_content,page_context)
-            })
+            return HttpResponseNotFound("<h1>Page not found</h1>")
 
         return render(request,self.page_template,context)
 
