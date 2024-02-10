@@ -149,6 +149,8 @@ def init_app(user):
                             desc = img_spec['description']
                         else:
                             desc = None
+                        if not os.path.isfile(from_file):
+                            continue
                     except:
                         continue
                     
@@ -171,7 +173,7 @@ def init_app(user):
 
                         copyfile(from_file,original_path)
                         
-                        img = PIL.Image.open(from_file)
+                        img = PIL.Image.open(original_path)
                         width,height = img.size
                         
 
