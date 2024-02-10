@@ -3,6 +3,10 @@ import os
 basedir=os.path.dirname(__file__)
 from django.utils.translation import gettext_lazy as _
 
+# BUILTIN_PAGES.images.builtin_ids:
+#   en -1       to      -999
+#   de -1000    to      -1999
+
 BUILTIN_PAGES = [
     {
         'file': os.path.join(basedir,'en.index.md'),
@@ -22,8 +26,21 @@ BUILTIN_PAGES = [
                 'alt': "Picture of a lama",
                 'description': "A test image",
             },
+            {
+                'builtin_id': -2,
+                'file': os.path.join(basedir,'vineyard-styria.jpg'),
+                'alt': "Vineyard in Styria",
+                'description': "A vineyard in Styria (Austria)",
+            }
         ],
     },
+    {
+        'file': os.path.join(basedir,'en.license.md'),
+        'language': 'en',
+        'title': "TinyWiki License",
+        'slug': 'en-tinywiki-license',
+    },
+    # German Pages
     {
         'file': os.path.join(basedir,'de.index.md'),
         'language': 'de',
@@ -37,11 +54,17 @@ BUILTIN_PAGES = [
         'slug': 'de-tinywiki-markdown',
         'images': [
             {
-                'builtin_id': -2,
+                'builtin_id': -1000,
                 'file': os.path.join(basedir,'Lama.jpg'),
                 'alt': "Bild von einem Lama",
                 'description': "Ein Testbild",
             },
+            {
+                'builtin_id': -1001,
+                'file': os.path.join(basedir,'vineyard-styria.jpg'),
+                'alt': "Sterischer Weinberg",
+                'description': "Ein Weinberg in der Stierermark (Österreich)",
+            }
         ],
     },    
 ]

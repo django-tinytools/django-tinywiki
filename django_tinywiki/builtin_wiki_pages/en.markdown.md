@@ -308,14 +308,14 @@ reserved for the TinyWiki images. So use positive integers for your
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---1--]]
-![[!-1]]
+![[!-2]]
 ```
 
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---1--]]
 
-![[!-1]]
+![[!-2]]
 
 
 To show all the linked images for a wiki page use the ```[WIKI-IMAGES]``` tag.

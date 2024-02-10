@@ -164,10 +164,10 @@ def init_app(user):
                             convert = True
 
                         new_fname = "builtin.{}{}".format(builtin_id,os.path.splitext(fname)[1])
-                        original_path = root_dir / ("original." + new_fname)
-                        wiki_path = root_dir / ("wiki." + new_fname)
-                        sidebar_path = root_dir / ("sidebar." + new_fname)
-                        preview_path = root_dir / ("preview." + new_fname)
+                        original_path = os.path.join(settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY,("original." + new_fname))
+                        wiki_path = os.path.join(settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY,("wiki." + new_fname))
+                        sidebar_path = os.path.join(settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY,("sidebar." + new_fname))
+                        preview_path = os.path.join(settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY,("preview." + new_fname))
 
                         copyfile(from_file,original_path)
                         
@@ -221,6 +221,9 @@ def init_app(user):
                                 wi.image_sidebar = sidebar_file
                                 wi.save()
                         img.close()
+                        for img_path in [sidebar_path,preview_path,wiki_path,original_path]:
+                            if os.path.isfile(img_path):
+                                os.unlink(img_path)
 
                     re_pattern = "\!\[\[\-\-[\-]?{}\-\-\]\]".format(builtin_id)
                     recp = re.compile(re_pattern)

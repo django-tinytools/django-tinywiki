@@ -338,18 +338,18 @@ Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 ``` { .markdown }
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
-![[---2--]]
+![[---1000--]]
 
-![[!-2]]
+![[!-1001]]
 ```
 
 **Die Ausgabe des Beispiels sieht wie folgt aus:**
 
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
-![[---2--]]
+![[---1000--]]
 
-![[!-2]]
+![[!-1001]]
 
 Um die verknüpften Bilder deiner TinyWiki-Seite anzuzeigen, nutze den Tag
 ```[WIKI-IMAGES]```. Dieser Tag generiert einen Grid mit den Vorschaubildern
