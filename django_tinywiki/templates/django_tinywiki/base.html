@@ -5,6 +5,7 @@
         <meta charset="UTF-8" />
         <title>{% if head_title %}{{ head_title }}{% else %}tinywiki{%endif%}</title>
         <link rel="stylesheet" href="{{ css }}">
+        {% if codehilite_css %}<link rel="stylesheet" href="{{ codehilite_css }}">{% endif %}
     </head>
     <body>
         <div class="header">

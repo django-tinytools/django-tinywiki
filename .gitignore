@@ -30,3 +30,8 @@ tinywiki/secret_key.py
 
 # appsettings
 tinywiki/appsettings.py
+
+# python package cache
+dist/*
+build/*
+*.egg-info/*

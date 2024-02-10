@@ -31,16 +31,16 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 
 ## Installation
 
-``` {.sh}
+``` { .sh use_pygments=true }
 python -m pip install --upgrade django-tinywiki
 ```
 
 ### Installation per git
 
-``` {.sh}
-$ git clone https://github.com/c9moser/django-tinywiki.git
-$ cd django-tinywiki
-$ pip install .
+``` { .sh }
+git clone https://github.com/c9moser/django-tinywiki.git
+cd django-tinywiki
+pip install .
 ```
 
 ### TinyWiki testen oder als Standalone
@@ -56,32 +56,32 @@ Aktiviere das Venv und installiere im Anschluß die benötigten Abhängigkeiten,
 lege einen Superuser account an und initialisiere TinyWiki mit dem 
 Django-Script *initapp*.
 
-``` {.sh}
-$ # django-tinywiki per git herunterladen
-$ git clone https://github.com/c9moser/django-tinywiki.git
+``` { .sh }
+# django-tinywiki per git herunterladen
+git clone https://github.com/c9moser/django-tinywiki.git
 
-$ # ins django-tinywiki Verzeichnis wechseln
-$ cd django-tinywiki
+# ins django-tinywiki Verzeichnis wechseln
+cd django-tinywiki
 
-$ # Venv initialisieren
-$ python -m venv --system-site-packages python-venv
+# Venv initialisieren
+python -m venv --system-site-packages python-venv
 
-# # Venv aktivieren
-$ . python-venv/bin/activate
+# Venv aktivieren
+. python-venv/bin/activate
 
-$ # Abhängigkeiten installieren
-$ pip install -r requirements.txt
+# Abhängigkeiten installieren
+pip install -r requirements.txt
 
-$ # Superuser anlegen
-$ ./manage createsuperuser --email "email@example.com" --username "nutzername"
+# Superuser anlegen
+./manage createsuperuser --email "email@example.com" --username "nutzername"
 
-$ # TinyWiki initialisieren (TODO)
-$ ./manage runscript initapp
+# TinyWiki initialisieren (TODO)
+./manage runscript initapp
 ```
 
 Danach kann der Wiki ausgeführt werden.
 
-``` {.sh}
+``` { .sh }
 ./manage runserver
 ```
 
@@ -101,7 +101,7 @@ diese Datei einfügen.
 
 Inhalt der *secret_key.py*:
 
-``` {.python}
+``` { .python }
 SECRET_KEY = "django-secret-key-with-your-secret"
 SECRET_KEY_FALLBACKS = [
     "last-django-secret-key",

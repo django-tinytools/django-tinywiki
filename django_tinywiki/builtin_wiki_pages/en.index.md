@@ -35,7 +35,7 @@ python -m pip install --upgrade django-tinywiki
 
 ### Installation via git
 
-``` {.sh}
+``` { .sh }
 $ git clone https://github.com/c9moser/django-tinywiki.git
 $ cd django-tinywiki
 $ pip install .
@@ -57,7 +57,7 @@ Then create a superuser account and initialize TinyWiki by running the
 *initapp* script.
 
 
-``` {.sh}
+``` { .sh }
 $ # download the django-tinywiki repository using git
 $ git clone https://github.com/c9moser/django-tinywiki.git
 
@@ -82,7 +82,7 @@ $ ./manage runscript initapp
 
 You can run TinyWiki after the initial setup.
 
-``` {.sh}
+``` { .sh }
 ./manage runserver
 ```
 
@@ -98,7 +98,7 @@ provide the *SECRET_KEY_FALLBACKS* value in *secret_key.py*
 
 Content of the *secret_key.py*
 
-``` {.python}
+``` { .python }
 SECRET_KEY = "django-secret-key-with-your-secret"
 SECRET_KEY_FALLBACKS = [
     "last-django-secret-key",

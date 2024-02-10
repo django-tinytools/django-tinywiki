@@ -1,7 +1,6 @@
 
 
 
-
 body {
     margin: 0px;
     background-color: darkgray;
@@ -16,7 +15,8 @@ p {
 }
 
 code {
-    background-color: rgb(119, 198, 201);
+    background-color: #0d1117;
+    color: #e6edf3;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 2px;
@@ -24,11 +24,15 @@ code {
 }
 
 pre {
-    background-color: rgb(119, 198, 201);
     padding: 10px;
 }
+
 pre code {
     padding: 0px;
+}
+
+.codehilite code {
+    all: unset;
 }
 
 label {

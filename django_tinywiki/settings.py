@@ -48,6 +48,14 @@ TINYWIKI_CSS = getattr(django_settings,
                        "{url}django_tinywiki/styles/{style}.css".format(
                             url=django_settings.STATIC_URL,
                             style=TINYWIKI_STYLE))
+TINYWIKI_CODEHILITE_STYLE = getattr(django_settings,
+                                    "TINYWIKI_CODEHILITE_STYLE",
+                                    "github-dark")
+TINYWIKI_CODEHILITE_CSS = getattr(django_settings,
+                                  "TINYWIKI_CODEHILITE_CSS",
+                                  "{url}django_tinywiki/styles/codehilite/{style}.css".format(
+                                      url=django_settings.STATIC_URL,
+                                      style=TINYWIKI_CODEHILITE_STYLE))
 
 TINYWIKI_MARKDOWN_EXTENSIONS = getattr(django_settings,
                                        "TINYWIKI_MARKDOWN_EXTENSIONS",
@@ -130,6 +138,7 @@ TINYWIKI_LANGUAGES = [
 
 BUILTIN_MARKDOWN_EXTENSIONS = [
     "toc",
+    "codehilite",
     "fenced_code",
     "tables",
     "django_tinywiki.markdown_extensions:DjangoURLExtension",

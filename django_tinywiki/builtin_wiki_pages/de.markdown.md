@@ -18,7 +18,7 @@ Um eine Überschrift in Markdown zu erstellen, beginne eine Zeile mit mindestens
 einen Rautezeichen ```#``` gefolgt von einem Leerzeichen. Die Anzahl der
 Rautezeichen bestimmen die Ebene der Überschrift.
 
-```
+``` { .markdown }
 # Überschrift Ebene 1
 
 ## Überschrift Ebene 2
@@ -40,7 +40,7 @@ kann man den Text mit einem Minuszeichen unterstreichen. Es kann jede beliebige
 Anzahl an Zeichen zum Unterstreichen verwendet werden, es sollten aber
 mindestens drei Zeichen sein.
 
-```
+``` { .markdown }
 Überschrift Ebene 1
 ===================
 
@@ -58,7 +58,7 @@ mehr Leerzeichen beendet.
 
 ### Beispiel
 
-```
+``` { .markdown }
 Das ist eine Zeile,
 gefolgt von einer Zeile.
 
@@ -90,7 +90,7 @@ Um einen Text ***fett und kursiv zu machen*** nutze drei Sternzeichen
 Einen ~~durchgestrichenen Text~~ erzeugt man in dem man ihn zwischen zwei
 Tildezeichen einbettet ```~~text~~```.
 
-```
+``` { .markdown }
 *kursiv*,
 **fett**,
 ***kursiv und fett***,
@@ -112,7 +112,7 @@ Um ein Copyright Zeichen (C) wird mit ```(C)```, eine registrierte
 Handelsmarke (R) mit ```(R)``` und ein Warenzeichen mit (TM) mit
 ```(TM)``` dargestellt.
 
-```
+``` { .markdown }
 (C) 2024 Django(R) TinyWiki(TM)
 ```
 
@@ -125,7 +125,7 @@ Handelsmarke (R) mit ```(R)``` und ein Warenzeichen mit (TM) mit
 Um ein Zitat hinzuzufügen, beginne einen Absatz mit einem Größerzeichen
 ```>```.
 
-```
+``` { .markdown }
 > Das ist ein Zitat.
 > Das Zitat wird fortgesetzt.
 ```
@@ -140,7 +140,7 @@ Um ein Zitat hinzuzufügen, beginne einen Absatz mit einem Größerzeichen
 Um ein, mehrere Absätze umspannended Zitat, zu erzeugen, plaziere bis auf ein
 ```>``` leere Zeilen als Absatztrenner zwischen den Zitattext.
 
-```
+``` { .markdown }
 > Das ist der erste Absatz.
 >
 > Das ist der Zweite Absatz.
@@ -157,7 +157,7 @@ Um ein, mehrere Absätze umspannended Zitat, zu erzeugen, plaziere bis auf ein
 Verschachtelte Zitate werden erzeugt, in dem man mehrere Größerzeichen
 ```>>``` verwendet.
 
-```
+``` { .markdown }
 > Das ist ein Zitat.
 >
 >> Das ist ein verschachteltes Zitat.
@@ -176,7 +176,7 @@ Um ungeordnete Listen zu erstellen verwendet man einen Stern ```*```, ein Plus
 Ergebnis. Um eine verschachtelte Liste zu erstellen, rücke das Listenzeichen
 mit einem Tabulator oder mit vier Leerzeichen ein.
 
-```
+``` { .markdown }
 * Posten 1
 * Posten 2
 * Posten 3
@@ -193,7 +193,7 @@ mit einem Tabulator oder mit vier Leerzeichen ein.
 Eine geordnete Liste wird erstellt, in dem man eine Zahl mit einem Punkt danach
 verwndet ```1. Listenposten```.
 
-```
+``` { .markdown }
 1. Listenposten 1
 2. Listenposten 2
 3. Listenposten 3
@@ -215,7 +215,7 @@ unterstreiche die Spalte mit einem Strich ```-```.
 
 Hier ein Beispiel:
 
-```
+``` { .markdown }
 Spalte 1 | Spalte 2 | Splate 3
 -------- | -------- | --------
     A1   |    B1    |    C1
@@ -238,22 +238,22 @@ drei Backticks ``` ` ``` einbettest. Um einen mehreren Zeilen
 umspannenden Codeblock zu erzeugen, beginne und beende einen
 Absatz mit drei Backticks.
 
-```
+```` { .markdown }
 Text ```Code kommt hier rein``` Text
 
-  ```
-  Viele
-  Zeilen
-  von
-  Quelltext
-  ```
 ```
+Viele
+Zeilen
+von
+Quelltext
+```
+````
 
 **Die Ausgabe des obigen Beispiels:**
 
 Text ```Code kommt hier rein``` Text
 
-```
+``` { .markdown }
 Viele
 Zeilen
 von
@@ -269,7 +269,7 @@ Um einen Link den Text hinzuzufügen plaziere den Linktitel zwischen eckige
 Klammern ```[]``` gefolgt von der Linkadresse in runden Klammern ```()```.
 Der Link hat das Format ```[Link Titel](url)```.
 
-```
+``` { .markdown }
 [Goole Suche](https://www.google.com)
 ```
 
@@ -288,7 +288,7 @@ ziwschen zwei eckige Klammern, gefolgt von dem Slug in runden Klammern, setzt
 
 **_TinyWiki Links_ sind eine TinyWiki Erweiterung!**
 
-```
+``` { .markdown }
 * [[de-tinywiki-index]]
 * [[link-existiert-nicht]]
 * [[Deutsche Django's TinyWiki Hauptseite]](de-tinywiki-index)
@@ -317,7 +317,7 @@ einem Pipezeichen ```|``` getrennt werden.
 
 Hier ein Beispiel:
 
-```
+``` { .markdown }
 * $[Hauptseite](tinywiki:index)
 * $[Hauptseite erneut](tinywiki:page|de-tinywiki-index)
 ```
@@ -335,7 +335,7 @@ Um mit der Wikiseite verlinkte Bilder einzubinden, verwende das Format
 *eingebaute-bild-id* sind für die TinyWiki internen Seiten reserviert.
 Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 
-```
+``` { .markdown }
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---2--]]
@@ -355,7 +355,7 @@ Um die verknüpften Bilder deiner TinyWiki-Seite anzuzeigen, nutze den Tag
 ```[WIKI-IMAGES]```. Dieser Tag generiert einen Grid mit den Vorschaubildern
 der, mit deiner Seite verknüpften, Bilder.
 
-```
+``` { .markdown }
 ### Verknüpfte Bilder
 
 [WIKI-IMAGES]
@@ -372,7 +372,7 @@ der, mit deiner Seite verknüpften, Bilder.
 Um ein Inhaltsverzeichnis zu erstellen, verwende den ```[TOC]```-Tag in einem
 eigenen Absatz.
 
-```
+```{ .markdown }
 ...
 
 [TOC]

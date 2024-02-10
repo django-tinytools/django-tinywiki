@@ -11,6 +11,7 @@ setup(
 	    "django-extras",
 	    "pillow >=10.2",
 	    "markdown",
+        "pygments",
     ],
     packages=find_packages(
         include=["django_tinywiki*"],
