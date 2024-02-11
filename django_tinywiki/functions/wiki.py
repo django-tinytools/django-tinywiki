@@ -7,6 +7,8 @@ import PIL
 import re
 from shutil import copyfile
 import hashlib
+import markdown
+from django.template import Context,Template
 
 def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",description=None):
     try: 
@@ -86,6 +88,10 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
                                       uploaded_by=user)
             wi.save()
             print("[django-tinywiki] Image {img} added to wiki-page {slug}".format(img=os.path.basename(file),slug=wikipage.slug))
+        
+        for i in [orig_img_path,wiki_img_path,preview_img_path,sidebar_img_path]:
+            if os.path.exists(i):
+                os.unlink(i)
 
     return wi
 
@@ -173,5 +179,36 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
             recp = re.compile(re_pattern)
             wikipage.content = re.sub(recp,"![[{}]]".format(wikiimage.id),wikipage.content)
             wikipage.save()
-
     return wikipage
+
+def get_language_code(self):
+    x = _("language-code")
+    if x == "language-code":
+        return "en"
+    return x
+
+def render_markdown(string,context=None):
+    if context is None:
+        context={}
+
+    c = Context(context)
+    t = Template(string)
+    if context and 'slug' in context:
+        slug = context['slug']
+    else:
+        slug = None
+
+    if context and 'edit_page' in context:
+        edit_page = context['edit_page']
+    else:
+        edit_page = False
+        
+
+    s = t.render(c)
+    return markdown.markdown(s,extensions=settings.TINYWIKI_MARKDOWN_EXTENSIONS,
+                             extension_configs = {
+                                "django_tinywiki.markdown_extensions:TinywikiLinkedImagesExtension": {
+                                   'wiki_page': slug,
+                                   'edit_page': edit_page,
+                                }
+                            })

@@ -124,15 +124,42 @@ else:
 TINYWIKI_USER = getattr(django_settings,"TINYWIKI_USER",{"username":"TinyWiki Team","email":"tinywiki@cmoser.eu"})
 
 
-TINYWIKI_GROUPS = [
-    ("wiki-admin",[]),
-    ("wiki-author",[]),
-    ("wiki-editor",[]),
-]
+TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
+TINYWIKI_GROUP_AUTHOR = "tinywiki-author"
+TINYWIKI_GROUP_USER = "tinywiki-user"
+
+TINYWIKI_PERM_CREATE_PAGE = "tinywiki-create-page"
+TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
+TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
+TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
+
+TINYWIKI_APPNAME = "django_tinywiki"
 
 TINYWIKI_LANGUAGES = [
     ("en",N_("English")),
     ("de",N_("German")),
+]
+
+TINYWIKI_STAFF_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_STAFF_IS_WIKI_ADMIN",False)
+TINYWIKI_SUPERUSER_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_SUPERUSER_IS_WIKI_ADMIN",True)
+
+
+# allow mulitple instances of tinywiki in one prjeoct by overriding app based settings
+# !!!DO THIS ONLY WHEN YOU KNOW WHAT YOU ARE DOING!!!
+if os.path.isfile(os.path.join(os.path.dirname(__file__),"tinywiki_settings.py")):
+    from .tinywiki_settings import *
+
+__mkperm = lambda x: "{}.{}".format(TINYWIKI_APPNAME,x)
+
+TINYWIKI_GROUPS = [
+    (TINYWIKI_GROUP_ADMIN,[TINYWIKI_PERM_CREATE_PAGE,
+                           TINYWIKI_PERM_DELETE_PAGE,
+                           TINYWIKI_PERM_EDIT_PAGE,
+                           TINYWIKI_PERM_EDIT_USER_PAGE]),
+    (TINYWIKI_GROUP_AUTHOR,[TINYWIKI_PERM_CREATE_PAGE,
+                            TINYWIKI_PERM_EDIT_PAGE,
+                            TINYWIKI_PERM_EDIT_USER_PAGE]),
+    (TINYWIKI_GROUP_USER,[TINYWIKI_PERM_EDIT_USER_PAGE]),
 ]
 
 BUILTIN_MARKDOWN_EXTENSIONS = [

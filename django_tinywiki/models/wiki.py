@@ -53,6 +53,14 @@ class WikiPage(models.Model):
             models.Index(name="tinywiki_wp_eby_index",fields=["edited_by"]),
             models.Index(name="tinywiki_wp_eon_index",fields=["edited_on"]),
         ]
+
+        permissions = [
+            (settings.TINYWIKI_PERM_CREATE_PAGE, "User can create pages"),
+            (settings.TINYWIKI_PERM_DELETE_PAGE, "User can delete pages"),
+            (settings.TINYWIKI_PERM_EDIT_PAGE, "User can edit all pages"),
+            (settings.TINYWIKI_PERM_EDIT_USER_PAGE, "User can edit the pages he owns"),
+        ]
+
 # WikiPage class
 
 class WikiPageBackup(models.Model):

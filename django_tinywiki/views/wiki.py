@@ -32,11 +32,8 @@ from ..forms.wiki import (
 
 import os
 
-from ..functions.functions import (
-    user_can_create_pages,
-    get_language_code,
-    render_markdown)
-
+from ..functions.functions import (render_markdown)
+from ..decorators import perm_can_edit_page
 from .view import ViewBase
 # Create your views here.
 
@@ -173,6 +170,7 @@ class WikiEditView(ViewBase):
     template = settings.TINYWIKI_PAGE_EDIT_TEMPLATE
 
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(perm_can_edit_page())
     def get(self,request,page):
         try:
             p = WikiPage.objects.get(slug=page)
@@ -203,6 +201,7 @@ class WikiEditView(ViewBase):
         return render(request,self.template,context)
     
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(perm_can_edit_page())
     def post(self,request,page):
         try:
             p = WikiPage.objects.get(id=page)
@@ -262,6 +261,8 @@ class WikiImageUploadView(ViewBase):
     template = settings.TINYWIKI_IMAGE_UPLOAD_TEMPLATE
     image_upload_directory = settings.TINYWIKI_IMAGE_UPLOAD_DIRECTORY
 
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(perm_can_edit_page())
     def get(self,request,page):
         p = get_object_or_404(WikiPage,slug=page)
 
@@ -270,6 +271,8 @@ class WikiImageUploadView(ViewBase):
         context = self.get_context(request=request,page=p,form=form)
         return render(request,self.template,context)
 
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(perm_can_edit_page())
     def post(self,request,page):
         p = get_object_or_404(WikiPage,slug=page)
 

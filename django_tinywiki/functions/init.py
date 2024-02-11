@@ -1,15 +1,32 @@
 from .. import settings
-from ..models import WikiLanguage,WikiPage,WikiPageBackup,WikiImage
+from ..models import WikiLanguage
 from ..builtin_wiki_pages import BUILTIN_PAGES
 
 from django.contrib.auth.models import Group,Permission
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
+from django.utils.crypto import get_random_string
+
 import os
 from pathlib import Path
-from shutil import copyfile
 
 from .wiki import install_builtin_wiki_page
+
+def init_tinywiki_user():
+    UserModel = get_user_model()
+    try:
+        if "email" in settings.TINYWIKI_USER:
+            user = UserModel.objects.get(email=settings.TINYWIKI_USER["email"])
+        elif "username" in settings.TINYWIKI_USER:
+            user = UserModel.objects.get(username=settings.TINYWIKI_USER["username"])
+        else:
+            raise LookupError("Unable to find TinyWiki user! (\"email\" and \"username\" is missing!)")
+    except UserModel.DoesNotExist:
+        user = UserModel.objects.create(**settings.TIYNWIKI_USER)
+        user.password = get_random_string(length=64)
+        user.save()
+
+    return user
 
 def init_languages():
     for lcode,lname in settings.TINYWIKI_LANGUAGES:
@@ -71,14 +88,13 @@ def init_app(user):
     if not user.is_authenticated or not user.is_superuser:
         raise PermissionError("User is not authenticated or not a superuser!")
 
+    tw_user = init_tinywiki_user()
     init_languages()
     init_groups()
     init_media_dirs()
-    UserModel = get_user_model()
-    try:
-        tw_user = UserModel.objects.get(username=settings.TINYWIKI_USER["username"])
-    except UserModel.DoesNotExist:
-        tw_user = user
     
+    if tw_user is None:
+        tw_user = user
+        
     for p in BUILTIN_PAGES:
         wp = install_builtin_wiki_page(tw_user,**p)

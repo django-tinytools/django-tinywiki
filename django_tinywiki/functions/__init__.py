@@ -1,2 +1,1 @@
-from . import init,wiki
-from . import functions
+from . import init,wiki,auth

@@ -19,7 +19,7 @@ def _get_user_choices():
         inserted = False
         username = user.get_username()
         for i in range(len(ret)):
-            if user.username < i[1]:
+            if user.username < ret[i][1]:
                 ret.insert(i,(user.id,username))
                 inserted = True
         if not inserted:
