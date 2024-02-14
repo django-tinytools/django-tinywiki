@@ -53,9 +53,9 @@ def init_groups():
             print("[django-tinywiki] Group \"{group}\" added".format(group=grp.name))
         
         if permissions:
-            for p in [i.codename for i in grp.permissions.all()]:
-                if p not in permissions:
-                    grp.permissions.delete()
+            for p in grp.permissions.all():
+                if p.codename not in permissions:
+                    p.delete()
 
             for perm in permissions:
                 if not grp.permissions.filter(codename=perm):
@@ -83,7 +83,6 @@ def init_media_dirs():
             os.makedirs(d)
 
 
-
 def init_app(user):
     if not user.is_authenticated or not user.is_superuser:
         raise PermissionError("User is not authenticated or not a superuser!")
@@ -95,6 +94,6 @@ def init_app(user):
     
     if tw_user is None:
         tw_user = user
-        
+
     for p in BUILTIN_PAGES:
         wp = install_builtin_wiki_page(tw_user,**p)

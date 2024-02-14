@@ -62,3 +62,7 @@ class ImageUploadForm(forms.Form):
                                   required=False,
                                   label=_("Descriptions"))
     image = forms.ImageField(label=_("Image to upload"))
+
+class DeletePageForm(forms.Form):
+    delete_page = forms.BooleanField(label=_("Delete Page?"),initial=False,required=False)
+    delete_images = forms.BooleanField(label=_("Delete Images too?"),initial=False,required=False)

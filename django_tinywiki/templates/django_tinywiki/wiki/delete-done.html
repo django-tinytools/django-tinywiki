@@ -1,0 +1,13 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block main %}
+<h1>{% translate "Page successfully deleted" %}</h1>
+{% with page_title=wiki_page.title page_slug=wiki_page.slug page_user=wiki_page.user.username %}
+<p>{% blocktranslate %}The page <em>{{ page slug }}</em> with the title <em>"{{ page_title }}"</em> 
+    from user <em>{{ page_user }}</em> has sccessfully been deleted!{% endblocktranslate %}</p>
+<p>
+    <a href="{{ index_url }}">{% translate 'Return to Homepage' %}</a><br>
+    <a href="{{ overview_url }}">{% translate 'Return to page overview' %}</a>
+</p>
+{% endblock %}

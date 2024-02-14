@@ -15,10 +15,10 @@ This short guide gives you an overview of the *Markdown*-syntax.
 ## Headings
 
 To create a headings in *Markdown*, start the line with atleast one hash sign
-(*#*) followed by a space. The number of hash signs define the level of the
+```#``` followed by a space. The number of hash signs define the level of the
 heading.
 
-```
+``` { .markdown }
 # Heading Level 1
 
 ## Heading Level 2
@@ -35,10 +35,10 @@ heading.
 ### Alternate syntax
 
 To create a level 1 heading you can underline the heading text with any number
-of equal signs (*=*). For level 2 can be created by underlining the text with
-any number dashes (*-*).
+of equal signs ```=```. For level 2 can be created by underlining the text with
+any number dashes ```-```.
 
-```
+``` { .markdown }
 Heading Level 1
 ===============
 
@@ -52,7 +52,7 @@ To create a paragraph use atleast one empty line between one or more lines of
 text. To create a line break end the line with two or more spaces.
 
 ### Expamle
-```
+``` { .markdown }
 This is a line.
 Followed by a line.
 
@@ -80,7 +80,7 @@ To make a text ***bold and italic*** use three asterisks
 
 To ~~crossed out~~ text is created by encapsulating the text between
 two tilde charcaters ```~~text~~```.
-```
+``` { .markdown }
 *italic*
 **bold**
 ***bold and italic***
@@ -106,9 +106,9 @@ created with ```(R)``` and a Trademark (TM) with ```(TM)```.
 
 ## Blockquotes
 
-To add a blockquote, place a *>* in front of a paragraph.
+To add a blockquote, place a ```>``` in front of a paragraph.
 
-```
+``` { .markdown }
 > This is a block quote.
 > Block quote continued.
 ```
@@ -120,15 +120,16 @@ It renders to:
 ### Block quotes and paragraphs
 
 To create a block qoute spanning over multiple paragraphs. Start empty lines 
-with a *>*.
+with a ```>```.
 
-```
+``` { .markdown }
 > This is the first paragraph.
 >
 > This is the second paragraph.
 ```
 
-It renders to:  
+It renders to:
+
 > This is the first paragraph.
 >
 > This is the second paragraph.
@@ -137,24 +138,25 @@ It renders to:
 
 Nested block qoutes are created by using multiple *>*.
 
-```
+``` { .markdown }
 > This is the first quote.
 >
 >> This is the nested quote.
 ```
 
 It renders to:
+
 > This is the first quote.
 >
 >> This is the nested quote.
 
 ## Lists
 
-To create a unordered list start the line with a *plus*, a *dash* or an
-*asterisk*. Each method will lead to the same result. To create a nested
+To create a unordered list start the line with a ```+```, a ```-``` or an
+```*```. Each method will lead to the same result. To create a nested
 list, indent the list sign with four spaces.
 
-```markdown
+``` { .markdown }
 * list item 1
 * list item 2
 * list item 3
@@ -172,7 +174,7 @@ An ordered list is created by using a number followed by a dot. Nested lists
 are created by indenting the item with four spaces and the number followed by
 a dot.
 
-```markdown
+``` { .markdown }
 1. list item 1
 2. list item 2
 3. list item 3
@@ -188,11 +190,11 @@ It renders to:
 
 ## Tables
 
-With pipes (```|```) markdown tables are created. Every column is sepearated 
+With pipes ```|``` markdown tables are created. Every column is sepearated 
 by a pipe. To create header rows, underline them with a dash ```-```.
 
 Here an example:
-```
+``` { .markdown }
 Column 1 | Column 2 | Column 3
 -------- | -------- | --------
     A1   |    B1    |    C1    
@@ -216,16 +218,16 @@ backticks *`*. You can start a otherwise empty line with three backticks
 to start a mulitline code block. To end the code block place three backticks
 at the start of an otherwise empty line.
 
-```
+```` { .markdown }
  Text ```Code comes here``` text
 
- ```
- Multiple 
- lines
- of 
- code
- ```
 ```
+Multiple 
+lines
+of 
+code
+```
+````
 
 It renders to:
 
@@ -264,7 +266,7 @@ two sqaure braces followed by the slug ind round braces. It has the format
 
 **_TinyWiki Links_ are a TinyWiki extension!**
 
-```
+``` { .markdown }
 * [[en-tinywiki-index]]
 * [[link-does-not-exist]]
 * [[Django's TinyWiki Homepage]](en-tinywiki-index) 
@@ -294,7 +296,7 @@ notation, where variables are seperated by a pipe ```|```.
 
 Here is an example:
 
-```
+``` { .markdown }
 * $[Homepage](tinywiki:index) 
 * $[Homepage again](tinywiki:page|en-tinywiki-index)
 ```
@@ -315,10 +317,11 @@ reserved for the TinyWiki images. So use positive integers for your
 **_Wiki Images_ and _Builtin Images_ are a TinyWiki extension!**
 
 
-```
+``` { .markdown }
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---1--]]
+
 ![[!-2]]
 ```
 
@@ -334,7 +337,7 @@ This tag generates a grid with the preview of your images.
 
 Example:
 
-```
+``` { .markdown }
 ### Linked Images
 
 [WIKI-IMAGES]
@@ -355,7 +358,7 @@ in a own paragraph.
 
 Example:
 
-```
+``` { .markdown }
 ...
 
 [TOC]

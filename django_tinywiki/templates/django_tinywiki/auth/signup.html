@@ -8,19 +8,10 @@
 {% endif %}
 <form method="post">
     {% csrf_token %}
-    
-    {{ form.name.label_tag}}<br>
-    {{ form.name }}<br>
-    <hr><br>
-    {{ form.email.label_tag }}<br>
-    {{ form.email }}<br>
-    <hr><br>
-    {{ from.password0.label_tag }}<br>
-    {{ form.password0 }} <br>
-    <hr><br>
-    {{ form.password1.label_tag }}<br>
-    {{ form.password1 }}<br>
-    <hr><br>
-    <input type="submit" value="{% translate 'Sign up' %}">
+    <p>{{ form.name.label_tag}}<br>{{ form.name }}</p>
+    <p>{{ form.email.label_tag }}<br>{{ form.email }}</p>
+    <p>{{ form.password0.label_tag }}<br>{{ form.password0 }}</p>
+    <P>{{ form.password1.label_tag }}<br>{{ form.password1 }}</p>
+    <input type="submit" class="float-right" value="{% translate 'Sign up' %}">
 </form>
 {% endblock %}

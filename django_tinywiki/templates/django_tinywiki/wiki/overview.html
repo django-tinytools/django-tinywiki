@@ -1,0 +1,24 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block main %}
+<h1>{% translate "All Wiki Pages"%}</h1>
+{% for lang in wiki_languages %}
+{% with language_name=lang.language_name %}
+<h2>{% blocktranslate %}Pages in {{ language_name }}{% endblocktranslate %}</h2>
+{% endwith %}
+<table>
+    <tr>
+        <th>{% translate 'Title' %}</th>
+        <th>{% translate 'Owned by User' %}</th>
+    </tr>
+    {% for wiki_page in lang.language.tinywiki_pages.all %}
+    <tr>
+        <td><a href="{% url page_view_url wiki_page.slug %}">{{ wiki_page.title }}</a></td>
+        <td>{% if wiki_page.user %}{{ wiki_page.user.username }}{% else %}{% translate 'Unknown User' %}{% endif %}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+
+{% endblock %}

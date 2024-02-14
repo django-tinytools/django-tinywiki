@@ -11,24 +11,28 @@
         <div class="header">
                 {% if header_logo %}<div class="header-logo"><img src="{{ header_logo }}" alt="{% translate 'Header Logo' %}"/>{% endif %}
                 <div class="header-title">{{ header_title }}</div>
-                {% if header_subtitle %}</br><div class="header-subtitle">{{ header_subtitle }}</div>{% endif %}
+                {% if header_subtitle %}<div class="header-subtitle">{{ header_subtitle }}</div>{% endif %}
         </div>
-        <nav class="nav">
+        <nav class="nav max-width">
+            <div class="align-left inline-block">
             {% if user_can_create_pages %}
             <a class="nav-item" href="{{ create_url }}">{% translate "Create a new Page" %}</a>
             {% endif %}
             {% if user_can_edit_page %}
             <a class="nav-item" href="{{ edit_url }}">{% translate "Edit Page" %}</a>
             {% endif %}
-
-            <span class="align-left">
+            {% if user_can_delete_page %}
+            <a class="nav-item" href="{{ delete_url }}">{% translate "Delete Page" %}</a>
+            {% endif %}
+            </div>
+            <div class="inline-block float-right align-right">
             {% if user.is_authenticated %}
                 <a class="nav-item" href="{{ logout_url }}">{% translate "Log out" %}</a>
             {% else %}
                 <a class="nav-item" href="{{ login_url }}">{% translate "Log in" %}</a>
                 <a class="nav-item" href="{{ signup_url }}">{% translate "Sign up" %}</a>
             {% endif %}
-            </span>
+            </div>
         </nav>
         <main class="main">
             {% block main %}

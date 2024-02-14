@@ -1,0 +1,16 @@
+{% extends base_template %}
+{% load i18n %}
+
+{% block main %}
+<h1>Delete Page</h1>
+<h2>{{ page.title }}</h2>
+<p>{% blocktranslate %}Do you really want to delete the wiki page <em>{{ page.slug }}</em>?{% endblocktranslate %}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <p>{{ form.delete_page }} {{ form.delete_page.label_tag }}</p>
+    <p>{{ form.delete_images }} {{ form.delete_images.label_tag }}</p>
+    <input type="submit" value="{% translate 'Delete Page' %}">
+</form>
+
+{% endblock %}

@@ -38,7 +38,7 @@ label {
     font-size: 18px;
 }
 
-input[type=text],textarea,input[type=number],input[type=password] {
+input[type=text],textarea,input[type=number],input[type=password],input[type=email] {
     width:100%;
     border:1px solid black;
     border-radius: 4px;
@@ -50,12 +50,34 @@ textarea {
 }
 
 .align-right {
-    width: 100%;
     align-content: right;
     text-align: right;
 }
 
+.align-left {
+    width: auto;
+    align-content: left;
+    text-align: left;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.float-right {
+    float:right;
+}
+
+.max-width {
+    width:100%;
+}
+
 .header {
+    margin:0px;
     grid-row: 1;
     grid-column-start: 1;
     grid-column-end: 4;
@@ -67,11 +89,12 @@ textarea {
 }
 
 nav {
+    margin:0px;
     padding-right: 10px;
     padding-left: 10px;
     grid-row:2;
     grid-column-start: 1;
-    grid-column-end:4;
+    grid-column-end:3;
 }
 .header_logo {
     grid-column: 0;

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,permission_required
 from django.http import HttpResponseNotFound
 
 
@@ -28,6 +28,7 @@ from ..models import (
 from ..forms.wiki import (
     PageForm,
     ImageUploadForm,
+    DeletePageForm,
 )
 
 import os
@@ -99,10 +100,30 @@ class WikiIndexView(WikiPageView):
     def get(self,request):
         return WikiPageView.get(self,request,page=self.index_page)
 
+class WikiPageOverviewView(ViewBase):
+    template=settings.TINYWIKI_PAGE_OVERVIEW_TEMPLATE
+
+    def get(self,request):
+        wikilang=[]
+        for lang in WikiLanguage.objects.all().order_by("code"):
+            if lang.tinywiki_pages.all().count() > 0:
+                lang_name = _(lang.name)
+                lang_inserted = False
+                for i in range(len(wikilang)):
+                    if lang_name < wikilang[i]['language_name']:
+                        wikilang.insert(i,{'language_name':lang_name,'language':lang})
+                        lang_inserted = True
+                        break
+                if not lang_inserted:
+                    wikilang.append({'language_name':lang_name,'language':lang})
+
+        context = self.get_context(request,wiki_languages=wikilang)
+        return render(request,self.template,context)
 class WikiCreateView(ViewBase):
     template = settings.TINYWIKI_PAGE_EDIT_TEMPLATE
     
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(permission_required(settings.TINYWIKI_PERM_CREATE_PAGE,raise_exception=True))
     def get(self,request,page=None):
         if not self.get_user_can_create_pages(request.user):
             raise PermissionDenied
@@ -124,6 +145,7 @@ class WikiCreateView(ViewBase):
         return render(request,self.template,context)
 
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(permission_required(settings.TINYWIKI_PERM_CREATE_PAGE,raise_exception=True))
     def post(self,request,page=None):
         if not self.get_user_can_create_pages(request.user):
             raise PermissionDenied
@@ -353,3 +375,65 @@ class WikiImageUploadView(ViewBase):
         context = self.get_context(request=request,page=p,form=form)
 
         return render(request,self.template,context)
+
+class WikiDeletePageView(ViewBase):
+    template=settings.TINYWIKI_PAGE_DELETE_TEMPLATE
+    done_template=settings.TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
+
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(permission_required(settings.TINYWIKI_PERM_DELETE_PAGE))
+    def get(self,request,page):
+        p = get_object_or_404(WikiPage,slug=page)
+        context = self.get_context(request,page=p,form=DeletePageForm(),slug=page)
+        return render(request,self.template,context)
+    
+    @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
+    @method_decorator(permission_required(settings.TINYWIKI_PERM_DELETE_PAGE))
+    def post(self,request,page):
+        p = get_object_or_404(WikiPage,slug=page)
+        form = DeletePageForm(request.POST)
+        if form.is_valid():
+            delete_page = form.cleaned_data['delete_page']
+            delete_images = form.cleaned_data['delete_images']
+
+            if delete_page:
+                class PageData:
+                    title = p.title
+                    slug = p.slug
+                    user = p.user
+                    created_on = p.created_on
+                    created_by = p.created_by
+                    edited_on = p.edited_on
+                    edited_by = p.edited_by
+
+                backup = WikiPageBackup.objects.create(
+                    wiki_page=p,
+                    user=p.user,
+                    language=p.language,
+                    slug=p.slug,
+                    title = p.title,
+                    edited_by=p.edited_by,
+                    edited_on=p.edited_on,
+                    created_by=p.created_by,
+                    created_on=p.created_on,
+                    content=p.content,
+                    edited_reason=p.edited_reason
+                )
+
+                if delete_images:
+                    for page_img in p.images.all():
+                        if os.path.isfile(page_img.image_wiki.path):
+                            os.unlink(page_img.image_wiki.path)
+                        if os.path.isfile(page_img.image_preview.path):
+                            os.unlink(page_img.image_preview.path)
+                        if os.path.isfile(page_img.image_sidebar.path):
+                            os.unlink(page_img.image_sidebar.path)
+                        if os.path.isfile(page_img.image.path):
+                            os.path.unlink(page_img.image.path)
+                        page_img.delete()
+               
+                p.delete()
+                context = self.get_context(request)
+                return render(request,self.done_template,context,page_data=PageData())
+            
+        return redirect(reverse(self.page_view_url,kwargs={'page':page}))

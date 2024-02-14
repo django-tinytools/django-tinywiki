@@ -27,19 +27,26 @@ TINYWIKI_BASE_TEMPLATE = getattr(django_settings,
 TINYWIKI_PAGE_VIEW_TEMPLATE = getattr(django_settings,
                                       "TINYWIKI_PAGE_VIEW_TEMPLATE",
                                       "django_tinywiki/wiki/page.html")
-TINYWIKI_PAGE_VIEW_URL = getattr(django_settings,"TINYWIKI_PAGE_VIEW_URL","tinywiki:page")
+TINYWIKI_PAGE_VIEW_URL_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_VIEW_URL","tinywiki:page")
 TINYWIKI_PAGE_EDIT_TEMPLATE = getattr(django_settings,
                                       "TINYWIKI_PAGE_EDIT_TEMPLATE",
                                       "django_tinywiki/wiki/edit.html")
-TINYWIKI_PAGE_EDIT_URL = getattr(django_settings,"TINYWIKI_PAGE_EDIT_URL","tinywiki:page-edit")
+TINYWIKI_PAGE_OVERVIEW_URL = getattr(django_settings,"TINYWIKI_PAGE_OVERVIEW_URL",reverse_lazy("tinywiki:page-overview"))
+TINYWIKI_PAGE_OVERVIEW_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_OVERVIEW_TEMPLATE","django_tinywiki/wiki/overview.html")
+TINYWIKI_PAGE_EDIT_URL = getattr(django_settings,"TINYWIKI_PAGE_EDIT_URL_TEMPLATE","tinywiki:page-edit")
 TINYWIKI_PAGE_CREATE_TEMPLATE = getattr(django_settings,
                                         "TINYWIKI_PAGE_CREATE_TEMPLATE",
                                         "django_tinywiki/wiki/create.html")
-TINYWIKI_PAGE_CREATE_URL = getattr(django_settings,"TINYWIKI_PAGE_CREATE_URL","tinywiki:page-create")
+TINYWIKI_PAGE_CREATE_URL_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_CREATE_URL_TEMPLATE","tinywiki:page-create")
 TINYWIKI_PAGE_NEW_TEMPLATE = getattr(django_settings,
                                      "TINYWIKI_PAGE_NEW_TEMPLATE",
-                                     TINYWIKI_PAGE_CREATE_TEMPLATE)
-TINYWIKI_PAGE_NEW_URL = getattr(django_settings,'TINYWIKI_PAGE_NEW_URL','tinywiki:page-new')
+                                     TINYWIKI_PAGE_CREATE_TEMPLATE),
+TINYWIKI_PAGE_NEW_URL_TEMPLATE = getattr(django_settings,'TINYWIKI_PAGE_NEW_URL_TEMPLATE','tinywiki:page-new')
+
+TINYWIKI_PAGE_DELETE_URL_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_DELETE_URL_TEMPLATE","tinywiki:page-delete")
+TINYWIKI_PAGE_DELETE_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_DELETE_TEMPLATE","django_tinywiki/wiki/delete.html")
+TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_DELETE_DONE_TEMPLATE","django_tinywiki/wiki/delete-done.html")
+
 TINYWIKI_STYLE = getattr(django_settings,
                          "TINYWIKI_STYLE",
                          "default")

@@ -66,7 +66,7 @@ class TinywikiImageInlineProcessor(InlineProcessor):
             element.append(link_element)
 
             
-        except Exception as error:
+        except WikiImage.DoesNotExist:
             element = etree.Element("div", attrib={"class":"wiki-image image-not-found"})
             element.text = _("Image with id {img_id} not found!".format(img_id=m.group(1)))
 

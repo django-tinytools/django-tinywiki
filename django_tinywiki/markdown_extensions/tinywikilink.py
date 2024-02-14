@@ -19,7 +19,7 @@ class TinywikiLinkInlineProcessor(InlineProcessor):
         except models.WikiPage.DoesNotExist:
             title = slug
     
-        url = str(reverse(settings.TINYWIKI_PAGE_VIEW_URL,args=[slug]))
+        url = str(reverse(settings.TINYWIKI_PAGE_VIEW_URL_TEMPLATE,args=[slug]))
                 
         element = etree.Element("a",attrib={'href':url})
         element.text = title
@@ -32,7 +32,7 @@ class TinyWikiLinkTitleInlineProcessor(InlineProcessor):
         slug = m.group(2)
         title = m.group(1)
     
-        url = str(reverse(settings.TINYWIKI_PAGE_VIEW_URL,args=[slug]))
+        url = str(reverse(settings.TINYWIKI_PAGE_VIEW_URL_TEMPLATE,args=[slug]))
 
         element = etree.Element("a",attrib={'href':url})
         element.text = title

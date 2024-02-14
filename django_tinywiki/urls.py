@@ -6,10 +6,12 @@ app_name="tinywiki"
 
 urlpatterns = [
     path("",views.WikiIndexView.as_view(),name="index"),
+    path("page/",views.wiki.WikiPageOverviewView.as_view(),name="page-overview"),
     path("page/<slug:page>/",views.WikiPageView.as_view(),name="page"),
     path("edit/<slug:page>/",views.WikiEditView.as_view(),name="page-edit"),
     path("create/",views.WikiCreateView.as_view(),name="page-new"),
     path("create/<slug:page>/",views.WikiCreateView.as_view(),name="page-create"),
+    path("delete/<slug:page>/",views.wiki.WikiDeletePageView.as_view(),name="page-delete"),
     path("upload/image/<slug:page>/",views.WikiImageUploadView.as_view(),name="image-upload"),
     path("manage/",views.manage.ManageView.as_view(),name="manage"),
     path("manage/init/",views.manage.InitializeView.as_view(),name="manage-init"),
