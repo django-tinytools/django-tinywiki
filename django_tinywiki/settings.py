@@ -99,8 +99,8 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
                                  FileSystemStorage(location=TINYWIKI_MEDIA_ROOT,
                                                    base_url=TINYWIKI_MEDIA_URL))
 
-TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",860)
-TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",((860 - 30) // 4))
+TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",600)
+TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",((600 - 30) // 4))
 TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",200)
 
 TINYWIKI_AUTH_USER_MODEL = getattr(django_settings,
