@@ -54,6 +54,11 @@ textarea {
     text-align: right;
 }
 
+.nav-right {
+    position:absolute;
+    right:20px;
+}
+
 .align-left {
     width: auto;
     align-content: left;
@@ -94,7 +99,7 @@ nav {
     padding-left: 10px;
     grid-row:2;
     grid-column-start: 1;
-    grid-column-end:3;
+    grid-column-end:4;
 }
 .header_logo {
     grid-column: 0;
