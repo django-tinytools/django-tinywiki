@@ -4,8 +4,10 @@
 {% block main %}
 <h1>Delete Page</h1>
 <h2>{{ page.title }}</h2>
-<p>{% blocktranslate %}Do you really want to delete the wiki page <em>{{ page.slug }}</em>?{% endblocktranslate %}</p>
-
+{% with page_slug=page.slug page_title=page.title page_user=page.user.username %}
+<p>{% blocktranslate %}Do you really want to delete the wiki page <em>{{ page_slug }}</em>
+    with the title <em>{{ page_title }} owned by user <em>{{ page_user }}</em>?{% endblocktranslate %}</p>
+{% endwith %}
 <form method="post">
     {% csrf_token %}
     <p>{{ form.delete_page }} {{ form.delete_page.label_tag }}</p>

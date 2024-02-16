@@ -100,7 +100,7 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
     page_mode = PAGE_UNCHANGED
 
     if not os.path.isfile(file):
-        raise FileNotFoundError(_("Makrdown file \"{file}\" not found!").format(file=file))
+        raise FileNotFoundError(_("Markdown file \"{file}\" not found!").format(file=file))
 
     try:
         wikipage = WikiPage.objects.get(slug=slug)
