@@ -335,7 +335,7 @@ Um mit der Wikiseite verlinkte Bilder einzubinden, verwende das Format
 *eingebaute-bild-id* sind für die TinyWiki internen Seiten reserviert.
 Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 
-``` { .markdown }
+``` { .markdown .overflow-auto}
 ![Picture of hemp](https://de.seedfinder.eu/pics/galerie/Serious_Seeds/AK47/17092099828694083_big.jpg)
 
 ![[---1000--]]

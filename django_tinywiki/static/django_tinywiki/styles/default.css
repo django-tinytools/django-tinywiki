@@ -23,6 +23,7 @@ code {
 
 pre {
     padding: 10px;
+    overflow:auto;    
 }
 
 pre code {
@@ -101,6 +102,7 @@ nav {
     grid-column-start: 1;
     grid-column-end:4;
 }
+
 .header_logo {
     grid-column: 0;
     grid-row-start: 1;
@@ -181,4 +183,8 @@ footer {
     padding-top:3px;
     background-color: #0d1117;
     color: #e6edf3;
+}
+
+.overflow-auto {
+    overflow:auto;
 }
