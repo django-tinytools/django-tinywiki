@@ -2,6 +2,9 @@ body {
     margin: 0px;
     background-color: #7a7c7e;
     display:grid;
+    column-gap: 10px;
+    width: 100%;
+    grid-template-columns: 210px 610px 210px auto;
 }
 
 img {
@@ -84,25 +87,29 @@ textarea {
 
 .header {
     margin:0px;
+    width: 100%;
     grid-row: 1;
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 5;
     background-color: #0d1117;
     color: #e6edf3;
-    padding: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right:0px;
     display: grid;
-    column-gap: 10px;
 }
 
 .nav {
     margin:0px;
-    padding-right: 10px;
+    width: 100%;
+    padding-right: 0px;
     padding-left: 10px;
     padding-top:5px;
     padding-bottom:5px;
+    padding-right:0px;
     grid-row:2;
     grid-column-start: 1;
-    grid-column-end:4;
+    grid-column-end:5;
     background-color: #1c232e;
     color: #e6edf3;
 }
@@ -168,14 +175,11 @@ textarea {
 main {
     grid-row:3;
     grid-column:2;
-    margin-left: 20px;
-    margin-right:20px;
+    margin-top: 10px;
     padding: 20px;
-    
 
     background-color: white;
-    min-width: 400px;
-    max-width: 600px;
+    width: 600px;
 }
 
 .wiki-linked-image-grid {
@@ -211,16 +215,47 @@ main {
 }
 
 footer {
+    width: 100%;
+    margin:0px;
+    margin-top: 10px;
     grid-row:4;
     grid-column-start:1;
-    grid-column-end: 4;
+    grid-column-end: 5;
     padding-left:20px;
     padding-bottom:5px;
     padding-top:3px;
+    padding-right:0px;
     background-color: #0d1117;
     color: #e6edf3;
 }
 
 .overflow-auto {
     overflow:auto;
+}
+
+.left-sidebar {
+    grid-column: 1;
+    grid-row: 3;
+}
+.left-sidebar-section {
+    width: 200px;
+    margin: 10px;
+    padding-bottom: 5px;
+    background-color: #e6edf3;
+}
+
+.left-sidebar-section-title {
+    background-color: #0d1117;
+    color: #e6edf3;
+    padding: 3px;
+}
+
+.left-sidebar-item {
+    padding-left: 30px;
+}
+
+.right-sidebar {
+    grid-row:3;
+    grid-column:3;
+    width:200;
 }

@@ -33,7 +33,7 @@ from ..forms.wiki import (
 
 import os
 
-from ..functions.functions import (render_markdown)
+from ..functions.wiki import render_markdown
 from ..decorators import perm_can_edit_page
 from .view import ViewBase
 # Create your views here.

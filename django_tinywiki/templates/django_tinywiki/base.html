@@ -34,12 +34,46 @@
             {% endif %}
             </div>
         </nav>
+        <aside class="left-sidebar">
+            {% block left_sidebar %}
+            {% for section in left_sidebar_spec %}
+            <div class="left-sidebar-section">
+                <div class="left-sidebar-section-title">
+                    {% if section.widget %}
+                        {{ section.widget | safe }}
+                    {% else %} 
+                        {{section.title }}
+                    {% endif %}
+                </div>
+                {% for item in section.items %}
+                <div class="left-sidebar-item">
+                    {% if item.page %}
+                    <a href="{% url page_url item.page %}">{{ item.title }}</a>
+                    {% elif item.url %}
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                    {% elif item.widget %}
+                    {{ item.widget | safe }}
+                    {% else %}
+                    {{ item.title }}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            {% endblock %}
+        </aside>
         <main class="main">
             {% block main %}
             <h1>{% translate "Under Construction" %}</h1>
             <p>{% blocktranslate %}This page is currently under development! It will soon be available.{% endblocktranslate %}</p>
             {% endblock %}
         </main>
+        <aside class="right-sidebar">
+            {% block right_sidebar %}
+            {% endblock %}
+        </aside>
+        <aside class="right-fill">
+        </aside>
         <footer>
             Powered by <strong>TinyWiki</strong>
         </footer>

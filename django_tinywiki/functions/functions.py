@@ -36,31 +36,7 @@ def get_language_code(self):
 def markdown_to_html(md_string):
     return markdown.markdown(md_string,extensions=settings.TINYWIKI_MARKDOWN_EXTENSIONS)
 
-def render_markdown(string,context=None):
-    if context is None:
-        context={}
 
-    c = Context(context)
-    t = Template(string)
-    if context and 'slug' in context:
-        slug = context['slug']
-    else:
-        slug = None
-
-    if context and 'edit_page' in context:
-        edit_page = context['edit_page']
-    else:
-        edit_page = False
-        
-
-    s = t.render(c)
-    return markdown.markdown(s,extensions=settings.TINYWIKI_MARKDOWN_EXTENSIONS,
-                             extension_configs={
-                                "django_tinywiki.markdown_extensions:TinywikiLinkedImagesExtension": {
-                                   'wiki_page': slug,
-                                   'edit_page': edit_page,
-                               }
-                            })
 
 def user_is_superuser(user):
     return (user and user.is_authenticated and user.is_superuser)

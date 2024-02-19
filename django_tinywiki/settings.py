@@ -7,7 +7,7 @@ from django.core.files.storage import FileSystemStorage
 
 import os
 
-TINYWIKI_VERSION = "0.0.1"
+from .version import TINYWIKI_VERSION
 
 TINYWIKI_IS_MAIN_APP = getattr(django_settings,"TINYWIKI_IS_MAIN_APP",False)
 
@@ -17,9 +17,7 @@ TINYWIKI_INDEX = getattr(django_settings,
                          "TINYWIKI_INDEX",
                          _("en-tinywiki-index"))
 
-TINYWIKI_HOME_URL = getattr(django_settings,
-                            "TINYWIKI_HOME_URL",
-                            reverse_lazy("tinywiki:index"))
+TINYWIKI_HOME_URL = getattr(django_settings,"TINYWIKI_HOME_URL","/")
 
 TINYWIKI_BASE_TEMPLATE = getattr(django_settings,
                                  "TINYWIKI_BASE_TEMPLATE",
@@ -150,6 +148,10 @@ TINYWIKI_LANGUAGES = [
 TINYWIKI_STAFF_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_STAFF_IS_WIKI_ADMIN",False)
 TINYWIKI_SUPERUSER_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_SUPERUSER_IS_WIKI_ADMIN",True)
 
+TINYWIKI_LEFT_SIDEBAR_FUNCTION = getattr(django_settings,"TINYWIKI_LEFT_SIDEBAR_FUNCTION",None)
+TINYWIKI_LEFT_SIDEBAR = getattr(django_settings,"TINYWIKI_LEFT_SIDEBAR",None)
+
+LEFT_SIDEBAR_FUNCTION = getattr(django_settings,"LEFT_SIDEBAR_FUNCTION",'django_tinywiki.functions.sidebar.get_left_sidebar')
 
 # allow mulitple instances of tinywiki in one prjeoct by overriding app based settings
 # !!!DO THIS ONLY WHEN YOU KNOW WHAT YOU ARE DOING!!!

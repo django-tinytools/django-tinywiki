@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.utils.http import urlsafe_base64_encode
 from .. import functions
 from ..models.wiki import WikiPage
+from django.utils.module_loading import import_string
 
 class ViewBase(View):
     base_template = settings.TINYWIKI_BASE_TEMPLATE
@@ -73,6 +74,20 @@ class ViewBase(View):
             edit_url = reverse(self.page_edit_url,kwargs={'page':p.slug})
             delete_url = reverse(self.page_delete_url,kwargs={'page':p.slug})
 
+        left_sidebar_func = None
+        if isinstance(settings.LEFT_SIDEBAR_FUNCTION,str):
+            _func = import_string(settings.LEFT_SIDEBAR_FUNCTION)
+            if callable(_func):
+                left_sidebar_func = _func
+        elif callable(settings.LEFT_SIDEBAR_FUNCTION):
+            left_sidebar_func = settings.LEFT_SIDEBAR_FUNCTION
+        
+        if callable(left_sidebar_func):
+            left_sidebar_spec = left_sidebar_func(request)
+        else:
+            left_sidebar_spec = None
+        
+
         context = {
             'base_template': self.base_template,
             'css': self.css,
@@ -90,7 +105,9 @@ class ViewBase(View):
             'delete_url': delete_url,
             'create_url': reverse(self.page_new_url),
             'overview_url': self.overview_url,
+            'page_url': self.page_view_url,
             'index_url': self.index_url,
+            'left_sidebar_spec': left_sidebar_spec,
         }
         context.update(kwargs)
         context.update(self.context_callback(request))

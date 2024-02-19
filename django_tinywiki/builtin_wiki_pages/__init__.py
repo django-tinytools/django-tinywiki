@@ -35,6 +35,12 @@ BUILTIN_PAGES = [
         ],
     },
     {
+        'file': os.path.join(basedir,'en.settings.md'),
+        'language':'en',
+        'title': 'TinyWiki Settings',
+        'slug': 'en-tinywiki-settings',
+    },
+    {
         'file': os.path.join(basedir,'en.license.md'),
         'language': 'en',
         'title': "TinyWiki License",
@@ -66,5 +72,11 @@ BUILTIN_PAGES = [
                 'description': "Ein Weinberg in der Stierermark (Österreich)",
             }
         ],
-    },    
+    },
+    {
+        'file': os.path.join(basedir,'de.settings.md'),
+        'language':'de',
+        'title': 'TinyWiki Einstellugnen',
+        'slug': "de-tinywiki-settings",
+    }
 ]
