@@ -64,12 +64,14 @@ BUILTIN_PAGES = [
                 'file': os.path.join(basedir,'Lama.jpg'),
                 'alt': "Bild von einem Lama",
                 'description': "Ein Testbild",
+                'sidebar': True,
             },
             {
                 'builtin_id': -1001,
                 'file': os.path.join(basedir,'vineyard-styria.jpg'),
                 'alt': "Sterischer Weinberg",
                 'description': "Ein Weinberg in der Stierermark (Österreich)",
+                'sidebar': True,
             }
         ],
     },

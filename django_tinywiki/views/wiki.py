@@ -51,6 +51,7 @@ class WikiPageView(ViewBase):
                 'language': page.language.code,
                 'edit_page': self.get_user_can_edit_page(request.user,page),
             }
+            
             context.update({
                 "header_subtitle": page.title,
                 "title":page.title,
@@ -58,7 +59,7 @@ class WikiPageView(ViewBase):
                 "edit-page": render_markdown(False),
                 "page": page,
                 'image_upload_url': reverse(self.image_upload_url,kwargs={'page':page.slug}),
-                'codehilite_css': settings.TINYWIKI_CODEHILITE_CSS
+                'codehilite_css': settings.TINYWIKI_CODEHILITE_CSS,
             })
 
         return context

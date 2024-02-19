@@ -9,8 +9,9 @@ from shutil import copyfile
 import hashlib
 import markdown
 from django.template import Context,Template
+from django.utils.html import escape
 
-def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",description=None):
+def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",description=None,sidebar=False):
     try: 
         wi = WikiImage.objects.get(builtin_id=builtin_id)
     except WikiImage.DoesNotExist:
@@ -38,7 +39,8 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
         orig_img_path = os.path.join(wrkdir,"original." + new_fname)
         wiki_img_path = os.path.join(wrkdir,"wiki." + new_fname)
         preview_img_path = os.path.join(wrkdir,"preview." + new_fname)
-        sidebar_img_path = os.path.join(wrkdir,"sidebar." + new_fname)
+        if sidebar:
+            sidebar_img_path = os.path.join(wrkdir,"sidebar." + new_fname)
 
         copyfile(file,orig_img_path)
 
@@ -61,32 +63,43 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
         else:
             copyfile(file,preview_img_path)
 
-        if (convert_image and img_width > settings.TINYWIKI_IMAGE_PREVIEW_WIDTH):
-            sb_img = orig_img.resize((settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH,
-                                      int((img_height * (settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH / img_width)) + 0.5)))
-            sb_img.save(sidebar_img_path)
-            sb_img.close()
-        else:
-            copyfile(file,sidebar_img_path)
+        if sidebar:
+            if (convert_image and img_width > settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH):
+                sb_img = orig_img.resize((settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH,
+                                          int((img_height * (settings.TINYWIKI_IMAGE_SIDEBAR_WIDTH / img_width)) + 0.5)))
+                sb_img.save(sidebar_img_path)
+                sb_img.close()
+            else:
+                copyfile(file,sidebar_img_path)
 
         orig_img.close()
 
-        with open(orig_img_path) as orig_img_fp, open(wiki_img_path) as wiki_img_fp, open(preview_img_path) as preview_img_fp, open(sidebar_img_path) as sidebar_img_fp:
+        with open(orig_img_path) as orig_img_fp, open(wiki_img_path) as wiki_img_fp, open(preview_img_path) as preview_img_fp:
             orig_img_file = File(orig_img_fp,name=os.path.basename(orig_img_path))
             wiki_img_file = File(wiki_img_fp,name=os.path.basename(wiki_img_path))
             preview_img_file = File(preview_img_fp,name=os.path.basename(preview_img_path))
-            sidebar_img_file = File(sidebar_img_fp,name=os.path.basename(sidebar_img_path))
 
-            wi = WikiPage.objects.add(wiki_page=wikipage,
-                                      builtin_id=builtin_id,
-                                      alt=alt,
-                                      description=description,
-                                      image=orig_img_file,
-                                      image_wiki=wiki_img_file,
-                                      image_preview=preview_img_file,
-                                      image_sidebar=sidebar_img_file,
-                                      uploaded_by=user)
+            wi_create_kwargs = {
+                'wiki_page':wikipage,
+                'builtin_id':builtin_id,
+                'alt':alt,
+                'decsription':description,
+                'image':orig_img_file,
+                'image_wiki':wiki_img_file,
+                'image_preview':preview_img_file,
+                'uploaded_by':user
+            }
+
+
+            wi = WikiImage.objects.create(**wi_create_kwargs)
             wi.save()
+
+            if sidebar:
+                with open(sidebar_img_path,'rb') as sidebar_img_fp:
+                    sidebar_img_file = File(sidebar_img_fp,name=os.path.basename(sidebar_img_path))
+                    wi.image_sidebar = sidebar_img_file
+                    wi.save()
+
             print("[django-tinywiki] Image {img} added to wiki-page {slug}".format(img=os.path.basename(file),slug=wikipage.slug))
         
         for i in [orig_img_path,wiki_img_path,preview_img_path,sidebar_img_path]:
@@ -212,3 +225,37 @@ def render_markdown(string,context=None):
                                    'edit_page': edit_page,
                                 }
                             })
+
+def render_right_sidebar(request,*args,page=None,**kwargs):
+    wikipage = None
+    if page is not None:
+        if isinstance(page,str):
+            try:
+                wikipage = WikiPage.objects.get(slug="page")
+            except:
+                pass
+        elif isinstance(page,int):
+            try:
+                wikipage = WikiPage.objects.get(id=page)
+            except:
+                pass
+        else:
+            wikipage = page
+
+    ret=""
+
+    if wikipage:
+        for wi in wikipage.images.filter(image_preview__isnull=False):
+            if wi.description:
+                desc = wi.description
+            else:
+                desc = wi.alt
+                
+            ret += ("<div class=\"right-sidebar-item\">"
+                     + "<a class=\"right-sidebar-image-link\" href=\"{original_image_url}\">"
+                     + "<img class=\"right-sidebar-image\" src=\"{preview_image_url}\" /><br>"
+                     + "{description}</a></div>").format(
+                         original_image_url=wi.image.url,
+                         preview_image_url=wi.image_preview.url,
+                         description=escape(desc))
+    return ret

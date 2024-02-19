@@ -70,9 +70,8 @@
         </main>
         <aside class="right-sidebar">
             {% block right_sidebar %}
+                {{ right_sidebar | safe }}
             {% endblock %}
-        </aside>
-        <aside class="right-fill">
         </aside>
         <footer>
             Powered by <strong>TinyWiki</strong>

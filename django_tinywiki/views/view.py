@@ -86,14 +86,27 @@ class ViewBase(View):
             left_sidebar_spec = left_sidebar_func(request)
         else:
             left_sidebar_spec = None
+
+        render_right_sidebar = None
+        if isinstance(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION,str):
+            _func = import_string(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION)
+            if callable(_func):
+                render_right_sidebar=_func
+
+        elif callable(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION):
+            render_right_sidebar = settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION
         
+        if render_right_sidebar is not None:
+            right_sidebar=render_right_sidebar(request,page=p)
+        else:
+            right_sidebar=""
 
         context = {
             'base_template': self.base_template,
             'css': self.css,
             'user_can_create_pages': self.get_user_can_create_pages(request.user),
-            'user_can_delete_page': self.get_user_can_delete_page(request.user,page),
-            'user_can_edit_page': self.get_user_can_edit_page(request.user,page),
+            'user_can_delete_page': self.get_user_can_delete_page(request.user,p),
+            'user_can_edit_page': self.get_user_can_edit_page(request.user,p),
             'user_is_wiki_admin': self.get_user_is_wiki_admin(request.user),
             'header_title': self.header_title,
             'page_view_url': self.page_view_url,
@@ -108,6 +121,7 @@ class ViewBase(View):
             'page_url': self.page_view_url,
             'index_url': self.index_url,
             'left_sidebar_spec': left_sidebar_spec,
+            'right_sidebar': right_sidebar,
         }
         context.update(kwargs)
         context.update(self.context_callback(request))
