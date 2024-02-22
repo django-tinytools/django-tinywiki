@@ -14,7 +14,7 @@ class ViewBase(View):
     context_callback = settings.TINYWIKI_CONTEXT_CALLBACK
     home_url = settings.TINYWIKI_HOME_URL
     page_view_url = settings.TINYWIKI_PAGE_VIEW_URL_TEMPLATE
-    page_edit_url = settings.TINYWIKI_PAGE_EDIT_URL
+    page_edit_url = settings.TINYWIKI_PAGE_EDIT_URL_TEMPLATE
     page_create_url = settings.TINYWIKI_PAGE_CREATE_URL_TEMPLATE
     page_new_url = settings.TINYWIKI_PAGE_NEW_URL_TEMPLATE
     page_delete_url = settings.TINYWIKI_PAGE_DELETE_URL_TEMPLATE

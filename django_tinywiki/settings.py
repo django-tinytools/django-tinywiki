@@ -29,9 +29,11 @@ TINYWIKI_PAGE_VIEW_URL_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_VIEW_UR
 TINYWIKI_PAGE_EDIT_TEMPLATE = getattr(django_settings,
                                       "TINYWIKI_PAGE_EDIT_TEMPLATE",
                                       "django_tinywiki/wiki/edit.html")
+TINYWIKI_PAGE_EDIT_URL_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_EDIT_URL_TEMPLATE","tinywiki:page-edit")
+
 TINYWIKI_PAGE_OVERVIEW_URL = getattr(django_settings,"TINYWIKI_PAGE_OVERVIEW_URL",reverse_lazy("tinywiki:page-overview"))
 TINYWIKI_PAGE_OVERVIEW_TEMPLATE = getattr(django_settings,"TINYWIKI_PAGE_OVERVIEW_TEMPLATE","django_tinywiki/wiki/overview.html")
-TINYWIKI_PAGE_EDIT_URL = getattr(django_settings,"TINYWIKI_PAGE_EDIT_URL_TEMPLATE","tinywiki:page-edit")
+
 TINYWIKI_PAGE_CREATE_TEMPLATE = getattr(django_settings,
                                         "TINYWIKI_PAGE_CREATE_TEMPLATE",
                                         "django_tinywiki/wiki/create.html")

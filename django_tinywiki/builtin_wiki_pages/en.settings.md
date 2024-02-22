@@ -19,6 +19,43 @@ using the tinywiki base html template.
 TINYWIKI_TITLE = "TinyWiki"
 ```
 
+### TINYWIKI_STYLE
+
+``` { .python }
+TINYWIKI_STYLE = "default"
+```
+### TINYWIKI_CSS
+
+``` { .python }
+TINYWIKI_CSS = "{url}django_tinywiki/styles/{style}.css".format(
+    url=STATIC_URL,
+    style=TINYWIKI_STYLE)
+```
+### TINYWIKI_CODEHILITE_STYLE
+
+``` { .python }
+TINYWIKI_CODEHILITE_STYLE = "github-dark"
+```
+
+### TINYWIKI_CODEFHILITE_CSS
+
+``` { .python }
+TINYWIKI_CODEHILITE_CSS = "{url}django_tinywiki/styles/codehilite/{style}.css".format(
+    url=django_settings.STATIC_URL,
+    style=TINYWIKI_CODEHILITE_STYLE)
+```
+
+### TINYWIKI_MARKDOWN_EXTENSIONS
+
+### TINYWIKI_CONTEXT_CALLBACK
+
+### TINYWIKI_DEFAULT_LANGUAGE
+
+``` { .python }
+TINYWIKI_DEFAULT_LANGUAGE = "en"
+```
+
+
 ## URL Settings
 
 ### TINYWIKI_INDEX
@@ -50,6 +87,23 @@ this setting to an appropriate value. The set url template is looked up by
 ``` { .python }
 TINYWIKI_PAGE_VIEW_URL_TEMPLATE = "tinywiki:page"
 ```
+### TINYWIKI_PAGE_EDIT_URL_TEMPLATE
+
+If you are using your own view for editing wiki-pages, set this vairable to
+the view you are using.
+
+``` { .python }
+TINYWIKI_PAGE_EDIT_URL_TEMPLATE = "tinywiki:page-edit"
+
+```
+### TINYWIKI_PAGE_CREATE_URL_TEMPLATE
+
+### TINYWIKI_PAGE_NEW_URL_TEMPLATE
+
+### TINYWIKI_PAGE_DELETE_URL_TEMPLATE
+
+### TINYWIKI_PAGE_OVERVIEW_URL
+
 
 ## Template Settings
 
@@ -72,3 +126,23 @@ page.
 ``` { .python }
 TINYWIKI_PAGE_VIEW_TEMPLATE = "django_tinywiki/wiki/page.html"
 ```
+
+### TINYWIKI_PAGE_EDIT_TEMPLATE
+
+Set this variable to your template file, if you want to use your own
+template for the edit page.
+
+``` { .python }
+TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
+```
+
+### TINYWIKI_PAGE_CREATE_TEMPLATE
+
+### TINYWIKI_PAGE_NEW_TEMPLATE
+
+### TINYWIKI_PAGE_DELETE_TEMPLATE
+
+### TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
+
+### TINYWIKI_PAGE_OVERVIEW_TEMPLATE
+
