@@ -27,7 +27,7 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
         try:
             name,ext = os.path.splitext(file)
         except:
-            raise ValueError(_("Image file \"{file}\" has no file extension! SKIPPING!").format(file=filename))
+            raise ValueError(_("Image file \"{file}\" has no file extension! SKIPPING!").format(file=file))
             
         
         if ext.lower() == ".svg":
@@ -74,7 +74,7 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
 
         orig_img.close()
 
-        with open(orig_img_path) as orig_img_fp, open(wiki_img_path) as wiki_img_fp, open(preview_img_path) as preview_img_fp:
+        with open(orig_img_path,'rb') as orig_img_fp, open(wiki_img_path,'rb') as wiki_img_fp, open(preview_img_path,'rb') as preview_img_fp:
             orig_img_file = File(orig_img_fp,name=os.path.basename(orig_img_path))
             wiki_img_file = File(wiki_img_fp,name=os.path.basename(wiki_img_path))
             preview_img_file = File(preview_img_fp,name=os.path.basename(preview_img_path))
@@ -83,17 +83,16 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
                 'wiki_page':wikipage,
                 'builtin_id':builtin_id,
                 'alt':alt,
-                'decsription':description,
+                'description':description,
                 'image':orig_img_file,
                 'image_wiki':wiki_img_file,
                 'image_preview':preview_img_file,
                 'uploaded_by':user
             }
 
-
             wi = WikiImage.objects.create(**wi_create_kwargs)
             wi.save()
-
+            
             if sidebar:
                 with open(sidebar_img_path,'rb') as sidebar_img_fp:
                     sidebar_img_file = File(sidebar_img_fp,name=os.path.basename(sidebar_img_path))
@@ -102,7 +101,11 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
 
             print("[django-tinywiki] Image {img} added to wiki-page {slug}".format(img=os.path.basename(file),slug=wikipage.slug))
         
-        for i in [orig_img_path,wiki_img_path,preview_img_path,sidebar_img_path]:
+        rm_files=[orig_img_path,wiki_img_path,preview_img_path]
+        if sidebar:
+            rm_files.append(sidebar_img_path)
+
+        for i in rm_files:
             if os.path.exists(i):
                 os.unlink(i)
 

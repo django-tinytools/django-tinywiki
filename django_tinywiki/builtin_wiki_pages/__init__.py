@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import os
 
 basedir=os.path.dirname(__file__)
@@ -25,12 +26,14 @@ BUILTIN_PAGES = [
                 'file': os.path.join(basedir,'Lama.jpg'),
                 'alt': "Picture of a lama",
                 'description': "A test image",
+                'sidebar': True,
             },
             {
                 'builtin_id': -2,
                 'file': os.path.join(basedir,'vineyard-styria.jpg'),
                 'alt': "Vineyard in Styria",
                 'description': "A vineyard in Styria (Austria)",
+                'sidebar': True,
             }
         ],
     },
@@ -70,7 +73,7 @@ BUILTIN_PAGES = [
                 'builtin_id': -1001,
                 'file': os.path.join(basedir,'vineyard-styria.jpg'),
                 'alt': "Sterischer Weinberg",
-                'description': "Ein Weinberg in der Stierermark (Österreich)",
+                'description': "Ein Weinberg in der Stierermark.",
                 'sidebar': True,
             }
         ],
