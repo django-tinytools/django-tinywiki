@@ -83,9 +83,9 @@ class ViewBase(View):
             left_sidebar_func = settings.LEFT_SIDEBAR_FUNCTION
         
         if callable(left_sidebar_func):
-            left_sidebar_spec = left_sidebar_func(request)
+            left_sidebar = left_sidebar_func(request)
         else:
-            left_sidebar_spec = None
+            left_sidebar = None
 
         render_right_sidebar = None
         if isinstance(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION,str):
@@ -120,11 +120,15 @@ class ViewBase(View):
             'overview_url': self.overview_url,
             'page_url': self.page_view_url,
             'index_url': self.index_url,
-            'left_sidebar_spec': left_sidebar_spec,
+            'left_sidebar': left_sidebar,
             'right_sidebar': right_sidebar,
         }
         context.update(kwargs)
-        context.update(self.context_callback(request))
+        if isinstance(self.context_callback,str):
+            self.context_callback = import_string(self.context_callback)
+
+        if callable(self.context_callback):
+            context.update(self.context_callback(request))
 
         return context
     

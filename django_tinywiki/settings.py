@@ -100,7 +100,7 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
                                                    base_url=TINYWIKI_MEDIA_URL))
 
 TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",860)
-TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",200)
+TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",240)
 TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",240)
 
 TINYWIKI_AUTH_USER_MODEL = getattr(django_settings,
@@ -128,11 +128,13 @@ else:
                                   "TINYWIKI_LOGOUT_URL",
                                   getattr(django_settings,"LOGOUT_URL","/signup/"))
 
-TINYWIKI_USER = getattr(django_settings,"TINYWIKI_USER",{"username":"TinyWiki Team","email":"tinywiki@cmoser.eu"})
+TINYWIKI_USER = getattr(django_settings,
+                        "TINYWIKI_USER",
+                        {"username":"TinyWikiTeam","email":"tinywiki@cmoser.eu","first_name":"TinyWiki","last_name":"Team"})
 
 TINYWIKI_RIGHT_SIDEBAR_FUNCTION = getattr(django_settings,
                                           "TINYWIKI_RIGHT_SIDEBAR_FUNCTION",
-                                          "django_tinywiki.functions.wiki.render_right_sidebar")
+                                          "django_tinywiki.functions.sidebar.render_right_sidebar")
 
 
 TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
@@ -155,9 +157,10 @@ TINYWIKI_STAFF_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_STAFF_IS_WIKI_A
 TINYWIKI_SUPERUSER_IS_WIKI_ADMIN = getattr(django_settings,"TINYWIKI_SUPERUSER_IS_WIKI_ADMIN",True)
 
 TINYWIKI_LEFT_SIDEBAR_FUNCTION = getattr(django_settings,"TINYWIKI_LEFT_SIDEBAR_FUNCTION",None)
-TINYWIKI_LEFT_SIDEBAR = getattr(django_settings,"TINYWIKI_LEFT_SIDEBAR",None)
+TINYWIKI_LEFT_SIDEBAR_DATA = getattr(django_settings,"TINYWIKI_LEFT_SIDEBAR_DATA",None)
+TINYWIKI_SHOW_TINYWIKI_LEFT_SIDEBAR_ITEMS = getattr(django_settings,"TINYWIKI_SHOW_TINYWIKI_LEFT_SIDEBAR_ITEMS",True)
 
-LEFT_SIDEBAR_FUNCTION = getattr(django_settings,"LEFT_SIDEBAR_FUNCTION",'django_tinywiki.functions.sidebar.get_left_sidebar')
+LEFT_SIDEBAR_FUNCTION = getattr(django_settings,"LEFT_SIDEBAR_FUNCTION",'django_tinywiki.functions.sidebar.render_left_sidebar')
 
 # allow mulitple instances of tinywiki in one prjeoct by overriding app based settings
 # !!!DO THIS ONLY WHEN YOU KNOW WHAT YOU ARE DOING!!!
