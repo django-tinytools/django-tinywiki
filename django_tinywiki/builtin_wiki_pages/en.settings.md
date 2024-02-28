@@ -10,7 +10,8 @@
 
 #### TINYWIKI_VERSION
 
-This is a read only settings giving the current version of *django-tinywiki*.
+This is a read only settings giving the current version as a string of 
+*django-tinywiki*.
 
 ### Application Settings
 
@@ -25,10 +26,25 @@ TINYWIKI_TITLE = "TinyWiki"
 
 #### TINYWIKI_STYLE
 
+You can select the style of *TinyWiki* using the corresponding CSS-Stylesheet.
+To show the available styles, run the *tinywiki_styles* script.
+
+``` { .sh }
+$ ./manage runscript tinywiki_styles
+```
+
+Set the *TINYWIKI_STYLE* variable to the style name of one of the available
+styles. (Currently only the *default* style is supported).
+
 ``` { .python }
 TINYWIKI_STYLE = "default"
 ```
+
 #### TINYWIKI_CSS
+
+If you have a CSS-Stylesheet for your application and you want to ignore the
+style of the django-tinywiki, set the *TINYWIKI_CSS* variable toe the 
+stylesheet you are using.
 
 ``` { .python }
 TINYWIKI_CSS = "{url}django_tinywiki/styles/{style}.css".format(
@@ -37,11 +53,23 @@ TINYWIKI_CSS = "{url}django_tinywiki/styles/{style}.css".format(
 ```
 #### TINYWIKI_CODEHILITE_STYLE
 
+You can change the codehilite style to one of the supported styles if you
+want to change the look of the code sections of your wiki pages.
+
 ``` { .python }
 TINYWIKI_CODEHILITE_STYLE = "github-dark"
 ```
 
+To show all available styles, run the *tinywiki_codehilite_styles* script.
+
+``` { .sh }
+$ ./manage runscript tinywiki_codehilite_styles
+```
+
 #### TINYWIKI_CODEFHILITE_CSS
+
+You can alos import your own CSS-Stylesheet for the code sections in your
+wiki pages by setting the *TINYWIKI_CODEHILITE_CSS* variable.
 
 ``` { .python }
 TINYWIKI_CODEHILITE_CSS = "{url}django_tinywiki/styles/codehilite/{style}.css".format(
@@ -50,6 +78,14 @@ TINYWIKI_CODEHILITE_CSS = "{url}django_tinywiki/styles/codehilite/{style}.css".f
 ```
 
 #### TINYWIKI_MARKDOWN_EXTENSIONS
+
+You can import your own markdown extensions to be used for wiki pages, if needed.
+To do this set the *TINYWIKI_MARKDOWN_EXTENSIONS* to a list of the extensions
+to be loaded before processing the page.
+
+There are more informations on
+[Makrdown Extensions](https://python-markdown.github.io/extensions/) and on 
+[writing Markdown Extensions](https://python-markdown.github.io/extensions/api/).
 
 ``` { .python }
 TINYWIKI_MARKDOWN_EXTENSIONS = [MarkdowExtension1(),"path.to:MarkdownExtension2"]
@@ -94,6 +130,29 @@ TINYWIKI_USER = {
 }
 ```
 
+#### TINYWIKI_LEFT_SIDEBAR
+
+``` { .python }
+TINYWIKI_LEFT_SIDEBAR = [
+    {
+        'title': 'Sidebar Section',
+        'items': [
+            {
+                'title': _('Main Page'),
+                'page': "en-tinywiki-index",
+            },
+            {
+                'title': "A link",
+                'url': 'https://www.google.com',
+            },
+            {
+                'widget': '<a href="https://www.google.com">Google</a>',
+            }
+        ]
+    },
+]
+```
+
 #### TINYWIKI_LEFT_SIDEBAR_FUNCTION
 
 ``` { .python }
@@ -121,13 +180,29 @@ def left_sidebar_function(request):
 TINYWIKI_LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 ```
 
+#### LEFT_SIDEBAR_FUNCTION
+
+``` { .python }
+def left_sidebar_function(request):
+    return """
+    <div class="left-sidebar-section">
+        <div class="left-sidebar-section-title>Section 1</div>
+        <div class="left-sidebar-item>
+            <a href="https://www.google.com">Link 1</a>
+        </div>
+    </div>"""
+
+LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
+```
+
+
 #### TINYWIKI_RIGHT_SIDEBAR_FUNCTION
 
 ``` { .python }
 def right_sidebar_function(request):
     return [
-        '<div class="right-sidebar-item">Sidebar Item0.</div>',
-        '<div class="right-sidebar-item">Sidebar Item2</div>'
+        '<div class="right-sidebar-item">Sidebar Item 1.</div>',
+        '<div class="right-sidebar-item">Sidebar Item 2</div>'
     ]
 
 TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
