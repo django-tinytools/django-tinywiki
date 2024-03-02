@@ -69,22 +69,6 @@ class TinywikiImageInlineProcessor(InlineProcessor):
         except WikiImage.DoesNotExist:
             element = etree.Element("div", attrib={"class":"wiki-image image-not-found"})
             element.text = _("Image with id {img_id} not found!".format(img_id=m.group(1)))
-
-            if img.image_wiki:
-                attrib = {'src':img.image_wiki.url}
-            else:
-                attrib = {'src':img.image.url}
-
-            if img.alt:
-                attrib['alt'] = img.alt
-
-            link_element.append(etree.Element("img",attrib=attrib))
-            if img.description:
-                link_element.append(etree.Element("br"))
-                desc_element = etree.Element("span",attrib={'class':'wiki-image-description'})
-                desc_element.text = img.description
-                link_element.append(desc_element)
-            element.append(link_element)
         
         return element, m.start(0), m.end(0)
 
