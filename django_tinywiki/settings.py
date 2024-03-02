@@ -79,7 +79,7 @@ if not hasattr(django_settings,"MEDIA_URL"):
 TINYWIKI_MEDIA_ROOT = getattr(django_settings,
                               "TINYWIKI_MEDIA_ROOT",
                               '/'.join((getattr(django_settings,'MEDIA_ROOT',
-                                      django_settings.BASE_DIR / "media"),'wiki'))
+                                      django_settings.BASE_DIR / "media"),'wiki')))
 TINYWIKI_MEDIA_URL = getattr(django_settings,
                              "TINYWIKI_MEDIA_URL",
                              django_settings.MEDIA_URL + "wiki/")
