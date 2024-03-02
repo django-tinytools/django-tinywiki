@@ -78,8 +78,9 @@ if not hasattr(django_settings,"MEDIA_URL"):
 
 TINYWIKI_MEDIA_ROOT = getattr(django_settings,
                               "TINYWIKI_MEDIA_ROOT",
-                              '/'.join((getattr(django_settings,'MEDIA_ROOT',
-                                      django_settings.BASE_DIR / "media"),'wiki')))
+                              os.path.join(
+                                  getattr(django_settings,'MEDIA_ROOT',
+                                          django_settings.BASE_DIR / "media"),'wiki'))
 TINYWIKI_MEDIA_URL = getattr(django_settings,
                              "TINYWIKI_MEDIA_URL",
                              django_settings.MEDIA_URL + "wiki/")
@@ -102,7 +103,7 @@ TINYWIKI_MEDIA_STORAGE = getattr(django_settings,
 
 TINYWIKI_IMAGE_WIKI_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_WIKI_WIDTH",860)
 TINYWIKI_IMAGE_PREVIEW_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_PREVIEW_WIDTH",240)
-TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",240)
+TINYWIKI_IMAGE_SIDEBAR_WIDTH = getattr(django_settings,"TINYWIKI_IMAGE_SIDEBAR_WIDTH",200)
 
 TINYWIKI_AUTH_USER_MODEL = getattr(django_settings,
                                    "TINYWIKI_AUTH_USER_MODEL",

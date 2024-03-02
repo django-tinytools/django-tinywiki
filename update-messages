@@ -1,0 +1,49 @@
+#!/bin/sh
+# vim: ts=4 sts=4 smartindent expandtab sw=4
+
+SELF="`realpath $0`"
+BASEDIR="`dirname "$SELF"`"
+
+cd "$BASEDIR"
+
+for localedir in ${BASEDIR}/*/locale; do
+    if [ ! -d "$localedir" ]; then
+        continue
+    fi
+
+    for locale_messages in ${localedir}/*/LC_MESSAGES; do
+        locale_po=${locale_messages}/django.po
+        if [ -f "$locale_po" ]; then
+            mv "$locale_po" "${locale_po}.old"
+        fi
+    done
+done
+
+./manage makemessages -a
+
+for localedir in "$BASEDIR"/*/locale; do
+    if [ ! -d "$localedir" ]; then
+        continue
+    fi
+
+    for locale_messages in "$localedir"/*/LC_MESSAGES; do
+        old_locale="${locale_messages}/django.po.old"
+        if [ ! -f "$old_locale" ];then
+            continue
+        fi
+        locale_po="${locale_messages}/django.po"
+        if [ ! -f "${locale_po}" ]; then
+            mv "${old_locale} ${locale_po}"
+        else
+            new_locale="${locale_po}.new"
+            mv "${locale_po}" "${new_locale}"
+            msgmerge -o "${locale_po}" -N "${old_locale}" "${new_locale}"
+            if [ $? -eq 0 ]; then
+                rm "${old_locale}"
+                rm "${new_locale}"
+            else
+                mv "${new_locale}" "${locale_po}"
+            fi
+        fi
+    done
+done

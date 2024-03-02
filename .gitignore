@@ -5,6 +5,7 @@
 *.tmp
 *.temp
 *.core
+*.backup
 
 # python
 __pycache__
@@ -35,3 +36,4 @@ tinywiki/appsettings.py
 dist/*
 build/*
 *.egg-info/*
+*.whl

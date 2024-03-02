@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-02 18:11+0100\n"
+"POT-Creation-Date: 2024-03-03 00:52+0100\n"
 "PO-Revision-Date: 2024-03-02 18:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -137,7 +137,8 @@ msgstr "Link #{number}"
 #: django_tinywiki/functions/wiki.py:19
 #, python-brace-format
 msgid "Image file \"{file}\" for BuiltinID \"{builtin_id}\" not found!"
-msgstr "Bilddatei \"{file}\" für die BuiltinID \"{builtin_id}\" nicht gefunden!"
+msgstr ""
+"Bilddatei \"{file}\" für die BuiltinID \"{builtin_id}\" nicht gefunden!"
 
 #: django_tinywiki/functions/wiki.py:30
 #, python-brace-format
@@ -158,21 +159,21 @@ msgstr "de"
 msgid "Image with id {img_id} not found!"
 msgstr "Bild mit id {img_id} nicht gefunden!"
 
-#: django_tinywiki/markdown_extensions/tinywikiimage.py:110
+#: django_tinywiki/markdown_extensions/tinywikiimage.py:94
 #, python-brace-format
 msgid "Image with builtin id {img_id} not found!"
 msgstr "Image mit BuiltinID {img_id} nicht gefunden!"
 
-#: django_tinywiki/markdown_extensions/tinywikiimage.py:117
+#: django_tinywiki/markdown_extensions/tinywikiimage.py:101
 msgid "Can not find linked images for unknown wiki-page!"
 msgstr "Kann keine verknüpften Bilder für unbekannte Wiki-Seite finden!"
 
-#: django_tinywiki/markdown_extensions/tinywikiimage.py:126
+#: django_tinywiki/markdown_extensions/tinywikiimage.py:110
 #, python-brace-format
 msgid "Can not find wiki-page {page_id}!"
 msgstr "Kann Wiki-Seite {page_id} nicht finden!"
 
-#: django_tinywiki/markdown_extensions/tinywikiimage.py:133
+#: django_tinywiki/markdown_extensions/tinywikiimage.py:117
 msgid "Upload Image"
 msgstr "Bild hochladen"
 
@@ -230,7 +231,8 @@ msgstr "In Bearbeitung"
 
 #: django_tinywiki/templates/django_tinywiki/base.html.py:47
 msgid "This page is currently under development! It will soon be available."
-msgstr "Diese Seite ist zurzeit in Bearbeitung! Sie wird in kürze verfügbar sein."
+msgstr ""
+"Diese Seite ist zurzeit in Bearbeitung! Sie wird in kürze verfügbar sein."
 
 #: django_tinywiki/templates/django_tinywiki/manage/initialize.html.py:6
 msgid "Intialization/Update success"
@@ -262,7 +264,9 @@ msgstr "Seite wurde erfolgreich gelöscht"
 msgid ""
 "The page <em>%(page_slug)s</em> with the title <em>%(page_title)s</em> \n"
 "    from user <em>%(page_user)s</em> has sccessfully been deleted!"
-msgstr "Die Seite <em>%(page_slug)s</em> mit dem Titel <em>%(page_title)s</em> von Nutzer <em>%(page_user)s</em> wurde erfolgreich gelöscht!"
+msgstr ""
+"Die Seite <em>%(page_slug)s</em> mit dem Titel <em>%(page_title)s</em> von "
+"Nutzer <em>%(page_user)s</em> wurde erfolgreich gelöscht!"
 
 #: django_tinywiki/templates/django_tinywiki/wiki/delete-done.html.py:10
 msgid "Return to Homepage"
@@ -277,7 +281,10 @@ msgstr "Zurück zur Seitenübersicht"
 msgid ""
 "Do you really want to delete the wiki page <em>%(page_slug)s</em>\n"
 "    with the title <em>%(page_title)s owned by user <em>%(page_user)s</em>?"
-msgstr "Willst du wirklich die Wiki-Seite <em>%(page_slug)s</em> mit dem Titel <em>%(page_title)s</em>, die dem Nutzer <em>%(page_user)s</em> gehört, löschen?"
+msgstr ""
+"Willst du wirklich die Wiki-Seite <em>%(page_slug)s</em> mit dem Titel "
+"<em>%(page_title)s</em>, die dem Nutzer <em>%(page_user)s</em> gehört, "
+"löschen?"
 
 #: django_tinywiki/templates/django_tinywiki/wiki/image-upload.html.py:23
 msgid "Upload"
