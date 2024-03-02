@@ -8,6 +8,8 @@
         {% if codehilite_css %}<link rel="stylesheet" href="{{ codehilite_css }}">{% endif %}
     </head>
     <body>
+    <div class="content">
+
         <div class="header">
                 {% if header_logo %}<div class="header-logo"><img src="{{ header_logo }}" alt="{% translate 'Header Logo' %}"/>{% endif %}
                 <div class="header-title">{{ header_title }}</div>
@@ -53,5 +55,6 @@
         <footer>
             Powered by <strong>TinyWiki</strong>
         </footer>
+    </div>
     </body>
 </html>

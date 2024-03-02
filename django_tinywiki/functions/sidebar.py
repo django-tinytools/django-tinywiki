@@ -55,7 +55,7 @@ def render_left_sidebar(request):
 
     for sect_spec in get_left_sidebar_data(request):
         sect = "<div class=\"left-sidebar-section\">\n"
-        sect += ("\t<div class=\"left-sidebar-section-title\">\n" + escape(sect_spec['title']) + "</div>")
+        sect += ("\t<div class=\"left-sidebar-section-title\">" + escape(sect_spec['title']) + "</div>\n")
         for item_spec in sect_spec['items']:
             link_number = 1
             if 'widget' in item_spec:
@@ -88,7 +88,6 @@ def render_left_sidebar(request):
 
     if sidebar_sections:
         ret =  "\n".join(sidebar_sections)
-        print(ret)
         return ret
     return ""
 

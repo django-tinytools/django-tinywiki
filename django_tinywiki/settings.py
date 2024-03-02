@@ -191,6 +191,7 @@ BUILTIN_MARKDOWN_EXTENSIONS = [
     "django_tinywiki.markdown_extensions:TinywikiLinkExtension",
     "django_tinywiki.markdown_extensions:DelExtension",
     "django_tinywiki.markdown_extensions:CopyrightExtension",
+    "django_tinywiki.markdown_extensions.video:VideoExtension",
 ]
 
 # snaitize context callback

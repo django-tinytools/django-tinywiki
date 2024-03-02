@@ -1,11 +1,15 @@
 body {
     margin: 0px;
     background-color: #7a7c7e;
+    overflow-x:hidden;
+}
+
+.content {
+    max-width:100%;
     display:grid;
     column-gap: 20px;
-    width: 100%;
     grid-template-columns: 260px auto 260px;
-    /*overflow-x:hidden;*/
+    
 }
 
 img {
@@ -52,6 +56,40 @@ input[type=text],textarea,input[type=number],input[type=password],input[type=ema
 
 textarea {
     height: 600px;
+}
+
+iframe {
+    max-width: 100%;
+}
+
+video {
+    max-width: 100%;
+}
+
+table {
+    border-color: #1c232e;
+    border-width: 1px;
+    border-style: solid;
+}
+
+th {
+  color:#e6edf3;
+  background-color:#1c232e;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+td {
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+tr:nth-child(odd) {
+    background-color: #b9bdc0;
+}
+
+tr:nth-child(even) {
+    background-color: #7a7c7e;
 }
 
 .align-right {
@@ -219,8 +257,8 @@ main {
 
 footer {
     width: 100%;
-    margin:0px;
     margin-top: 10px;
+    margin-right: 0px;
     grid-row:4;
     grid-column-start:1;
     grid-column-end: 4;

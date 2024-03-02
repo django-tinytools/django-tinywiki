@@ -1,3 +1,4 @@
+{% load static %}
 # TinyWiki Markdown Syntax
 
 ## Inhaltsverzeichnis
@@ -10,7 +11,44 @@
 als HTML abzubilden. TinyWiki nutzt Markdown für seine Wikiseiten. Guthub zum
 Beispiel nutzt auch Markdown für seien README-Dateien.
 
-Die kurze Anleitung gibt einen Überblick des Markdown Syntax.
+Die kurze Anleitung gibt einen Überblick des verwendeten Markdown Syntax und
+die verwendeten Markdown Erwetierungen.
+
+## WikiPage als Templates
+*TinyWiki*-Seiten werden zuerst von dem Django's Template Prozessor bearbeitet
+bevor sie als Markdown bearbeitet werden. Das erlaubt z.B.: das Verlinken auf
+statischen Inhalt.
+
+Wie z.B.:
+
+``` { .markdown }
+{% templatetag openblock %} load static {% templatetag closeblock %}
+
+![Pfau im Schloss Eggenberg]({% templatetag openblock %} static 'django_tinywiki/images/peacock.jpg' {% templatetag closeblock %})
+```
+
+![Pfau im Schloss Eggenberg]({% static 'django_tinywiki/images/peacock.jpg' %})
+
+### Django Template Tags
+
+Um Django's Templatetags auszugeben verwende das Template ```templatetag```.
+
+``` { .markdown }
+{% templatetag openblock %} templatetag openblock {% templatetag closeblock %}
+```
+
+Template Argumente sind wie folgt:
+
+Argument      |      Tag
+------------- | ----------------
+openblock     | {% templatetag openblock %}
+closeblock    | {% templatetag closeblock %}
+openvariable  | {% templatetag openvariable %}
+closevariable | {% templatetag closevariable %}
+openbrace     | {% templatetag openbrace %}
+closebrace    | {% templatetag closebrace %}
+opencomment   | {% templatetag opencomment %}
+closecomment  | {% templatetag closecomment %}
 
 ## Überschriften
 
@@ -216,7 +254,7 @@ unterstreiche die Spalte mit einem Strich ```-```.
 Hier ein Beispiel:
 
 ``` { .markdown }
-Spalte 1 | Spalte 2 | Splate 3
+Spalte 1 | Spalte 2 | Spalte 3
 -------- | -------- | --------
     A1   |    B1    |    C1
     A2   |    B2    |    C2
@@ -351,6 +389,7 @@ Nutze also positive Nummern für deine *eingebaute-bilder-id*s.
 
 ![[!-1001]]
 
+
 Um die verknüpften Bilder deiner TinyWiki-Seite anzuzeigen, nutze den Tag
 ```[WIKI-IMAGES]```. Dieser Tag generiert einen Grid mit den Vorschaubildern
 der, mit deiner Seite verknüpften, Bilder.
@@ -367,7 +406,25 @@ der, mit deiner Seite verknüpften, Bilder.
 
 [WIKI-IMAGES]
 
-## Ein Inhatlsverzeichnis erstellen
+## Vidoes einbinden
+
+``` { .markdown }
+?[Django tutorial](youtube:rHux0gMZ3Eg)
+
+?[Quallen]({% static 'django_tinywiki/videos/Jellyfish.mp4' %})
+
+?[Quallen mit Breite und Höhe]({% static 'django_tinywiki/videos/Jellyfish.mp4' %}|560,315)
+```
+
+?[Django tutorial](youtube:rHux0gMZ3Eg)
+
+?[Quallen]({% static 'django_tinywiki/videos/Jellyfish.mp4' %})
+
+?[Quallen mit Breite und Höhe]({% static 'django_tinywiki/videos/Jellyfish.mp4' %}|560,315)
+
+**Embedding Videos is a TinyWiki extension**
+
+## Ein Inhaltsverzeichnis erstellen
 
 Um ein Inhaltsverzeichnis zu erstellen, verwende den ```[TOC]```-Tag in einem
 eigenen Absatz.
