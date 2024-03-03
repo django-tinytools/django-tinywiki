@@ -14,7 +14,7 @@ def user_can_create_pages(user):
     
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
-    return user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_CREATE_PAGE)))
+    return user.has_perm(settings.TINYWIKI_USERPERM_CREATE_PAGE)
 
 def user_can_delete_pages(user):
     if not user.is_authenticated:
@@ -26,7 +26,7 @@ def user_can_delete_pages(user):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    return user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_DELETE_PAGE)))
+    return user.has_perm(settings.TINYWIKI_USERPERM_DELETE_PAGE)
 
 def user_can_edit_pages(user):
     if not user.is_authenticated:
@@ -38,7 +38,7 @@ def user_can_edit_pages(user):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    return user.has_perm(settings.TINYWIKI_PERM_EDIT_PAGE)
+    return user.has_perm(settings.TINYWIKI_USERPERM_EDIT_PAGE)
 
 def user_can_edit_page(user,page):
     if not user.is_authenticated:
@@ -66,15 +66,15 @@ def user_can_edit_page(user,page):
     else:
         p = page
 
-    if user.has_perm(".".join((settings.TINYWIKI_PACKAGE,"tinywiki-admin"))):
+    if user.has_perm(settings.TINYWIKI_USERPERM_ADMIN):
         return True
     
-    if not p.editlock and user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_EDIT_PAGE))):
+    if not p.editlock and user.has_perm(settings.TINYWIKI_USERPERM_EDIT_PAGE):
         if not p.userlock:
             return True
         else:
             return p.user.id == user.id
         
-    if (user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_EDIT_USER_PAGE))) and (p.user.id == user.id)):
+    if (user.has_perm(settings.TINYWIKI_USERPERM_EDIT_USER_PAGE) and (p.user.id == user.id)):
         return True
     return False

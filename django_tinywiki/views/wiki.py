@@ -124,7 +124,7 @@ class WikiCreateView(ViewBase):
     template = settings.TINYWIKI_PAGE_EDIT_TEMPLATE
     
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
-    @method_decorator(permission_required(settings.TINYWIKI_PERM_CREATE_PAGE,raise_exception=True))
+    @method_decorator(permission_required(settings.TINYWIKI_USERPERM_CREATE_PAGE,raise_exception=True))
     def get(self,request,page=None):
         if not self.get_user_can_create_pages(request.user):
             raise PermissionDenied
@@ -146,7 +146,7 @@ class WikiCreateView(ViewBase):
         return render(request,self.template,context)
 
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
-    @method_decorator(permission_required(settings.TINYWIKI_PERM_CREATE_PAGE,raise_exception=True))
+    @method_decorator(permission_required(settings.TINYWIKI_USERPERM_CREATE_PAGE,raise_exception=True))
     def post(self,request,page=None):
         if not self.get_user_can_create_pages(request.user):
             raise PermissionDenied
@@ -198,7 +198,7 @@ class WikiEditView(ViewBase):
         try:
             p = WikiPage.objects.get(slug=page)
         except WikiPage.DoesNotExist:
-            return redirect(reverse(settings.TINYWIKI_PAGE_CREATE_URL,kwargs={'page':page}))
+            return redirect(reverse(settings.TINYWIKI_PAGE_CREATE_URL_TEMPLATE,kwargs={'page':page}))
         
         if not self.get_user_can_edit_page(request.user,p):
             raise PermissionDenied
@@ -382,14 +382,14 @@ class WikiDeletePageView(ViewBase):
     done_template=settings.TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
 
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
-    @method_decorator(permission_required(settings.TINYWIKI_PERM_DELETE_PAGE))
+    @method_decorator(permission_required(settings.TINYWIKI_USERPERM_DELETE_PAGE))
     def get(self,request,page):
         p = get_object_or_404(WikiPage,slug=page)
         context = self.get_context(request,page=p,form=DeletePageForm(),slug=page)
         return render(request,self.template,context)
     
     @method_decorator(login_required(login_url=settings.TINYWIKI_LOGIN_URL))
-    @method_decorator(permission_required(settings.TINYWIKI_PERM_DELETE_PAGE))
+    @method_decorator(permission_required(settings.TINYWIKI_USERPERM_DELETE_PAGE))
     def post(self,request,page):
         p = get_object_or_404(WikiPage,slug=page)
         form = DeletePageForm(request.POST)
