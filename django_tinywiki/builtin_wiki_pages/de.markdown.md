@@ -40,7 +40,7 @@ Um Django's Templatetags auszugeben verwende das Template ```templatetag```.
 Template Argumente sind wie folgt:
 
 Argument      |      Tag
-------------- | ----------------
+------------- | --------------------------------
 openblock     | {% templatetag openblock %}
 closeblock    | {% templatetag closeblock %}
 openvariable  | {% templatetag openvariable %}

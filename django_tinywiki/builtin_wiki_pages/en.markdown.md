@@ -12,6 +12,52 @@ uses Markdown too for its README-files.
 
 This short guide gives you an overview of the *Markdown*-syntax.
 
+## WikiPage als Templates
+
+*TinyWiki*-pages are fist processed by Django's template prcessor before the
+Markdown is processed. This allows for example emebdding static content.
+
+Wie z.B.:
+
+``` { .markdown }
+{% templatetag openblock %} load static {% templatetag closeblock %}
+
+![Pfau im Schloss Eggenberg]({% templatetag openblock %} static 'django_tinywiki/images/peacock.jpg' {% templatetag closeblock %})
+```
+
+![Pfau im Schloss Eggenberg]({% static 'django_tinywiki/images/peacock.jpg' %})
+
+Like for example:
+
+``` { .markdown }
+{% templatetag openblock %} load static {% templatetag closeblock %}
+
+![Peacock in Eggenberg castle]({% templatetag openblock %} static 'django_tinywiki/images/peacock.jpg' {% templatetag closeblock %})
+```
+
+![Peacock in Eggenberg castle]({% static 'django_tinywiki/images/peacock.jpg' %})
+
+### Django Template Tags
+
+To render Django's templatetags use the template ```templatetag```.
+
+``` { .markdown }
+{% templatetag openblock %} templatetag openblock {% templatetag closeblock %}
+```
+
+Template Argumente sind wie folgt:
+
+Argument      |      Tag
+------------- | --------------------------------
+openblock     | {% templatetag openblock %}
+closeblock    | {% templatetag closeblock %}
+openvariable  | {% templatetag openvariable %}
+closevariable | {% templatetag closevariable %}
+openbrace     | {% templatetag openbrace %}
+closebrace    | {% templatetag closebrace %}
+opencomment   | {% templatetag opencomment %}
+closecomment  | {% templatetag closecomment %}
+
 ## Headings
 
 To create a headings in *Markdown*, start the line with atleast one hash sign
@@ -348,6 +394,24 @@ This renders to:
 ### Linked Images
 
 [WIKI-IMAGES]
+
+## Embedding Vidoes
+
+``` { .markdown }
+?[Django tutorial](youtube:rHux0gMZ3Eg)
+
+?[Jellyfish]({% static 'django_tinywiki/videos/Jellyfish.mp4' %})
+
+?[Jellyfish with width and height]({% static 'django_tinywiki/videos/Jellyfish.mp4' %}|560,315)
+```
+
+?[Django tutorial](youtube:rHux0gMZ3Eg)
+
+?[Jellyfish]({% static 'django_tinywiki/videos/Jellyfish.mp4' %})
+
+?[Jellyfish with width and height]({% static 'django_tinywiki/videos/Jellyfish.mp4' %}|560,315)
+
+**Embedding Videos is a TinyWiki extension**
 
 ## Generate a *Table of Contents*
 

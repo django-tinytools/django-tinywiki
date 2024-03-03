@@ -53,9 +53,6 @@ def user_can_edit_page(user,page):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    if user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_EDIT_PAGE))):
-        return True
-    
     if isinstance(page,str):
         try:
             p = WikiPage.objects.get(slug=page)
@@ -69,6 +66,15 @@ def user_can_edit_page(user,page):
     else:
         p = page
 
+    if user.has_perm(".".join((settings.TINYWIKI_PACKAGE,"tinywiki-admin"))):
+        return True
+    
+    if not p.editlock and user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_EDIT_PAGE))):
+        if not p.userlock:
+            return True
+        else:
+            return p.user.id == user.id
+        
     if (user.has_perm(".".join((settings.TINYWIKI_PACKAGE,settings.TINYWIKI_PERM_EDIT_USER_PAGE))) and (p.user.id == user.id)):
         return True
     return False

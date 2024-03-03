@@ -153,6 +153,8 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
                 wikipage.content = contentfile.read()
             wikipage.contentfile_md5 = contentfile_md5
             wikipage.edited_reason = "Update"
+            wikipage.userlock = True
+            wikipage.editlock = True
             wikipage.save()
             page_mode = PAGE_UPDATED
     except WikiPage.DoesNotExist:
@@ -179,7 +181,9 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
             user=user,
             edited_by=user,
             created_by=user,
-            edited_reason="create page"
+            edited_reason="create page",
+            userlock=True,
+            editlock=True
         )
         page_mode = PAGE_CREATED
 

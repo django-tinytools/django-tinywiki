@@ -116,3 +116,8 @@ erstelle die Datei *project_settings.py* im *tinywiki* Verzeichnis. Diese
 Datei sollte alle Konfiurationsvariablen enthalten, die überschreiben werden
 sollen. Die Werte dieser Datei werden am Ende der *settings.py* eingebunden
 und überschreiben alle vorherigen Werte.
+
+## Einstellungen
+
+Die verfügbaren Einstellungen für *TinyWiki* entnehmen sie der 
+[[Anleitung für TinyWiki Einstellungen]](de-tinywiki-settings)

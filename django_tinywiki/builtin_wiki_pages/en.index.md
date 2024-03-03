@@ -111,3 +111,8 @@ SECRET_KEY_FALLBACKS = [
 To overwrite one or more of the default settings, provide the file
 *project_settings.py* in the *tinywiki* directory. You can place all
 of your settings there. They will overwrite the default settings.
+
+## Settings
+
+To view the available settings for *TinyWiki* visit the [[Settings Documentation]](en-tinywiki-settings).
+

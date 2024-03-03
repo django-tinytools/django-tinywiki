@@ -152,6 +152,7 @@ TINYWIKI_PERM_CREATE_PAGE = "tinywiki-create-page"
 TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
 TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
 TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
+TINYWIKI_PERM_ADMIN = "tinywiki-admin"
 
 TINYWIKI_DEFAULT_GROUPS = getattr(django_settings,"TINYWIKI_DEFAULT_GROUPS",[TINYWIKI_GROUP_AUTHOR,TINYWIKI_GROUP_USER])
 
@@ -182,7 +183,8 @@ TINYWIKI_GROUPS = [
     (TINYWIKI_GROUP_ADMIN,[TINYWIKI_PERM_CREATE_PAGE,
                            TINYWIKI_PERM_DELETE_PAGE,
                            TINYWIKI_PERM_EDIT_PAGE,
-                           TINYWIKI_PERM_EDIT_USER_PAGE]),
+                           TINYWIKI_PERM_EDIT_USER_PAGE,
+                           TINYWIKI_PERM_ADMIN]),
     (TINYWIKI_GROUP_AUTHOR,[TINYWIKI_PERM_CREATE_PAGE,
                             TINYWIKI_PERM_EDIT_PAGE,
                             TINYWIKI_PERM_EDIT_USER_PAGE]),
