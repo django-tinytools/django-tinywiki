@@ -10,8 +10,21 @@
 
 #### TINYWIKI_VERSION
 
-This is a read only settings giving the current version as a string of 
+This is a read only setting giving the current version as a string of 
 *django-tinywiki*.
+
+### Package and App
+
+#### TINYWIKI_PACKAGE
+
+This is the readonly package name of *TinyWiki*. The name is dynamically
+generated from the package directory.
+
+#### TINYWIKI_APP
+
+The read only name of the django application. Currently it is the same as
+```TINYWIKI_PACKAGE```.
+
 
 ### Application Settings
 
@@ -115,21 +128,6 @@ TINYWIKI_CONTEXT_CALLBACK = "path.to.context_function"
 TINYWIKI_DEFAULT_LANGUAGE = "en"
 ```
 
-#### TINYWIKI_USER
-
-This is the username used to assign the TinyWiki builtin pages to.
-Set this to a dictionary that can be used as *kwargs* for creating
-the username with the *AUTH_USER_MODEL* model.
-
-``` { .python }
-TINYWIKI_USER = {
-    'username':'TinyWikiTeam',
-    'email': 'tinywiki@cmoser.eu',
-    'first_name':'TinyWiki',
-    'last_name':'Team',
-}
-```
-
 #### TINYWIKI_LEFT_SIDEBAR
 
 ``` { .python }
@@ -200,10 +198,11 @@ LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 ``` { .python }
 def right_sidebar_function(request):
-    return [
+    right_sidebar_items = [
         '<div class="right-sidebar-item">Sidebar Item 1.</div>',
         '<div class="right-sidebar-item">Sidebar Item 2</div>'
     ]
+    return "\n".join(right_sidebar_items)
 
 TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
 ```
@@ -378,3 +377,68 @@ TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
 
 #### TINYWIKI_PAGE_OVERVIEW_TEMPLATE
 
+### Application Templates
+
+#### TINYWIKI_LOGIN_TEMPLATE
+
+#### TINYWIKI_SIGNUP_TEMPLATE
+
+#### TINYWIKI_SIGNUP_SUCCESS_TEMPLATE
+
+## Auth settings
+
+### User settings
+
+#### TINYWIKI_USER
+
+This is the username used to assign the TinyWiki builtin pages to.
+Set this to a dictionary that can be used as *kwargs* for creating
+the username with the *AUTH_USER_MODEL* model.
+
+``` { .python }
+TINYWIKI_USER = {
+    'username':'TinyWikiTeam',
+    'email': 'tinywiki@cmoser.eu',
+    'first_name':'TinyWiki',
+    'last_name':'Team',
+}
+```
+
+#### TINYWIKI_DEFAULT_GROUPS
+
+The groups the user is to be added to on creation. This setting
+is a list of group names.
+
+``` { .python }
+TINYWIKI_DEFAULT_GROUPS = ['tinywiki-user',]
+```
+
+### GROUPS
+
+#### TINYWIKI_GROUP_ADMIN
+
+#### TINYWIKI_GROUP_AUTHOR
+
+#### TINYWIKI_GROUP_USER
+
+### Permissions
+
+#### TINYWIKI_PERM_ADMIN
+
+#### TINYWIKI_PERM_CREATE_PAGE
+
+#### TINYWIKI_PERM_DELETE_PAGE
+
+#### TINYWIKI_PERM_EDIT_PAGE
+
+#### TINYWIKI_PERM_EDIT_USER_PAGE
+
+#### TINYWIKI_USERPERM_ADMIN
+
+#### TINYWIKI_USERPERM_CREATE_PAGE
+
+#### TINYWIKI_USERPERM_DELETE_PAGE
+
+#### TINYWIKI_USERPERM_EDIT_PAGE
+
+#### TINYWIKI_USERPERM_EDIT_USER_PAGE

@@ -75,7 +75,7 @@ pip install -r requirements.txt
 # Superuser anlegen
 ./manage createsuperuser --email "email@example.com" --username "nutzername"
 
-# TinyWiki initialisieren (TODO)
+# TinyWiki initialisieren
 ./manage runscript initapp
 ```
 

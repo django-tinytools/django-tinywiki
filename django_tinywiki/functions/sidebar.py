@@ -50,7 +50,7 @@ def get_left_sidebar_data(request):
 
     return sidebar
 
-def render_left_sidebar(request):
+def render_left_sidebar(request,*args,**kwargs):
     sidebar_sections = []
 
     for sect_spec in get_left_sidebar_data(request):
