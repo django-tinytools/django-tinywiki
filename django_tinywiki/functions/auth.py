@@ -27,7 +27,7 @@ def user_can_delete_pages(user):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    return user.has_permission(settings.TINYWIKI_PERM_CREATE_PAGE)
+    return user.has_perm(settings.TINYWIKI_PERM_DELETE_PAGE)
 
 def user_can_edit_pages(user):
     if not user.is_authenticated:
@@ -39,7 +39,7 @@ def user_can_edit_pages(user):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    return user.has_permission(settings.TINYWIKI_PERM_EDIT_PAGE)
+    return user.has_perm(settings.TINYWIKI_PERM_EDIT_PAGE)
 
 def user_can_edit_page(user,page):
     if not user.is_authenticated:
@@ -54,7 +54,7 @@ def user_can_edit_page(user,page):
     if hasattr(user,"is_staff") and user.is_staff and settings.TINYWIKI_STAFF_IS_WIKI_ADMIN:
         return True
     
-    if user.has_permission(settings.TINYWIKI_PERM_EDIT_PAGE):
+    if user.has_perm(settings.TINYWIKI_PERM_EDIT_PAGE):
         return True
     
     if isinstance(page,str):
@@ -70,6 +70,6 @@ def user_can_edit_page(user,page):
     else:
         p = page
 
-    if (user.has_permission(settings.TINYWIKI_PERM_EDIT_USER_PAGE) and (p.user.id == user.id)):
+    if (user.has_perm(settings.TINYWIKI_PERM_EDIT_USER_PAGE) and (p.user.id == user.id)):
         return True
     return False

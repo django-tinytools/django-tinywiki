@@ -1,0 +1,7 @@
+{% extends base_template %}
+{% load i18n %}
+{% block main %}
+<h1>Successfully Registered</h1>
+<p>{% blocktranslate %}You registered successfully! You can now log in with your new username.{% endblocktranslate %}</p>
+<p><div class="full-width center"><a class="button" href="{{ login_url }}">{% translate 'Log in' %}</a></div></p>
+{% endblock %}

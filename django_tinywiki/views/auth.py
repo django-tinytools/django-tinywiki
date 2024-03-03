@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.conf import settings as django_settings
 from django.utils.translation import gettext as _
+from django.contrib.auth.hashers import make_password
 
 from .. import settings
 class LoginView(ViewBase):
@@ -72,8 +73,8 @@ class LogoutView(ViewBase):
         return render(request,self.template,context)
 
 class SignupView(ViewBase):
-    template="django_tinywiki/auth/signup.html"
-    success_template="django_tinywiki/auth/signup-success.html"
+    template=settings.TINYWIKI_SIGNUP_TEMPLATE
+    success_template=settings.TINYWIKI_SIGNUP_SUCCESS_TEMPLATE
 
     def get(self,request):
         context = self.get_context(request)
@@ -89,14 +90,14 @@ class SignupView(ViewBase):
 
         if form.is_valid():
             form_data={}
+            username=form.cleaned_data['username']
             try:
-                user = User.objects.get(username=form.cleaned_data["name"])
+                user = User.objects.get(username=username)
                 context["errors"] += [_("Username \"{name}\" exists!").format(name=user.username)]
                 name_is_valid = False
             except User.DoesNotExist:
                 name_is_valid = True
-                form_data["name"] = form.cleaned_data["name"]
-
+                form_data["username"] = username
             try:
                 user = User.objects.get(email=form.cleaned_data["email"])
                 context["errors"] += [_("Email \"{email}\" exists!").format(email=user.email)]
@@ -105,19 +106,44 @@ class SignupView(ViewBase):
                 email_is_valid = True
                 form_data["email"] = form.cleaned_data["email"]
 
-            if name_is_valid and email_is_valid:
-                if form.cleaned_data["password0"] == form.cleaned_data["password1"]:
-                    user = User.objects.add(username=form.cleaned_data["name"],email=form.cleaned_data["email"])
-                    user.password = form.cleaned_data["password0"]
-                    user.groups.add(name="wiki-user")
+            if form.cleaned_data["password0"] == form.cleaned_data["password1"]:
+                password = form.cleaned_data['password0']
+                password_is_valid = True
+            else:
+                context["errors"] += [_("Passwords don't match!")]
+                password_is_valid = False
+
+            first_name = form.cleaned_data['first_name']
+            form_data['first_name'] = first_name
+            last_name = form.cleaned_data['last_name']
+            form_data['last_name'] = last_name
+
+            if not first_name:
+                first_name = None
+            if not last_name:
+                last_name = None
+
+            if name_is_valid and email_is_valid and password_is_valid:
+                    user = User.objects.create(username=username,
+                                               email=form.cleaned_data["email"],
+                                               first_name=first_name,
+                                               last_name=last_name)
+                    user.password = make_password(password)
+                    for grp_name in settings.TINYWIKI_DEFAULT_GROUPS:
+                        try:
+                            user.groups.add(name=grp_name)
+                        except Exception as err:
+                            print("[django_tinywiki/views/auth.py:SignupView] Unable to add user to group {group}! ({reason})".format(
+                                group=grp_name,
+                                reason=str(err)
+                            ))
                     user.save()
 
                     if "next" in request.GET:
                         context["login_url"] = self.login_url + "?next=" + request.GET["next"]
                     
                     return render(request,self.success_template,context)
-                else:
-                    context["errors"] += [_("Passwords don't match!")]
+                    
                 
         if not "form" in context:
             context["form"] = SignupForm(form_data)
@@ -132,3 +158,8 @@ class ProfileView(ViewBase):
 
     def post(self,request):
         pass
+
+class SingupSuccess(ViewBase):
+    def get(self,request):
+        context = self.get_context(request)
+        return render(request,settings.TINYWIKI_SIGNUP_SUCCESS_TEMPLATE,context)

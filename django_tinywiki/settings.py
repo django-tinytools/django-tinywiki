@@ -109,6 +109,9 @@ TINYWIKI_AUTH_USER_MODEL = getattr(django_settings,
                                    "TINYWIKI_AUTH_USER_MODEL",
                                    getattr(django_settings,"AUTH_USER_MODEL","django.contrib.auth.models.User"))
 
+TINYWIKI_SIGNUP_TEMPLATE = getattr(django_settings,"TINYWIKI_SIGNUP_TEMPLATE","django_tinywiki/auth/signup.html")
+TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = getattr(django_settings,"TINYWIKI_SIGNUP_SUCCESS_TEMPLATE","django_tinywiki/auth/signup-success.html")
+
 if TINYWIKI_IS_MAIN_APP:
     TINYWIKI_LOGIN_URL = getattr(django_settings,
                                 "TINYWIKI_LOGIN_URL",
@@ -147,6 +150,8 @@ TINYWIKI_PERM_CREATE_PAGE = "tinywiki-create-page"
 TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
 TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
 TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
+
+TINYWIKI_DEFAULT_GROUPS = getattr(django_settings,"TINYWIKI_DEFAULT_GROUPS",[TINYWIKI_GROUP_AUTHOR,TINYWIKI_GROUP_USER])
 
 TINYWIKI_APPNAME = "django_tinywiki"
 

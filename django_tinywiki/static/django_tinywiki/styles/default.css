@@ -318,3 +318,39 @@ footer {
 .right-sidebar-image {
     width: 100%;
 }
+
+.full-width {
+    width: 100%
+}
+
+.center {
+    align-items: center;
+    text-align: center;
+}
+
+.button {
+    background-color: #1c232e;
+    color:#e6edf3;
+    padding:10px;
+    border-radius: 4px;
+}
+
+.button:link {
+    background-color: #1c232e;
+    color:#e6edf3;
+}
+
+.button:visited {
+    background-color: #1c232e;
+    color:#e6edf3;
+}
+
+.button:hover {
+    background-color: #313c4e;
+    color:#e6edf3;
+}
+
+.button:active {
+    background-color: #313c4e;
+    color:#e6edf3;
+}

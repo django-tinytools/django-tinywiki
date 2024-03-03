@@ -21,7 +21,10 @@ urlpatterns = [
     path("manage/user/<uid>/",views.manage.UserView.as_view(),name="manage-user"),
     #path("manage/image/",views.manage.ImageList.as_view(),name="manage-imagelist"),
     #path("manage/image/orphaned/",views.manage.OrphanedImageList.as_view(),name="manage-image-orphaned")
-    #paht("manage/image/<int:id>/",views.manage.Image.as_view(),name="manage-image"),
+    #path("manage/image/<int:id>/",views.manage.Image.as_view(),name="manage-image"),
+    
+    # ONLY FOR TESTING
+    path("signup-success/",views.auth.SingupSuccess.as_view(),name="auth-signup-success"),
 ]
 
 if settings.TINYWIKI_IS_MAIN_APP:

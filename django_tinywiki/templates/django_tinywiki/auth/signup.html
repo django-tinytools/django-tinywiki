@@ -8,8 +8,10 @@
 {% endif %}
 <form method="post">
     {% csrf_token %}
-    <p>{{ form.name.label_tag}}<br>{{ form.name }}</p>
+    <p>{{ form.username.label_tag}}<br>{{ form.username }}</p>
     <p>{{ form.email.label_tag }}<br>{{ form.email }}</p>
+    <p>{{ form.first_name.label_tag }}<br>{{ form.first_name }}</p>
+    <p>{{ form.last_name.label_tag }}<br>{{ form.last_name }}</p>
     <p>{{ form.password0.label_tag }}<br>{{ form.password0 }}</p>
     <P>{{ form.password1.label_tag }}<br>{{ form.password1 }}</p>
     <input type="submit" class="float-right" value="{% translate 'Sign up' %}">
