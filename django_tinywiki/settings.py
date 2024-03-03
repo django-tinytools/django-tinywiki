@@ -9,6 +9,8 @@ import os
 
 from .version import TINYWIKI_VERSION
 
+TINYWIKI_PACKAGE = os.path.basename(os.path.dirname(__file__))
+
 TINYWIKI_IS_MAIN_APP = getattr(django_settings,"TINYWIKI_IS_MAIN_APP",False)
 
 TINYWIKI_TITLE = getattr(django_settings,"TINYWIKI_TITLE",_("TinyWiki"))

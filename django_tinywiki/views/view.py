@@ -25,16 +25,7 @@ class ViewBase(View):
     index_url = settings.TINYWIKI_INDEX
 
     def get_user_can_create_pages(self,user):
-        if user.is_authenticated:
-            if user.is_superuser:
-                return True
-
-            required_groups = ['wiki-admin','wiki-author']
-            for check_group in Group.objects.all():
-                if check_group.name in required_groups:
-                    return True
-
-        return False
+        return functions.auth.user_can_create_pages(user)
 
     def get_user_is_wiki_admin(self,user):
         if user.is_authenticated:

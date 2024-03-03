@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-03 00:52+0100\n"
-"PO-Revision-Date: 2024-03-02 18:31+0100\n"
+"POT-Creation-Date: 2024-03-03 14:45+0100\n"
+"PO-Revision-Date: 2024-03-03 14:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -36,10 +36,18 @@ msgid "Email"
 msgstr "Email"
 
 #: django_tinywiki/forms/auth.py:11
+msgid "First Name"
+msgstr "Vorname"
+
+#: django_tinywiki/forms/auth.py:12
+msgid "Last Name"
+msgstr "Nachname"
+
+#: django_tinywiki/forms/auth.py:13
 msgid "Password"
 msgstr "Passwort"
 
-#: django_tinywiki/forms/auth.py:12
+#: django_tinywiki/forms/auth.py:14
 msgid "Confirm Password"
 msgstr "Passwort bestätigen"
 
@@ -183,6 +191,7 @@ msgid "Unable to create TinyWiki user! ({error_message})"
 msgstr "Kann TinyWiki Nutzer nicht anlegen! ({error_message})"
 
 #: django_tinywiki/templates/django_tinywiki/auth/login.html.py:15
+#: django_tinywiki/templates/django_tinywiki/auth/signup-success.html.py:6
 #: django_tinywiki/templates/django_tinywiki/base.html.py:34
 msgid "Log in"
 msgstr "Anmelden"
@@ -199,7 +208,13 @@ msgstr "Du hast dich erfolgreich abgemeldet."
 msgid "Return to main page"
 msgstr "Zurück zur Hauptseite"
 
-#: django_tinywiki/templates/django_tinywiki/auth/signup.html.py:15
+#: django_tinywiki/templates/django_tinywiki/auth/signup-success.html.py:5
+msgid "You registered successfully! You can now log in with your new username."
+msgstr ""
+"Du hast dich erfolgreich registriert! Do kannst dich jetzt mit deinem neuen "
+"Nutzernamen anmelden."
+
+#: django_tinywiki/templates/django_tinywiki/auth/signup.html.py:17
 #: django_tinywiki/templates/django_tinywiki/base.html.py:35
 msgid "Sign up"
 msgstr "Registrieren"
@@ -332,16 +347,16 @@ msgstr "Verknüpfte Bilder"
 msgid "Upload image"
 msgstr "Bild hochladen"
 
-#: django_tinywiki/views/auth.py:94
+#: django_tinywiki/views/auth.py:96
 #, python-brace-format
 msgid "Username \"{name}\" exists!"
 msgstr "Nutzername \"{name}\" existiert bereits!"
 
-#: django_tinywiki/views/auth.py:102
+#: django_tinywiki/views/auth.py:103
 #, python-brace-format
 msgid "Email \"{email}\" exists!"
 msgstr "Email \"{email}\" existiert bereits!"
 
-#: django_tinywiki/views/auth.py:120
+#: django_tinywiki/views/auth.py:113
 msgid "Passwords don't match!"
 msgstr "Passwörter stimmen nicht überein!"

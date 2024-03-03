@@ -1,6 +1,7 @@
 from .view import ViewBase
 from ..forms.auth import LoginForm,SignupForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
+
 from django.contrib.auth import authenticate,login,logout
 from django.shortcuts import redirect,render
 from django.urls import reverse
@@ -131,7 +132,8 @@ class SignupView(ViewBase):
                     user.password = make_password(password)
                     for grp_name in settings.TINYWIKI_DEFAULT_GROUPS:
                         try:
-                            user.groups.add(name=grp_name)
+                            group = Group.objects.get(name=grp_name)
+                            user.groups.add(group.id)
                         except Exception as err:
                             print("[django_tinywiki/views/auth.py:SignupView] Unable to add user to group {group}! ({reason})".format(
                                 group=grp_name,
