@@ -106,6 +106,10 @@ TINYWIKI_MARKDOWN_EXTENSIONS = [MarkdowExtension1(),"path.to:MarkdownExtension2"
 
 #### TINYWIKI_CONTEXT_CALLBACK
 
+This setting defines the context callback to be used for *TinyWiki*-views. This
+setting might be useful when using your own templates and need to extend 
+context variables.
+
 ``` { .python }
 def context_function(request):
     context = {
@@ -124,11 +128,23 @@ TINYWIKI_CONTEXT_CALLBACK = "path.to.context_function"
 
 #### TINYWIKI_DEFAULT_LANGUAGE
 
+The default language to use when creating *TinyWiki*-pages. The named 
+language-code needs to be in the database or the fallback **en** is used.
+
 ``` { .python }
 TINYWIKI_DEFAULT_LANGUAGE = "en"
 ```
 
 #### TINYWIKI_LEFT_SIDEBAR
+
+Set the left sidebar of *TinyWiki*. Set this to a list of 
+sidebar-section-specifiers. The Layout of this settings-variable is shown in
+the example. 
+
+```TINYWIKI_LEFT_SIDEBAR``` is ment to be used for static sidebar content. If
+you need to render a dynamic sidebar content, use 
+```TINYWIKI_LEFT_SIDEBAR_FUNCTION``` variable to set the function to be called 
+for creating the sidebar content for *TinyWiki* views.
 
 ``` { .python }
 TINYWIKI_LEFT_SIDEBAR = [
@@ -153,8 +169,15 @@ TINYWIKI_LEFT_SIDEBAR = [
 
 #### TINYWIKI_LEFT_SIDEBAR_FUNCTION
 
+Specify a function to be called for creating dynamic left sidebars.
+The function is called with the ```request``` instance of the calling
+view. This method is creating the content of *TinyWiki*-views.
+
+The function should return a list of sidebar-section-specifiers. The
+layout of the value to be returned is shown in the example.
+
 ``` { .python }
-def left_sidebar_function(request):
+def left_sidebar_function(request,*args,**kwargs):
     sidebar = [
         {
             'title': "My Title",
@@ -180,8 +203,14 @@ TINYWIKI_LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 #### LEFT_SIDEBAR_FUNCTION
 
+The function to be called to render a left sidebar. This function should return
+a string containing the HTML for the sidebar. In *TinyWiki* it defaults to the
+function ```django_tinywiki.functions.sidebar.render_left_sidebar()```, which
+returns the generated html of the function 
+```django_tinywiki.functions.get_left_sidebar_data()```.
+
 ``` { .python }
-def left_sidebar_function(request):
+def left_sidebar_function(request,*args,**kwargs):
     return """
     <div class="left-sidebar-section">
         <div class="left-sidebar-section-title>Section 1</div>
@@ -193,11 +222,10 @@ def left_sidebar_function(request):
 LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 ```
 
-
 #### TINYWIKI_RIGHT_SIDEBAR_FUNCTION
 
 ``` { .python }
-def right_sidebar_function(request):
+def right_sidebar_function(request,*args,**kwargs):
     right_sidebar_items = [
         '<div class="right-sidebar-item">Sidebar Item 1.</div>',
         '<div class="right-sidebar-item">Sidebar Item 2</div>'

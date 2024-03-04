@@ -6,7 +6,7 @@ from ..models.wiki import WikiPage
 
 from .. import settings
 
-def get_left_sidebar_tinywiki_only(request):
+def get_left_sidebar_tinywiki_only(request,*args,**kwargs):
     sidebar = [
         {
             'title': _("TinyWiki"),
@@ -33,7 +33,7 @@ def get_left_sidebar_tinywiki_only(request):
 
     return sidebar
 
-def get_left_sidebar_data(request):
+def get_left_sidebar_data(request,*args,**kwargs):
     
     sidebar = []
     if settings.TINYWIKI_LEFT_SIDEBAR_DATA:
@@ -41,19 +41,19 @@ def get_left_sidebar_data(request):
     if isinstance(settings.TINYWIKI_LEFT_SIDEBAR_FUNCTION,str):
         func = import_string(settings.TINYWIKI_LEFT_SIDEBAR_FUNCTION)
         if callable(func):
-            sidebar += func(request)
+            sidebar += func(request,*args,**kwargs)
     elif callable(settings.TINYWIKI_LEFT_SIDEBAR_FUNCTION):
-        sidebar += settings.TINYWIKI_LEFT_SIDEBAR_FUNCTION(request)
+        sidebar += settings.TINYWIKI_LEFT_SIDEBAR_FUNCTION(request,*args,**kwargs)
 
     if settings.TINYWIKI_SHOW_TINYWIKI_LEFT_SIDEBAR_ITEMS:
-        sidebar += get_left_sidebar_tinywiki_only(request)
+        sidebar += get_left_sidebar_tinywiki_only(request,*args,**kwargs)
 
     return sidebar
 
 def render_left_sidebar(request,*args,**kwargs):
     sidebar_sections = []
 
-    for sect_spec in get_left_sidebar_data(request):
+    for sect_spec in get_left_sidebar_data(request,*args,**kwargs):
         sect = "<div class=\"left-sidebar-section\">\n"
         sect += ("\t<div class=\"left-sidebar-section-title\">" + escape(sect_spec['title']) + "</div>\n")
         for item_spec in sect_spec['items']:
