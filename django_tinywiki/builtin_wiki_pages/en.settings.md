@@ -224,15 +224,38 @@ LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 #### TINYWIKI_RIGHT_SIDEBAR_FUNCTION
 
+This setting should point to a right sidebar function. The function should
+return a list of sidebar items.
+
 ``` { .python }
-def right_sidebar_function(request,*args,**kwargs):
+def tinywiki_right_sidebar_function(request,*args,**kwargs):
     right_sidebar_items = [
         '<div class="right-sidebar-item">Sidebar Item 1.</div>',
         '<div class="right-sidebar-item">Sidebar Item 2</div>'
     ]
-    return "\n".join(right_sidebar_items)
+    return right_sidebar_items
 
-TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
+TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.tinywiki_right_sidebar_function"
+```
+#### RIGHT_SIDEBAR_FUNCTION
+
+This sets the right sidebar function to use. The function should return
+the right sidebar as a HTML-string.
+
+``` { .python }
+
+def right_sidebar_function(request,*args,**kwargs):
+    ret = """
+        <div class="right-sidebar-item">
+            <img src="https://example.org/path/to/image1.png" />
+        </div>
+        <div class="right-sidebar-item">
+            <img src="https://example.org/path/to/image2.jpg" /> 
+        </div>"""
+
+    return ret
+
+RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
 ```
 
 ### WIKI Images

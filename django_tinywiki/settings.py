@@ -140,9 +140,12 @@ TINYWIKI_USER = getattr(django_settings,
                         "TINYWIKI_USER",
                         {"username":"TinyWikiTeam","email":"tinywiki@cmoser.eu","first_name":"TinyWiki","last_name":"Team"})
 
-TINYWIKI_RIGHT_SIDEBAR_FUNCTION = getattr(django_settings,
-                                          "TINYWIKI_RIGHT_SIDEBAR_FUNCTION",
-                                          "django_tinywiki.functions.sidebar.render_right_sidebar")
+
+TINYWIKI_RIGHT_SIDEBAR_FUNCTION = getattr(django_settings,"TINYWIKI_RIGHT_SIDEBAR_FUNCTION",None)
+
+RIGHT_SIDEBAR_FUNCTION = getattr(django_settings,
+                                 "RIGHT_SIDEBAR_FUNCTION",
+                                 "django_tinywiki.functions.sidebar.render_right_sidebar")
 
 
 TINYWIKI_GROUP_ADMIN = "tinywiki-admin"

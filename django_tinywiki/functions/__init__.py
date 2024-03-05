@@ -1,1 +1,1 @@
-from . import init,wiki,auth
+from . import init,wiki,auth,sidebar

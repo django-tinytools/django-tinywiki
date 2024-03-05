@@ -47,7 +47,12 @@ class ViewBase(View):
             return False        
         return functions.auth.user_can_delete_pages(user)
 
-    def get_context(self,request,page=None,login_url=None,**kwargs):
+    def get_context(self,request,page=None,login_url=None,
+                    left_sidebar_args=None,
+                    left_sidebar_kwargs=None,
+                    right_sidebar_args=None,
+                    right_sidebar_kwargs=None,
+                    **kwargs):
         if page is None:
             p = None
         elif isinstance(page,str):
@@ -65,32 +70,34 @@ class ViewBase(View):
             edit_url = reverse(self.page_edit_url,kwargs={'page':p.slug})
             delete_url = reverse(self.page_delete_url,kwargs={'page':p.slug})
 
-        left_sidebar_func = None
+        if left_sidebar_args is None:
+            left_sidebar_args = tuple()
+        if left_sidebar_kwargs is None:
+            left_sidebar_kwargs = dict()
+
+        left_sidebar = ""
         if isinstance(settings.LEFT_SIDEBAR_FUNCTION,str):
             _func = import_string(settings.LEFT_SIDEBAR_FUNCTION)
             if callable(_func):
-                left_sidebar_func = _func
+                left_sidebar = _func(request,*left_sidebar_args,*left_sidebar_kwargs)
         elif callable(settings.LEFT_SIDEBAR_FUNCTION):
-            left_sidebar_func = settings.LEFT_SIDEBAR_FUNCTION
+            left_sidebar = settings.LEFT_SIDEBAR_FUNCTION(request,*left_sidebar_args,**left_sidebar_kwargs)
         
-        if callable(left_sidebar_func):
-            left_sidebar = left_sidebar_func(request)
-        else:
-            left_sidebar = None
+        if right_sidebar_args is None:
+            right_sidebar_args = tuple()
+        if right_sidebar_kwargs is None:
+            right_sidebar_kwargs = dict()
+        if p is not None:
+            right_sidebar_kwargs['page'] = p
 
-        render_right_sidebar = None
-        if isinstance(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION,str):
-            _func = import_string(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION)
+        if isinstance(settings.RIGHT_SIDEBAR_FUNCTION,str):
+            _func = import_string(settings.RIGHT_SIDEBAR_FUNCTION)
             if callable(_func):
-                render_right_sidebar=_func
-
-        elif callable(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION):
-            render_right_sidebar = settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION
-        
-        if render_right_sidebar is not None:
-            right_sidebar=render_right_sidebar(request,page=p)
+                right_sidebar=_func(request,*right_sidebar_args,**right_sidebar_kwargs)
+        elif callable(settings.RIGHT_SIDEBAR_FUNCTION):
+            right_sidebar = settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION(request,*right_sidebar_args,**right_sidebar_kwargs)
         else:
-            right_sidebar=""
+            right_sidebar=functions.sidebar.render_right_sidebar(request,*right_sidebar_args,**right_sidebar_kwargs)
 
         context = {
             'base_template': self.base_template,

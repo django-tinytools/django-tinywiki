@@ -91,7 +91,7 @@ def render_left_sidebar(request,*args,**kwargs):
         return ret
     return ""
 
-def render_right_sidebar(request,*args,page=None,**kwargs):
+def get_right_sidebar(request,*args,page=None,**kwargs):
     wikipage = None
     if page is not None:
         if isinstance(page,str):
@@ -107,7 +107,7 @@ def render_right_sidebar(request,*args,page=None,**kwargs):
         else:
             wikipage = page
 
-    ret=""
+    ret = []
 
     if wikipage:
         for wi in wikipage.images.filter(image_preview__isnull=False):
@@ -116,11 +116,25 @@ def render_right_sidebar(request,*args,page=None,**kwargs):
             else:
                 desc = wi.alt
                 
-            ret += ("<div class=\"right-sidebar-item\">"
-                     + "<a class=\"right-sidebar-image-link\" href=\"{original_image_url}\">"
-                     + "<img class=\"right-sidebar-image\" src=\"{preview_image_url}\" /><br>"
-                     + "{description}</a></div>").format(
-                         original_image_url=wi.image.url,
-                         preview_image_url=wi.image_preview.url,
-                         description=escape(desc))
+            ret.append("<div class=\"right-sidebar-item\">"
+                       + "<a class=\"right-sidebar-image-link\" href=\"{original_image_url}\">"
+                       + "<img class=\"right-sidebar-image\" src=\"{preview_image_url}\" /><br>"
+                       + "{description}</a></div>").format(original_image_url=wi.image.url,
+                                                           preview_image_url=wi.image_preview.url,
+                                                           description=escape(desc))
+            
+    return ret
+
+
+def render_right_sidebar(request,*args,**kwargs):
+    ret = ""
+    if isinstance(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION,str):
+        _func = import_string(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION)
+        if callable(_func):
+            ret += "\n".join(_func(request,*args,**kwargs))
+    elif callable(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION):
+        ret += "\n".join(settings.TINYWIKI_RIGHT_SIDEBAR_FUNCTION(request,*args,**kwargs))
+
+    ret += "\n".join(get_right_sidebar(request,*args,**kwargs))
+
     return ret
