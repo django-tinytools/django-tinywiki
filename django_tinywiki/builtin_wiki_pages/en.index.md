@@ -29,10 +29,27 @@ An overview of the used Markdown for Wiki-pages can be found in the
 
 ## Installation
 
+You can install *django-tinywiki* directly from PyPI.
+
 ```
-python -m pip install --upgrade django-tinywiki
+python -m pip install django-tinywiki
 ```
 
+After installing *django-tinywiki* enable it in your project's *settings.py*.
+
+``` { .python }
+INSALLED_APPS = [
+    ...
+    "django_tinywiki",
+    ...
+]
+```
+
+Then initialize it by running the initapp script:
+
+``` { .sh }
+python manage.py runscript initapp
+```
 ### Installation via git
 
 ``` { .sh }

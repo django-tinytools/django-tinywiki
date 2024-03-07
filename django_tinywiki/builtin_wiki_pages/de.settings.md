@@ -629,7 +629,7 @@ TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
 
 #### TINYWIKI_USERPERM_ADMIN
 
-This is the read-only permission for *TinyWiki* admins. It is used for
+This is the read only permission for *TinyWiki* admins. It is used for
 checking user permissions.
 
 ``` { .python }
@@ -638,7 +638,7 @@ TINYIWKI_USERPERM_ADMIN = ".".join((TINYWIKI_APP,TINYWIKI_PERM_ADMIN))
 
 #### TINYWIKI_USERPERM_CREATE_PAGE
 
-This is the read-only permission used by *TinyWiki* for looking up the user
+This is the read only permission used by *TinyWiki* for looking up the user
 permission for creating wiki-pages.
 
 ``` { .python }
@@ -647,7 +647,7 @@ TINYWIKI_USERPERM_CREATE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_CREATE_PAGE
 
 #### TINYWIKI_USERPERM_DELETE_PAGE
 
-This readonly setting defines the permission used by *TinyWiki* for looking up
+This read only setting defines the permission used by *TinyWiki* for looking up
 the user permission for deleting pages.
 
 ``` { .python }
@@ -656,7 +656,7 @@ TINYWIKI_USERPERM_DELETE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_DELETE_PAGE
 
 #### TINYWIKI_USERPERM_EDIT_PAGE
 
-This is the readonly permission used by *TinyWiki* to look up the user permission for 
+This is the read only permission used by *TinyWiki* to look up the user permission for 
 editing wiki-pages.
 
 ``` { .python }

@@ -32,7 +32,7 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 ## Installation
 
 ``` { .sh use_pygments=true }
-python -m pip install --upgrade django-tinywiki
+python -m pip install django-tinywiki
 ```
 
 ### Installation per git
