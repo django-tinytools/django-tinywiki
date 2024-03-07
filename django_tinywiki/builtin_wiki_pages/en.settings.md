@@ -348,11 +348,43 @@ TINYWIKI_PAGE_EDIT_URL_TEMPLATE = "tinywiki:page-edit"
 ```
 #### TINYWIKI_PAGE_CREATE_URL_TEMPLATE
 
-#### TINYWIKI_PAGE_NEW_URL_TEMPLATE
+This should be a django-URL-template string pointing to the view that creates a
+new TinyWiki page with a given slug. The second argument named **page** of the
+view should accept the page slug.
+
+The view should look like ```def wiki_page_create_view(request,page)```.
+
+``` { .python }
+TINYWIKI_PAGE_CREATE_URL_TEMPLATE = "tinywiki:page-create"
+```
+
+#### TINYWIKI_PAGE_NEW_URL
+
+This setting sepcifies the URL to use for creating new wiki page. The view
+should not expect any additional arguments next to the **request**.
+
+``` { .python }
+TINYWIKI_PAGE_NEW_URL = reverse_lazy("tinywiki:page-new")
+```
 
 #### TINYWIKI_PAGE_DELETE_URL_TEMPLATE
 
+This setting sets the django-url-template of the delete-view for 
+*TinyWiki*-pages. The view should accept the page-slug named **page** as second
+argument.
+
+```  { .python }
+TINYWIKI_PAGE_NEW_URL = "tinywiki:page-delete"
+```
+
 #### TINYWIKI_PAGE_OVERVIEW_URL
+
+Set this setting to the URL of the page delete view, if you are implementing
+your own.
+
+``` { .python }
+TINYWIKI_PAGE_OVERVIEW_URL = reverse_lazy("tinywiki:page-overview")
+```
 
 ### Project URLs
 
@@ -420,13 +452,47 @@ TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
 
 #### TINYWIKI_PAGE_CREATE_TEMPLATE
 
+This settings-variable sets the HTML-template file for the page-create view.
+
+``` { .python}
+TINYWIKI_PAGE_CREATE_TEMPLATE = "djnago_tinywiki/wiki/create.html"
+```
+
 #### TINYWIKI_PAGE_NEW_TEMPLATE
+
+Set this variable to the page new template. Per default it sets to the variable
+```TINYWIKI_PAGE_CREATE_TEMPLATE```.
+
+``` { .python }
+TINYWIKI_PAGE_NEW_TEMPLATE = "path/to/new.html"
+```
 
 #### TINYWIKI_PAGE_DELETE_TEMPLATE
 
+This variable sets the HTML-template of the page-delete view. The 
+*TinyWiki*-view confirms the deletion of the page and if it is 
+confirmed, deletes the corresponding page.
+
+``` { .python }
+TINYWIKI_PAGE_DELETE_TEMPLATE = "django_tinywiki/wiki/delete.html"
+```
+
 #### TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
 
+This variable sets the template for the delete-confirmation page.
+
+``` { .python }
+TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = "django_tinywiki/wiki/delete-done.html"
+```
+
 #### TINYWIKI_PAGE_OVERVIEW_TEMPLATE
+
+Set this setting to your own template if you want to show your customized
+page-overview page.
+
+``` { .python }
+TINYWIKI_PAGE_OVERVIEW_TEMPLATE = "django_tinywiki/wiki/ovierview.html"
+```
 
 ### Application Templates
 

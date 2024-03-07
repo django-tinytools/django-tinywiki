@@ -16,7 +16,7 @@ class ViewBase(View):
     page_view_url = settings.TINYWIKI_PAGE_VIEW_URL_TEMPLATE
     page_edit_url = settings.TINYWIKI_PAGE_EDIT_URL_TEMPLATE
     page_create_url = settings.TINYWIKI_PAGE_CREATE_URL_TEMPLATE
-    page_new_url = settings.TINYWIKI_PAGE_NEW_URL_TEMPLATE
+    page_new_url = settings.TINYWIKI_PAGE_NEW_URL
     page_delete_url = settings.TINYWIKI_PAGE_DELETE_URL_TEMPLATE
     login_url = settings.TINYWIKI_LOGIN_URL
     logout_url = settings.TINYWIKI_LOGOUT_URL
@@ -114,7 +114,7 @@ class ViewBase(View):
             'home_url': self.home_url,
             'edit_url': edit_url,
             'delete_url': delete_url,
-            'create_url': reverse(self.page_new_url),
+            'create_url': self.page_new_url,
             'overview_url': self.overview_url,
             'page_url': self.page_view_url,
             'index_url': self.index_url,
