@@ -35,6 +35,24 @@ Für einen Überblick über das verwendete Markdonwn kontaktiere die
 python -m pip install django-tinywiki
 ```
 
+Nach dem Installieren aktiviere *django-tinywiki* in der *setup.py*
+des Projekts.
+
+``` { .python }
+INSTALLED_APPS = [
+    ...
+    "django_tinywiki",
+    ...
+]
+```
+
+Danach Initialisiere *django-tinywiki* durch das ausführen des 
+*initapp*-Scripts.
+
+``` { .sh }
+python manage.py runscript initapp
+```
+
 ### Installation per git
 
 ``` { .sh }

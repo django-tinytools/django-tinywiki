@@ -38,7 +38,7 @@ python -m pip install django-tinywiki
 After installing *django-tinywiki* enable it in your project's *settings.py*.
 
 ``` { .python }
-INSALLED_APPS = [
+INSTALLED_APPS = [
     ...
     "django_tinywiki",
     ...
@@ -50,6 +50,7 @@ Then initialize it by running the initapp script:
 ``` { .sh }
 python manage.py runscript initapp
 ```
+
 ### Installation via git
 
 ``` { .sh }
