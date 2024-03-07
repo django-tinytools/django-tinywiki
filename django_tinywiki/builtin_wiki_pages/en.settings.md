@@ -498,9 +498,34 @@ TINYWIKI_PAGE_OVERVIEW_TEMPLATE = "django_tinywiki/wiki/ovierview.html"
 
 #### TINYWIKI_LOGIN_TEMPLATE
 
+The template to use for the login view, when running *TinyWiki* in 
+standalone-mode.
+
+**Note: This setting is only useful when using *django-tinywiki*'s login view.**
+
+``` { .python }
+TINYWIKI_LOGIN_TEMPLATE = "django_tinywiki/auth/login.html"
+```
+
 #### TINYWIKI_SIGNUP_TEMPLATE
 
+This setting set the HTML-template to use when using django_tinywiki.
+
+**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+
+``` { .python }
+TINYWIKI_SIGNUP_TEMPLATE = "django_tinywiki/auth/signup.html"
+```
+
 #### TINYWIKI_SIGNUP_SUCCESS_TEMPLATE
+
+The HTML-template to display when the signup on *TinyWiki* was successful.
+
+**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+
+``` { .python }
+TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = "django_tinywiki/auth/signup-success.html"
+```
 
 ## Auth settings
 
@@ -530,32 +555,119 @@ is a list of group names.
 TINYWIKI_DEFAULT_GROUPS = ['tinywiki-user',]
 ```
 
-### GROUPS
+### Groups
 
 #### TINYWIKI_GROUP_ADMIN
 
+The group to use for *TinyWiki* admins. Admins can create,delete,edit 
+every wiki-page and set the user of every *TinyWiki* page.
+
+``` { .python }
+TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
+```
+
 #### TINYWIKI_GROUP_AUTHOR
 
+The author group allows *TinyWiki*-authors to create and edit wiki-pages.
+
+``` { .python }
+TINYWIKI_GROUP_AUTHOR = "tinywiki-author"
+```
+
 #### TINYWIKI_GROUP_USER
+
+The user group lets you edit the wiki-pages that belong to you. Users cannot
+create pages.
+
+``` { .python }
+TINYWIKI_GROUP_USER = "tinywiki-user"
+```
 
 ### Permissions
 
 #### TINYWIKI_PERM_ADMIN
 
+This permission gives you you administrative rights for *TinyWiki*.
+
+``` { .python }
+TINYWIKI_PERM_ADMIN = "tinywiki-admin"
+```
+
 #### TINYWIKI_PERM_CREATE_PAGE
+
+This permission allows users to create new *TinyWiki*-pages.
+
+``` { .python }
+TINYWIKI_PREM_CREATE_PAGE = "tinywiki-create-page"
+```
 
 #### TINYWIKI_PERM_DELETE_PAGE
 
+This permission allows users to delete *TinyWiki*-pages.
+
+``` { .python }
+TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
+```
+
 #### TINYWIKI_PERM_EDIT_PAGE
+
+This permission allows users to edit *TinyWiki*-pages. The page doeas not
+need to belong to the user with this permission.
+
+``` { .python }
+TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
+```
 
 #### TINYWIKI_PERM_EDIT_USER_PAGE
 
+This permission allows users to edit *TinyWiki*-pages that belong to the user
+with this permission.
+
+``` { .python }
+TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
+```
+
 #### TINYWIKI_USERPERM_ADMIN
+
+This is the read-only permission for *TinyWiki* admins. It is used for
+checking user permissions.
+
+``` { .python }
+TINYIWKI_USERPERM_ADMIN = ".".join((TINYWIKI_APP,TINYWIKI_PERM_ADMIN))
+```
 
 #### TINYWIKI_USERPERM_CREATE_PAGE
 
+This is the read-only permission used by *TinyWiki* for looking up the user
+permission for creating wiki-pages.
+
+``` { .python }
+TINYWIKI_USERPERM_CREATE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_CREATE_PAGE))
+```
+
 #### TINYWIKI_USERPERM_DELETE_PAGE
+
+This readonly setting defines the permission used by *TinyWiki* for looking up
+the user permission for deleting pages.
+
+``` { .python }
+TINYWIKI_USERPERM_DELETE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_DELETE_PAGE))
+```
 
 #### TINYWIKI_USERPERM_EDIT_PAGE
 
+This is the readonly permission used by *TinyWiki* to look up the user permission for 
+editing wiki-pages.
+
+``` { .python }
+TINYWIKI_USERPERM_EDIT_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_PAGE))
+```
+
 #### TINYWIKI_USERPERM_EDIT_USER_PAGE
+
+This setting is read only. It is used by *TinyWiki* to look up the user permission
+for editing pages that belong to the user, for whom the permission is looked up.
+
+```
+TINYWIKI_USERPERM_EDIT_USER_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_USER_PAGE))
+```

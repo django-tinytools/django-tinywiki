@@ -1,23 +1,23 @@
-# TinyWiki Einstellungen
+# TinyWiki Settings
 
-## Inhaltsverzeichnis
+## Table of Contents
 
 [TOC]
 
-## Generische Einstellungen
+## Generic Settings
 
 ### Version
 
 #### TINYWIKI_VERSION
 
-Diese Einstellung kann nur gelesen werden und gibt die beinhaltet Version
-von *django-tinywiki*.
+This is a read only setting giving the current version as a string of 
+*django-tinywiki*.
 
-### Package und App
+### Package and App
 
 #### TINYWIKI_PACKAGE
 
-This is the readonly package name of *TinyWiki*. The name is dynamically 
+This is the readonly package name of *TinyWiki*. The name is dynamically
 generated from the package directory.
 
 #### TINYWIKI_APP
@@ -26,7 +26,7 @@ The read only name of the django application. Currently it is the same as
 ```TINYWIKI_PACKAGE```.
 
 
-### Applicationseinstellungen
+### Application Settings
 
 #### TINYWIKI_TITLE
 
@@ -106,6 +106,10 @@ TINYWIKI_MARKDOWN_EXTENSIONS = [MarkdowExtension1(),"path.to:MarkdownExtension2"
 
 #### TINYWIKI_CONTEXT_CALLBACK
 
+This setting defines the context callback to be used for *TinyWiki*-views. This
+setting might be useful when using your own templates and need to extend 
+context variables.
+
 ``` { .python }
 def context_function(request):
     context = {
@@ -124,11 +128,23 @@ TINYWIKI_CONTEXT_CALLBACK = "path.to.context_function"
 
 #### TINYWIKI_DEFAULT_LANGUAGE
 
+The default language to use when creating *TinyWiki*-pages. The named 
+language-code needs to be in the database or the fallback **en** is used.
+
 ``` { .python }
 TINYWIKI_DEFAULT_LANGUAGE = "en"
 ```
 
 #### TINYWIKI_LEFT_SIDEBAR
+
+Set the left sidebar of *TinyWiki*. Set this to a list of 
+sidebar-section-specifiers. The Layout of this settings-variable is shown in
+the example. 
+
+```TINYWIKI_LEFT_SIDEBAR``` is ment to be used for static sidebar content. If
+you need to render a dynamic sidebar content, use 
+```TINYWIKI_LEFT_SIDEBAR_FUNCTION``` variable to set the function to be called 
+for creating the sidebar content for *TinyWiki* views.
 
 ``` { .python }
 TINYWIKI_LEFT_SIDEBAR = [
@@ -153,8 +169,15 @@ TINYWIKI_LEFT_SIDEBAR = [
 
 #### TINYWIKI_LEFT_SIDEBAR_FUNCTION
 
+Specify a function to be called for creating dynamic left sidebars.
+The function is called with the ```request``` instance of the calling
+view. This method is creating the content of *TinyWiki*-views.
+
+The function should return a list of sidebar-section-specifiers. The
+layout of the value to be returned is shown in the example.
+
 ``` { .python }
-def left_sidebar_function(request):
+def left_sidebar_function(request,*args,**kwargs):
     sidebar = [
         {
             'title': "My Title",
@@ -180,8 +203,14 @@ TINYWIKI_LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 #### LEFT_SIDEBAR_FUNCTION
 
+The function to be called to render a left sidebar. This function should return
+a string containing the HTML for the sidebar. In *TinyWiki* it defaults to the
+function ```django_tinywiki.functions.sidebar.render_left_sidebar()```, which
+returns the generated html of the function 
+```django_tinywiki.functions.get_left_sidebar_data()```.
+
 ``` { .python }
-def left_sidebar_function(request):
+def left_sidebar_function(request,*args,**kwargs):
     return """
     <div class="left-sidebar-section">
         <div class="left-sidebar-section-title>Section 1</div>
@@ -193,18 +222,40 @@ def left_sidebar_function(request):
 LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 ```
 
-
 #### TINYWIKI_RIGHT_SIDEBAR_FUNCTION
 
+This setting should point to a right sidebar function. The function should
+return a list of sidebar items.
+
 ``` { .python }
-def right_sidebar_function(request):
+def tinywiki_right_sidebar_function(request,*args,**kwargs):
     right_sidebar_items = [
         '<div class="right-sidebar-item">Sidebar Item 1.</div>',
         '<div class="right-sidebar-item">Sidebar Item 2</div>'
     ]
-    return "\n".join(right_sidebar_items)
+    return right_sidebar_items
 
-TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
+TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.tinywiki_right_sidebar_function"
+```
+#### RIGHT_SIDEBAR_FUNCTION
+
+This sets the right sidebar function to use. The function should return
+the right sidebar as a HTML-string.
+
+``` { .python }
+
+def right_sidebar_function(request,*args,**kwargs):
+    ret = """
+        <div class="right-sidebar-item">
+            <img src="https://example.org/path/to/image1.png" />
+        </div>
+        <div class="right-sidebar-item">
+            <img src="https://example.org/path/to/image2.jpg" /> 
+        </div>"""
+
+    return ret
+
+RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
 ```
 
 ### WIKI Images
@@ -297,11 +348,43 @@ TINYWIKI_PAGE_EDIT_URL_TEMPLATE = "tinywiki:page-edit"
 ```
 #### TINYWIKI_PAGE_CREATE_URL_TEMPLATE
 
-#### TINYWIKI_PAGE_NEW_URL_TEMPLATE
+This should be a django-URL-template string pointing to the view that creates a
+new TinyWiki page with a given slug. The second argument named **page** of the
+view should accept the page slug.
+
+The view should look like ```def wiki_page_create_view(request,page)```.
+
+``` { .python }
+TINYWIKI_PAGE_CREATE_URL_TEMPLATE = "tinywiki:page-create"
+```
+
+#### TINYWIKI_PAGE_NEW_URL
+
+This setting sepcifies the URL to use for creating new wiki page. The view
+should not expect any additional arguments next to the **request**.
+
+``` { .python }
+TINYWIKI_PAGE_NEW_URL = reverse_lazy("tinywiki:page-new")
+```
 
 #### TINYWIKI_PAGE_DELETE_URL_TEMPLATE
 
+This setting sets the django-url-template of the delete-view for 
+*TinyWiki*-pages. The view should accept the page-slug named **page** as second
+argument.
+
+```  { .python }
+TINYWIKI_PAGE_NEW_URL = "tinywiki:page-delete"
+```
+
 #### TINYWIKI_PAGE_OVERVIEW_URL
+
+Set this setting to the URL of the page delete view, if you are implementing
+your own.
+
+``` { .python }
+TINYWIKI_PAGE_OVERVIEW_URL = reverse_lazy("tinywiki:page-overview")
+```
 
 ### Project URLs
 
@@ -369,21 +452,80 @@ TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
 
 #### TINYWIKI_PAGE_CREATE_TEMPLATE
 
+This settings-variable sets the HTML-template file for the page-create view.
+
+``` { .python}
+TINYWIKI_PAGE_CREATE_TEMPLATE = "djnago_tinywiki/wiki/create.html"
+```
+
 #### TINYWIKI_PAGE_NEW_TEMPLATE
+
+Set this variable to the page new template. Per default it sets to the variable
+```TINYWIKI_PAGE_CREATE_TEMPLATE```.
+
+``` { .python }
+TINYWIKI_PAGE_NEW_TEMPLATE = "path/to/new.html"
+```
 
 #### TINYWIKI_PAGE_DELETE_TEMPLATE
 
+This variable sets the HTML-template of the page-delete view. The 
+*TinyWiki*-view confirms the deletion of the page and if it is 
+confirmed, deletes the corresponding page.
+
+``` { .python }
+TINYWIKI_PAGE_DELETE_TEMPLATE = "django_tinywiki/wiki/delete.html"
+```
+
 #### TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
 
+This variable sets the template for the delete-confirmation page.
+
+``` { .python }
+TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = "django_tinywiki/wiki/delete-done.html"
+```
+
 #### TINYWIKI_PAGE_OVERVIEW_TEMPLATE
+
+Set this setting to your own template if you want to show your customized
+page-overview page.
+
+``` { .python }
+TINYWIKI_PAGE_OVERVIEW_TEMPLATE = "django_tinywiki/wiki/ovierview.html"
+```
 
 ### Application Templates
 
 #### TINYWIKI_LOGIN_TEMPLATE
 
+The template to use for the login view, when running *TinyWiki* in 
+standalone-mode.
+
+**Note: This setting is only useful when using *django-tinywiki*'s login view.**
+
+``` { .python }
+TINYWIKI_LOGIN_TEMPLATE = "django_tinywiki/auth/login.html"
+```
+
 #### TINYWIKI_SIGNUP_TEMPLATE
 
+This setting set the HTML-template to use when using django_tinywiki.
+
+**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+
+``` { .python }
+TINYWIKI_SIGNUP_TEMPLATE = "django_tinywiki/auth/signup.html"
+```
+
 #### TINYWIKI_SIGNUP_SUCCESS_TEMPLATE
+
+The HTML-template to display when the signup on *TinyWiki* was successful.
+
+**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+
+``` { .python }
+TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = "django_tinywiki/auth/signup-success.html"
+```
 
 ## Auth settings
 
@@ -413,32 +555,119 @@ is a list of group names.
 TINYWIKI_DEFAULT_GROUPS = ['tinywiki-user',]
 ```
 
-### GROUPS
+### Groups
 
 #### TINYWIKI_GROUP_ADMIN
 
+The group to use for *TinyWiki* admins. Admins can create,delete,edit 
+every wiki-page and set the user of every *TinyWiki* page.
+
+``` { .python }
+TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
+```
+
 #### TINYWIKI_GROUP_AUTHOR
 
+The author group allows *TinyWiki*-authors to create and edit wiki-pages.
+
+``` { .python }
+TINYWIKI_GROUP_AUTHOR = "tinywiki-author"
+```
+
 #### TINYWIKI_GROUP_USER
+
+The user group lets you edit the wiki-pages that belong to you. Users cannot
+create pages.
+
+``` { .python }
+TINYWIKI_GROUP_USER = "tinywiki-user"
+```
 
 ### Permissions
 
 #### TINYWIKI_PERM_ADMIN
 
+This permission gives you you administrative rights for *TinyWiki*.
+
+``` { .python }
+TINYWIKI_PERM_ADMIN = "tinywiki-admin"
+```
+
 #### TINYWIKI_PERM_CREATE_PAGE
+
+This permission allows users to create new *TinyWiki*-pages.
+
+``` { .python }
+TINYWIKI_PREM_CREATE_PAGE = "tinywiki-create-page"
+```
 
 #### TINYWIKI_PERM_DELETE_PAGE
 
+This permission allows users to delete *TinyWiki*-pages.
+
+``` { .python }
+TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
+```
+
 #### TINYWIKI_PERM_EDIT_PAGE
+
+This permission allows users to edit *TinyWiki*-pages. The page doeas not
+need to belong to the user with this permission.
+
+``` { .python }
+TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
+```
 
 #### TINYWIKI_PERM_EDIT_USER_PAGE
 
+This permission allows users to edit *TinyWiki*-pages that belong to the user
+with this permission.
+
+``` { .python }
+TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
+```
+
 #### TINYWIKI_USERPERM_ADMIN
+
+This is the read-only permission for *TinyWiki* admins. It is used for
+checking user permissions.
+
+``` { .python }
+TINYIWKI_USERPERM_ADMIN = ".".join((TINYWIKI_APP,TINYWIKI_PERM_ADMIN))
+```
 
 #### TINYWIKI_USERPERM_CREATE_PAGE
 
+This is the read-only permission used by *TinyWiki* for looking up the user
+permission for creating wiki-pages.
+
+``` { .python }
+TINYWIKI_USERPERM_CREATE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_CREATE_PAGE))
+```
+
 #### TINYWIKI_USERPERM_DELETE_PAGE
+
+This readonly setting defines the permission used by *TinyWiki* for looking up
+the user permission for deleting pages.
+
+``` { .python }
+TINYWIKI_USERPERM_DELETE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_DELETE_PAGE))
+```
 
 #### TINYWIKI_USERPERM_EDIT_PAGE
 
+This is the readonly permission used by *TinyWiki* to look up the user permission for 
+editing wiki-pages.
+
+``` { .python }
+TINYWIKI_USERPERM_EDIT_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_PAGE))
+```
+
 #### TINYWIKI_USERPERM_EDIT_USER_PAGE
+
+This setting is read only. It is used by *TinyWiki* to look up the user permission
+for editing pages that belong to the user, for whom the permission is looked up.
+
+```
+TINYWIKI_USERPERM_EDIT_USER_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_USER_PAGE))
+```
