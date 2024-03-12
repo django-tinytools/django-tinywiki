@@ -33,11 +33,11 @@ cd django-tinywiki
 python -m venv --system-site-packages python-venv
 . python-venv/bin/activate
 
-# install the reuirements
+# install the requirements
 pip install -r requirements.txt
 ```
 
 You can use the *manage* script, which was written for */bin/sh* to execute
 the *manage.py* file. The script autmatically loads the python virtual
 environment if it is installed in *venv* or *python-venv* in the project
-directory or in the parent darectory of the project.
+directory or in the parent directory of the project.
