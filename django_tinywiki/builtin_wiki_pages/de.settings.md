@@ -1,37 +1,37 @@
-# TinyWiki Settings
+# TinyWiki Einstellungen
 
-## Table of Contents
+## Ihaltsverzeichnis
 
 [TOC]
 
-## Generic Settings
+## Generische Einstellungen
 
 ### Version
 
 #### TINYWIKI_VERSION
 
-This is a read only setting giving the current version as a string of 
-*django-tinywiki*.
+Diese nur lesen Einstellung enthält die verwendete Version von 
+*django-tinywiki* als ein String.
 
 ### Package and App
 
 #### TINYWIKI_PACKAGE
 
-This is the readonly package name of *TinyWiki*. The name is dynamically
-generated from the package directory.
+Diese nur lesen Einstellung enthält den paketnamen von *Tinywiki*. 
+Der Name wird dynamisch, vom Paketverzeichnis, generiert.
 
 #### TINYWIKI_APP
 
-The read only name of the django application. Currently it is the same as
-```TINYWIKI_PACKAGE```.
+Der nur lesen name der Django Applikation. Derzeit ist es das selbe wie
+```TINYWIKI_PACKAGE```
 
-
-### Application Settings
+### Applikationseinstellungen
 
 #### TINYWIKI_TITLE
 
-The title displayed in the header bar. Set this to your Wiki/Site name when
-using the tinywiki base html template.
+Das ist der Titel, der in der Titelleiste angezeigt wird. Setze diese
+Einstellung auf den Namen deines Wikis / deiner Site wenn du das 
+tinywiki-base HTML template verwendest.
 
 ``` { .python }
 TINYWIKI_TITLE = "TinyWiki"
@@ -39,15 +39,17 @@ TINYWIKI_TITLE = "TinyWiki"
 
 #### TINYWIKI_STYLE
 
-You can select the style of *TinyWiki* using the corresponding CSS-Stylesheet.
-To show the available styles, run the *tinywiki_styles* script.
+Du kannst das den CSS-Stil für *TinyWiki* mit dieser Einstellung auswählen.
+Das dzugehörige Stylesheet wird automatisch ausgewählt. 
+
+Um die verfügbaren Stile anzuzeigen führe das *tinywiki_styles* script aus.
 
 ``` { .sh }
 $ ./manage runscript tinywiki_styles
 ```
 
-Set the *TINYWIKI_STYLE* variable to the style name of one of the available
-styles. (Currently only the *default* style is supported).
+Setze die *TINYWIKI_STYLE* variable auf einen Stilnamen auf einen der 
+verfügbaren Stile. (Zur Zeit wird nur der *default* Stil unterstützt.)
 
 ``` { .python }
 TINYWIKI_STYLE = "default"
@@ -55,25 +57,24 @@ TINYWIKI_STYLE = "default"
 
 #### TINYWIKI_CSS
 
-If you have a CSS-Stylesheet for your application and you want to ignore the
-style of the django-tinywiki, set the *TINYWIKI_CSS* variable toe the 
-stylesheet you are using.
+Wenn du dein eigenes CSS-Stylesheet deiner applikation verwenden möchtest
+und du den Stil von *django-tinywiki* ignorieren möchtest, gib das zu 
+verwendende Stylesheet in der Einsteelung *TINYWIKI_CSS* an.
 
 ``` { .python }
-TINYWIKI_CSS = "{url}django_tinywiki/styles/{style}.css".format(
-    url=STATIC_URL,
-    style=TINYWIKI_STYLE)
+TINYWIKI_CSS = "/static/styles/my_style.css"
 ```
 #### TINYWIKI_CODEHILITE_STYLE
 
-You can change the codehilite style to one of the supported styles if you
-want to change the look of the code sections of your wiki pages.
+Du kannst den *codehilite* Stil auf einen der Unterstützen Stile setzen,
+wenn du das Aussehen der Code-Sektionen deiner Wiki-Seiten ändern wills.
 
 ``` { .python }
 TINYWIKI_CODEHILITE_STYLE = "github-dark"
 ```
 
-To show all available styles, run the *tinywiki_codehilite_styles* script.
+Um alle verfügbaren Stile anzuzeigen, verwende das Script
+*tinywiki_codehilite_styles*.
 
 ``` { .sh }
 $ ./manage runscript tinywiki_codehilite_styles
@@ -81,23 +82,23 @@ $ ./manage runscript tinywiki_codehilite_styles
 
 #### TINYWIKI_CODEFHILITE_CSS
 
-You can alos import your own CSS-Stylesheet for the code sections in your
-wiki pages by setting the *TINYWIKI_CODEHILITE_CSS* variable.
+Du kannst auch dein eigenes CSS-Stylesheet für die Code-Sektionen in deinen
+Wiki-Seiten verwenden, in dem du die ```TINYWIKI_CODEHILITE_CSS``` Variable
+auf das einzubindende CSS-Stylesheet setzt.
 
 ``` { .python }
-TINYWIKI_CODEHILITE_CSS = "{url}django_tinywiki/styles/codehilite/{style}.css".format(
-    url=STATIC_URL,
-    style=TINYWIKI_CODEHILITE_STYLE)
+TINYWIKI_CODEHILITE_CSS = "/static/styles/my_codehilite_style.css"
 ```
 
 #### TINYWIKI_MARKDOWN_EXTENSIONS
 
-You can import your own markdown extensions to be used for wiki pages, if needed.
-To do this set the *TINYWIKI_MARKDOWN_EXTENSIONS* to a list of the extensions
-to be loaded before processing the page.
+Du kannst deine eigenen Markdown Erweiterungen für die Verwendung in Wiki-Seiten
+importieren, wenn dies benötigt wird. Um dies zu bewerkstelligen gib mit dem 
+Konfigurationsparameter ```TINYWIKI_MARKDOWN_EXTENSIONS``` die Liste der 
+Markdown-Erweiterungen, die einzubinden sind, an.
 
-There are more informations on
-[Makrdown Extensions](https://python-markdown.github.io/extensions/) and on 
+Mehr Informationen zu Markdown-Erweitrungen gibt es in dem Dokument
+[Makrdown Extensions](https://python-markdown.github.io/extensions/) und in
 [writing Markdown Extensions](https://python-markdown.github.io/extensions/api/).
 
 ``` { .python }
@@ -106,9 +107,9 @@ TINYWIKI_MARKDOWN_EXTENSIONS = [MarkdowExtension1(),"path.to:MarkdownExtension2"
 
 #### TINYWIKI_CONTEXT_CALLBACK
 
-This setting defines the context callback to be used for *TinyWiki*-views. This
-setting might be useful when using your own templates and need to extend 
-context variables.
+Diese Einstellung definiert die Context-Callback-Funktion, die für *TinyWiki*-
+Views verwendet wird an. Eine eigene Context-Funktion kann nützlich sein, wenn
+man eigene Templates verwendet und die Context-Variablen erweitert werden sollen.
 
 ``` { .python }
 def context_function(request):
@@ -120,7 +121,7 @@ def context_function(request):
 TINYWIKI_CONTEXT_CALLBACK = context_function
 ```
 
-You can also specify the context function as a string:
+Du kannst die Context-Funtkion auch als string angeben:
 
 ``` { .python }
 TINYWIKI_CONTEXT_CALLBACK = "path.to.context_function"
@@ -128,8 +129,9 @@ TINYWIKI_CONTEXT_CALLBACK = "path.to.context_function"
 
 #### TINYWIKI_DEFAULT_LANGUAGE
 
-The default language to use when creating *TinyWiki*-pages. The named 
-language-code needs to be in the database or the fallback **en** is used.
+Das ist die voreingestellte Sprache für das erstellen von *TinyWiki*-Seiten.
+Die angegebene Sprach-Code muss in der Datenabank existieren, andernfalls wird
+**en** als Wert angegeben.
 
 ``` { .python }
 TINYWIKI_DEFAULT_LANGUAGE = "en"
@@ -137,14 +139,15 @@ TINYWIKI_DEFAULT_LANGUAGE = "en"
 
 #### TINYWIKI_LEFT_SIDEBAR
 
-Set the left sidebar of *TinyWiki*. Set this to a list of 
-sidebar-section-specifiers. The Layout of this settings-variable is shown in
-the example. 
+Das ist die linke Seitenleiste von *TinyWiki*. Setze diese auf eine Liste von
+Seitenleisten-Sektionen-Spezifikatoren. Das Layout dieser Variable wird im 
+Beispiel dargestellt.
 
-```TINYWIKI_LEFT_SIDEBAR``` is ment to be used for static sidebar content. If
-you need to render a dynamic sidebar content, use 
-```TINYWIKI_LEFT_SIDEBAR_FUNCTION``` variable to set the function to be called 
-for creating the sidebar content for *TinyWiki* views.
+```TINYWIKI_LEFT_SIDEBAR``` wird für statischen Seitenleisteninhalt verwendet.
+Wenn du einen dynamischen Inhalt darstellen willst, verwende die
+```TINYWIKI_LEFT_SIDEBAR_FUNCTION``` Variable um eine Funktion aufzurufen, die
+dazu verwendet wird, den Inhalt der linken Seitneleiste  für *TinyWiki*-Views
+dynamisch zu erstellen.
 
 ``` { .python }
 TINYWIKI_LEFT_SIDEBAR = [
@@ -169,12 +172,13 @@ TINYWIKI_LEFT_SIDEBAR = [
 
 #### TINYWIKI_LEFT_SIDEBAR_FUNCTION
 
-Specify a function to be called for creating dynamic left sidebars.
-The function is called with the ```request``` instance of the calling
-view. This method is creating the content of *TinyWiki*-views.
+Gib hier eine Funktion an, die aufgerufen wird, um eine dynamische
+linke Setienleiste zu erstellen. Die Funktion wird mit einer
+```request``` Instanz des auszuführenden Views, aufgerufen.
 
-The function should return a list of sidebar-section-specifiers. The
-layout of the value to be returned is shown in the example.
+Diese Funktion sollte eine Liste von 
+Seitenleisten-Sektion-Spezifikatoren zurückgeben. Das Layout des
+Rückgabewertes wird in dem Beispiel angezeigt.
 
 ``` { .python }
 def left_sidebar_function(request,*args,**kwargs):

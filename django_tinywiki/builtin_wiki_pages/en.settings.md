@@ -40,6 +40,7 @@ TINYWIKI_TITLE = "TinyWiki"
 #### TINYWIKI_STYLE
 
 You can select the style of *TinyWiki* using the corresponding CSS-Stylesheet.
+
 To show the available styles, run the *tinywiki_styles* script.
 
 ``` { .sh }
@@ -56,13 +57,11 @@ TINYWIKI_STYLE = "default"
 #### TINYWIKI_CSS
 
 If you have a CSS-Stylesheet for your application and you want to ignore the
-style of the django-tinywiki, set the *TINYWIKI_CSS* variable toe the 
+style of the django-tinywiki, set the *TINYWIKI_CSS* variable to the 
 stylesheet you are using.
 
 ``` { .python }
-TINYWIKI_CSS = "{url}django_tinywiki/styles/{style}.css".format(
-    url=STATIC_URL,
-    style=TINYWIKI_STYLE)
+TINYWIKI_CSS = "/static/styles/my_style.css"
 ```
 #### TINYWIKI_CODEHILITE_STYLE
 
@@ -81,13 +80,11 @@ $ ./manage runscript tinywiki_codehilite_styles
 
 #### TINYWIKI_CODEFHILITE_CSS
 
-You can alos import your own CSS-Stylesheet for the code sections in your
+You can also import your own CSS-Stylesheet for the code sections in your
 wiki pages by setting the *TINYWIKI_CODEHILITE_CSS* variable.
 
 ``` { .python }
-TINYWIKI_CODEHILITE_CSS = "{url}django_tinywiki/styles/codehilite/{style}.css".format(
-    url=STATIC_URL,
-    style=TINYWIKI_CODEHILITE_STYLE)
+TINYWIKI_CODEHILITE_CSS = "/static/styles/my_codehilite_style.css"
 ```
 
 #### TINYWIKI_MARKDOWN_EXTENSIONS
