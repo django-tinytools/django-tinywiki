@@ -11,7 +11,7 @@ can be loaded as an django app, to provide a simple Wiki for your projects.
 
 *TinyWiki* can be installed using PyPi.
 
-``` { sh }
+``` { .sh }
 pip install django-tinywiki
 ```
 
@@ -19,13 +19,13 @@ pip install django-tinywiki
 
 To Install *TinyWiki* as a standlone app, the easiest way to do it, is using Git.
 
-``` { sh }
+``` { .sh }
 git clone https://github.com/c9moser/django-tinywiki.git
 ```
 
 Then create a virtual environment and install all requirements.
 
-``` { sh }
+``` { .sh }
 # cd to the django-tinywiki directory
 cd django-tinywiki
 
