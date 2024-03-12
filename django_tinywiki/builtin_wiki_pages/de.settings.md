@@ -207,11 +207,12 @@ TINYWIKI_LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 #### LEFT_SIDEBAR_FUNCTION
 
-The function to be called to render a left sidebar. This function should return
-a string containing the HTML for the sidebar. In *TinyWiki* it defaults to the
-function ```django_tinywiki.functions.sidebar.render_left_sidebar()```, which
-returns the generated html of the function 
-```django_tinywiki.functions.get_left_sidebar_data()```.
+Die Funktion, welche aufgerufen werden soll, um die linke Seitenleiste
+darzustellen. Diese Funktion sollte das HTML der linken Seitenleiste 
+zurückgeben. *TinyWiki* verwendet die Funktion
+```django_tinywiki.functions.sidebar.render_left_sidebar()``` als
+Voreinstellung, wleche das generirte HTML der Funktion
+```django_tinywiki.functions.get_left_sidebar_data()``` zurückgibt.
 
 ``` { .python }
 def left_sidebar_function(request,*args,**kwargs):
@@ -228,8 +229,8 @@ LEFT_SIDEBAR_FUNCTION = "path.to.left_sidebar_function"
 
 #### TINYWIKI_RIGHT_SIDEBAR_FUNCTION
 
-This setting should point to a right sidebar function. The function should
-return a list of sidebar items.
+Diese Einstellung sollte auf eine Rechte-Seitenleiste-Funktion zeigen.
+Die Funktion sollte eine Liste von Seitenleistenelementen zurückgeben.
 
 ``` { .python }
 def tinywiki_right_sidebar_function(request,*args,**kwargs):
@@ -243,8 +244,8 @@ TINYWIKI_RIGHT_SIDEBAR_FUNCTION = "path.to.tinywiki_right_sidebar_function"
 ```
 #### RIGHT_SIDEBAR_FUNCTION
 
-This sets the right sidebar function to use. The function should return
-the right sidebar as a HTML-string.
+Dies setzt die Funktion um die rechte Seitneleiste darzustellen. Diese
+Funktion sollte die rechte Seitneleiste als HTML-String zurückgeben.
 
 ``` { .python }
 
@@ -266,9 +267,12 @@ RIGHT_SIDEBAR_FUNCTION = "path.to.right_sidebar_function"
 
 #### TINYWIKI_IMAGE_WIKI_WIDTH
 
-This defines the maximum width of Images displayed in a Wiki Page.
-Bigger images are resized to have the maximum width defined here.
-This should speed up loading pages with many images or big images.
+Diese Einstellung definiert die maximale Breite von Bildern, die auf einer
+Wiki-Seite dargestellt werden. Größere Bilder werden in der Größe geändert 
+um die maxiamle Breite, die hier angegeben wird, zu haben. Dies sollte die
+Ladegeschwindigkeit der Seite verbessern, wenn viele grße Bilder auf einer
+Seite verwendet werden.
+
 
 ``` { .pyhton }
 TINYWIKI_IMAGE_WIKI_WIDTH = 860
@@ -276,13 +280,18 @@ TINYWIKI_IMAGE_WIKI_WIDTH = 860
 
 #### TINYWIKI_IMAGE_PREVIEW_WIDTH
 
-The maximum preview width of the image. This should speed up loading of
-preview images in a page. If you are allowed to edit a page, a *Linked Images*
-section is shown in Wiki-Pages with image previews or with the 
-```[WIKI-IMAGES]``` tag in the wiki markdown. The images shown in there do not
-neccessarily need to be shown in the page or in the sidebar.
+Die maximale Breite von Vorschaubildern. Dies Sollte das Laden von 
+Vorschaubildern beschleunigen. Wenn es dir erlaubt ist eine Seite zu
+bearbeiten, wird eine *Verknüpfte Bilder* Sketion, mit Vorschaubildern,
+am Ende der Seite angezeigt. 
 
-This should speed up loading of the page and save some web traffic.
+Es ist auch möglich alle verknüpften Bilder mit dem Tag 
+```[WIKI-IAMGES]``` im Wiki-Makrdown anzuzeigen. Die dort angezeigten
+Bilder müssen nicht zwigend in der Seite bzw. in der Seitenleiste angezeigt
+werden.
+
+Dies sollte das Laden der Seite beschleunigen und die zu übertragende
+Datenmenge begrenzen.
 
 ``` { .pyhton }
 TINYWIKI_IMAGE_PREVIEW_WIDTH = 240
@@ -290,8 +299,9 @@ TINYWIKI_IMAGE_PREVIEW_WIDTH = 240
 
 #### TINYWIKI_IMAGE_SIDEBAR_WIDTH
 
-This setting defines the maximum width of images shown in the sidebar.
-Set this to a reasonable if you have sidebar images enabled.
+Dies definiert die maximale Breite von Seitenleistenbildern. Diese
+Einstellung macht nur Sinn, wenn man Seitenleistenbilder eingechaltet
+hat.
 
 ``` { .python }
 TINYWIKI_IMAGE_SIDEBAR_WIDTH = 240
@@ -301,8 +311,8 @@ TINYWIKI_IMAGE_SIDEBAR_WIDTH = 240
 
 #### TINYWIKI_IS_MAIN_APP
 
-Set this value to ```True``` if TinyWiki is run in standalone mode,
-```False``` otherwise.
+Setze diesen Wert auf ```True```, wenn *TinyWiki* im Standalone-Modus
+ausgeführt wird. Andernfalls setze diesen Wert auf ```False```
 
 ``` { .python }
 TINYWIKI_IS_MAIN_APP = False
