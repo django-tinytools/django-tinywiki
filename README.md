@@ -9,11 +9,30 @@ can be loaded as an django app, to provide a simple Wiki for your projects.
 
 ### Installing as an App
 
+#### PyPi Install
 *TinyWiki* can be installed using PyPi.
 
 ``` { .sh }
 pip install django-tinywiki
 ```
+
+#### Git install
+
+To install clone the repostiroy from git, cd to the downloaded repositroy
+and install it with pip.
+
+``` { .sh }
+# Fetch the repository
+git clone https://github.com/c9moser/django-tinywiki.git
+
+# cd to the project root
+cd django-tinywiki
+
+# install it with pip
+python -m pip install .
+```
+
+#### Required Configuration
 
 To be able to initialize *django-tinywiki*, you need to have 
 *django-extensions* enabled in your *settings.py* next to 
