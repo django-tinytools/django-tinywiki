@@ -376,7 +376,7 @@ TINYWIKI_PAGE_NEW_URL = "tinywiki:page-delete"
 
 #### TINYWIKI_PAGE_OVERVIEW_URL
 
-Set this setting to the URL of the page delete view, if you are implementing
+Set this setting to the URL of the page overview view, if you are implementing
 your own.
 
 ``` { .python }

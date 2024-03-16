@@ -369,11 +369,13 @@ Der View sollte wie folgt aussehen:
 
 #### TINYWIKI_PAGE_CREATE_URL_TEMPLATE
 
-This should be a django-URL-template string pointing to the view that creates a
-new TinyWiki page with a given slug. The second argument named **page** of the
-view should accept the page slug.
+Dies sollte ein *django-URL-template* string ein, der auf den View zeigt,
+welcher verantwortlich dafür ist, eine Wiki-Seite mit angegebenen *slug* zu
+erstellen. Das zweite Argument **page** des Views sollte den Slug der Seite
+akzeptieren.
 
-The view should look like ```def wiki_page_create_view(request,page)```.
+Der View sollte wie folgt aussehen: 
+```def wiki_page_create_view(request,page)```.
 
 ``` { .python }
 TINYWIKI_PAGE_CREATE_URL_TEMPLATE = "tinywiki:page-create"
@@ -381,8 +383,9 @@ TINYWIKI_PAGE_CREATE_URL_TEMPLATE = "tinywiki:page-create"
 
 #### TINYWIKI_PAGE_NEW_URL
 
-This setting sepcifies the URL to use for creating new wiki page. The view
-should not expect any additional arguments next to the **request**.
+Diese Eintellung spezifizeiert die URL, die zu benutzen ist, um neue 
+Wiki-Seiten zu erstellen. Der View sollte keine zusätzlichen Argumente,
+neben dem *request*, benötigen.
 
 ``` { .python }
 TINYWIKI_PAGE_NEW_URL = reverse_lazy("tinywiki:page-new")
@@ -390,9 +393,9 @@ TINYWIKI_PAGE_NEW_URL = reverse_lazy("tinywiki:page-new")
 
 #### TINYWIKI_PAGE_DELETE_URL_TEMPLATE
 
-This setting sets the django-url-template of the delete-view for 
-*TinyWiki*-pages. The view should accept the page-slug named **page** as second
-argument.
+Diese Einstellung setzt das *Django-URL-Template* für den View, der für
+das löschen von *TinyWiki*-Seiten verantwortlich ist. Der View sollte
+das Seiten-Slug, mit dem Namen **page** als zweites Argument akzeptieren.
 
 ```  { .python }
 TINYWIKI_PAGE_NEW_URL = "tinywiki:page-delete"
@@ -400,8 +403,8 @@ TINYWIKI_PAGE_NEW_URL = "tinywiki:page-delete"
 
 #### TINYWIKI_PAGE_OVERVIEW_URL
 
-Set this setting to the URL of the page delete view, if you are implementing
-your own.
+Wenn du deine eigene Seitneübersicht erstellen willst, setze die 
+URL des Übersichtsviews in dieser Einstellung.
 
 ``` { .python }
 TINYWIKI_PAGE_OVERVIEW_URL = reverse_lazy("tinywiki:page-overview")
