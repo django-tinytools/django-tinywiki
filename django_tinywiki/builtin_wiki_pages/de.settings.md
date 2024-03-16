@@ -324,8 +324,8 @@ TINYWIKI_IS_MAIN_APP = False
 
 #### TINYWIKI_INDEX
 
-Then index page of TinyWiki. This should be an url pointing to the index
-page of *django_tinywiki*.
+Das ist die Hauptseite von *TinyWiki*. Diese Konfigurationsvariable sollte
+eine URL beinhalten, die auf die Hauptseite von *django_tinywiki* zeigt.
 
 ``` { .python }
  from django.urls import reverse_lazy
@@ -335,8 +335,8 @@ page of *django_tinywiki*.
 
 #### TINYWIKI_HOME_URL
 
-The URL of the homepage of the Site. (This setting is currently unused, but
-planned to be used in the future!)
+Das ist die URL der Hauptseite der Site. (Diese Einstellung ist zur Zeit
+ungenutzt. Die Nutzung ist aber geplant.)
 
 ``` { .python }
 TINYWIKI_INDEX = "/"
@@ -344,22 +344,29 @@ TINYWIKI_INDEX = "/"
 
 #### TINYWIKI_PAGE_VIEW_URL_TEMPLATE
 
-If you want to use your own view for rendering *TinyWiki*-pages you can set
-this setting to an appropriate value. The set url template is looked up by 
-```reverse(TINYWIKI_PAGE_VIEW_URL_TEMPLATE,kwargs={"page":"slug-for-page"})```.
+Wenn du deinen eigenen View zum anzeigen von *TinyWiki*-Seiten verwenden
+möchtest, kannst du diese Einstellung auf einen dementsprechenden Wert
+setzen. Das URL-Template wird durch 
+```reverse(TINYWIKI_PAGE_VIEW_URL_TEMPLATE,kwargs={"page":"slug-for-page"})```
+aufgelöst.
+
 
 ``` { .python }
 TINYWIKI_PAGE_VIEW_URL_TEMPLATE = "tinywiki:page"
 ```
 #### TINYWIKI_PAGE_EDIT_URL_TEMPLATE
 
-If you are using your own view for editing wiki-pages, set this vairable to
-the view you are using.
+Wenn du deinen eigenen View zum Editieren von Wiki-Seiten verwenden möchtest,
+setze diesen Wert auf eine *Django-URL* die auf den View zeigt, den du
+verwenden möchtest.
 
 ``` { .python }
 TINYWIKI_PAGE_EDIT_URL_TEMPLATE = "tinywiki:page-edit"
-
 ```
+
+Der View sollte wie folgt aussehen:
+```def tinywiki_page_edit_view(request,page)```
+
 #### TINYWIKI_PAGE_CREATE_URL_TEMPLATE
 
 This should be a django-URL-template string pointing to the view that creates a
