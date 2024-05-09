@@ -1,5 +1,5 @@
 from .. import settings
-from ..models import WikiLanguage
+from .. import models
 from ..builtin_wiki_pages import BUILTIN_PAGES
 
 from django.contrib.auth.models import Group,Permission
@@ -31,15 +31,15 @@ def init_tinywiki_user():
 def init_languages():
     for lcode,lname in settings.TINYWIKI_LANGUAGES:
         try:
-            lang = WikiLanguage.objects.get(code=lcode)
+            lang = models.WikiLanguage.objects.get(code=lcode)
             lang.name = lname
             lang.is_builtin = True
             lang.save()
             print("[django-tinywiki] Language \"{lang_code}\": \"{lang_name}\" updated".format(
                   lang_code=lang.code,
                   lang_name=lang.name))
-        except WikiLanguage.DoesNotExist:
-            lang = WikiLanguage.objects.create(code=lcode,name=lname,is_builtin=True)
+        except models.WikiLanguage.DoesNotExist:
+            lang = models.WikiLanguage.objects.create(code=lcode,name=lname,is_builtin=True)
             print("[django-tinywiki] Language \"{lang_code}\": \"{lang_name}\" created".format(
                   lang_code=lang.code,
                   lang_name=lang.name))
