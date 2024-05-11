@@ -1,6 +1,6 @@
 # TinyWiki Einstellungen
 
-## Ihaltsverzeichnis
+## Inhaltsverzeichnis
 
 [TOC]
 
@@ -414,8 +414,9 @@ TINYWIKI_PAGE_OVERVIEW_URL = reverse_lazy("tinywiki:page-overview")
 
 #### TINYWIKI_LOGIN_URL
 
-This is the login url of the wiki. To ```reverse_lazy("tinywiki:auth-login")```
-if TinyWiki is the main application, else it is set to the setting *LOGIN_URL*.
+Das ist die Login URL de Wiki und wird voreingestellt auf 
+```reverse_lazy("tinywiki:auth-login")```, wenn TinyWiki die Hauptapplikation
+ist. Andernfalls wird sie auf die Variable *LOGIN_URL* gesetzt.
 
 ``` { .python }
 TINYWIKI_LOGIN_URL = "/login/"
@@ -423,9 +424,10 @@ TINYWIKI_LOGIN_URL = "/login/"
 
 #### TINYWIKI_LOGOUT_URL
 
-This setting defines the logout-URL of the site. If TinyWiki is the main
-application it defaults to ```reverse_lazy("tinywiki:auth-logout")``` 
-else it is set to the setting *LOGOUT_URL*.
+Die Einstellung setzt die Logout URL der Site. Wenn TinyWiki die 
+Hauptapplikation der Site ist, wird sie voreingestellt auf 
+```reverse_lazy("tinywiki:auth-logout")``` andernfalls wird der Wert der 
+Variablen *LOGOUT_URL* als Voreinstellung genutzt.
 
 ``` { .python }
 TINYWIKI_LOGOUT_URL = "/logout/"
@@ -433,9 +435,10 @@ TINYWIKI_LOGOUT_URL = "/logout/"
 
 #### TINYWIKI_SIGNUP_URL
 
-This setting deines the *Sign Up*-URL of the site. If TinyWiki is the main
-application it defaults to ```reverse_lazy("tinywiki:auth-signup")```, else
-it it set to the setting *SIGNUP_URL*.
+Diese Einstellung definiert die *Sing Up*-URL der Site. Wenn TinyWiki die
+Hauptapllikation ist, ist der Standardwert 
+```reverse_lazy("tinywiki:auth-signup")```, andernfalls wird sie auf den Wert 
+der Einstelungsvariable *SIGNUP_URL* gesetzt.
 
 ``` { .python }
 TINYWIKI_SIGNUP_URL = "/singup/"
@@ -447,9 +450,10 @@ TINYWIKI_SIGNUP_URL = "/singup/"
 
 #### TINYWIKI_BASE_TEMPLATE
 
-This setting defines the base template to be extended by *TinyWiki*.
-You can set write your own template and override the default page
-layout of *TinyWiki*.
+Diese Einstellung definert die Basis Vorlage, die von 
+*TinyWiki*-Seiten erwetiert wird. Sie können ihre eigene Vorlage
+schreiben und damit das Voreingestellte Seitenlayout von 
+*TinyWiki* überschreiben.
 
 ``` { .python }
 TINYWIKI_BASE_TEMPLATE = "django_tinywiki/base.html"
@@ -457,9 +461,9 @@ TINYWIKI_BASE_TEMPLATE = "django_tinywiki/base.html"
 
 #### TINYWIKI_PAGE_VIEW_TEMPLATE
 
-You can define yourself how Wiki-Pages are displayed by using this setting.
-The ```content``` context variable contains the rendered markdown for the
-page.
+Sie können definieren, wie Wiki-Seiten dargestellt werden, in dem Sie diese
+Einstellung nutzen. Die ```content``` Kontextvariable enthält den gerenderten
+Moarkdown für die Seite.
 
 ``` { .python }
 TINYWIKI_PAGE_VIEW_TEMPLATE = "django_tinywiki/wiki/page.html"
@@ -467,8 +471,8 @@ TINYWIKI_PAGE_VIEW_TEMPLATE = "django_tinywiki/wiki/page.html"
 
 #### TINYWIKI_PAGE_EDIT_TEMPLATE
 
-Set this variable to your template file, if you want to use your own
-template for the edit page.
+Setzen Sie diese Variable auf ihre Vorlage, wenn Sie ihre eigene Vorlage
+zum Bearbeiten von Wiki-Seiten benutzen wollen.
 
 ``` { .python }
 TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
@@ -476,7 +480,8 @@ TINYWIKI_PAGE_EDIT_TEMPLATE = "django_tinywiki/wiki/edit.html"
 
 #### TINYWIKI_PAGE_CREATE_TEMPLATE
 
-This settings-variable sets the HTML-template file for the page-create view.
+Diese Einstellungsvariable setzt die HTML-Vorlage, um neue Wiki-Seiten zu
+erstellen.
 
 ``` { .python}
 TINYWIKI_PAGE_CREATE_TEMPLATE = "djnago_tinywiki/wiki/create.html"
@@ -484,8 +489,8 @@ TINYWIKI_PAGE_CREATE_TEMPLATE = "djnago_tinywiki/wiki/create.html"
 
 #### TINYWIKI_PAGE_NEW_TEMPLATE
 
-Set this variable to the page new template. Per default it sets to the variable
-```TINYWIKI_PAGE_CREATE_TEMPLATE```.
+Setzen sie diese Variable um neue Seiten zu erstellen. Die Voreinstellung 
+setzt sie auf die Variable ```TINYWIKI_PAGE_CREATE_TEMPLATE```.
 
 ``` { .python }
 TINYWIKI_PAGE_NEW_TEMPLATE = "path/to/new.html"
@@ -493,9 +498,9 @@ TINYWIKI_PAGE_NEW_TEMPLATE = "path/to/new.html"
 
 #### TINYWIKI_PAGE_DELETE_TEMPLATE
 
-This variable sets the HTML-template of the page-delete view. The 
-*TinyWiki*-view confirms the deletion of the page and if it is 
-confirmed, deletes the corresponding page.
+Diese Vairable setzt die HTML-Vorlage des Seite-löschen Views. Dieser 
+*TinyWiki*-View bestätigt das löschen der Seite und falls dies bestätigt
+wird, wird die entsprechende Seite gelöscht.
 
 ``` { .python }
 TINYWIKI_PAGE_DELETE_TEMPLATE = "django_tinywiki/wiki/delete.html"
@@ -503,7 +508,9 @@ TINYWIKI_PAGE_DELETE_TEMPLATE = "django_tinywiki/wiki/delete.html"
 
 #### TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
 
-This variable sets the template for the delete-confirmation page.
+Diese Vairable setzt das template für die Löschen durchgeführt Seite.
+Diese Seite wird nur aufgerufen, wenn das Löschen der entsprechenden 
+Wiki-Seite bstätigt wurde.
 
 ``` { .python }
 TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = "django_tinywiki/wiki/delete-done.html"
@@ -511,8 +518,8 @@ TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = "django_tinywiki/wiki/delete-done.html"
 
 #### TINYWIKI_PAGE_OVERVIEW_TEMPLATE
 
-Set this setting to your own template if you want to show your customized
-page-overview page.
+Setze diese Variable, wenn du deine eigene angepasste Seitenübersicht anzeigen
+willst.
 
 ``` { .python }
 TINYWIKI_PAGE_OVERVIEW_TEMPLATE = "django_tinywiki/wiki/ovierview.html"
@@ -522,10 +529,10 @@ TINYWIKI_PAGE_OVERVIEW_TEMPLATE = "django_tinywiki/wiki/ovierview.html"
 
 #### TINYWIKI_LOGIN_TEMPLATE
 
-The template to use for the login view, when running *TinyWiki* in 
-standalone-mode.
+Die Vorlage, die zu nutzen ist, wenn *TinyWiki* in Standalone-Modus
+ausgeführt wird.
 
-**Note: This setting is only useful when using *django-tinywiki*'s login view.**
+**Anmerkung: Diese Einstellung ist nur sinnvoll, wenn man *django-tinywiki*s Login Ansicht verwendet.**
 
 ``` { .python }
 TINYWIKI_LOGIN_TEMPLATE = "django_tinywiki/auth/login.html"
@@ -533,9 +540,11 @@ TINYWIKI_LOGIN_TEMPLATE = "django_tinywiki/auth/login.html"
 
 #### TINYWIKI_SIGNUP_TEMPLATE
 
-This setting set the HTML-template to use when using django_tinywiki.
+Diese Einstellung stzt das HTML-Template, welches von *TinyWiki* für das
+Registrieren neuer Nutzer, verwendet wird, wenn *TinyWiki* im 
+Standalone-Modus ausgeführt wird.
 
-**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+**Anmerkung: Diese Einstellung ist nur sinnvoll, wenn man *django-tinywiki*s Signup Ansicht verwendet.**
 
 ``` { .python }
 TINYWIKI_SIGNUP_TEMPLATE = "django_tinywiki/auth/signup.html"
@@ -543,9 +552,10 @@ TINYWIKI_SIGNUP_TEMPLATE = "django_tinywiki/auth/signup.html"
 
 #### TINYWIKI_SIGNUP_SUCCESS_TEMPLATE
 
+Das ist die HTML-Vorlage, die anzuzeigen ist, 
 The HTML-template to display when the signup on *TinyWiki* was successful.
 
-**Note: This setting is only useful when using *django-tinywiki*'s signup view.**
+**Anmerkung: Diese Einstellung ist nur sinnvoll, wenn man *django-tinywiki*s Signup Ansicht verwendet.**
 
 ``` { .python }
 TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = "django_tinywiki/auth/signup-success.html"
@@ -557,9 +567,10 @@ TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = "django_tinywiki/auth/signup-success.html"
 
 #### TINYWIKI_USER
 
-This is the username used to assign the TinyWiki builtin pages to.
-Set this to a dictionary that can be used as *kwargs* for creating
-the username with the *AUTH_USER_MODEL* model.
+Das sind die Nutzerdaten, die bneutzt werden, um den Nutzer zu erstellen, der 
+die eingabuten *TinyWiki* Seiten erstellt. Erstelle diese Variable als *dict*,
+welches die Nutzerdaten als *kwargs*, zum Erstellen des Nutzers mittels
+*AUTH_USER_MODEL*, enthält.
 
 ``` { .python }
 TINYWIKI_USER = {
@@ -572,8 +583,9 @@ TINYWIKI_USER = {
 
 #### TINYWIKI_DEFAULT_GROUPS
 
-The groups the user is to be added to on creation. This setting
-is a list of group names.
+Diese Variable enthält die voringestellten Gruppen, die zur Erstellung
+eines Wiki-Nutzers notwendig sind. Diese Einstellung beinhaltet eine Liste
+von Gruppennamen.
 
 ``` { .python }
 TINYWIKI_DEFAULT_GROUPS = ['tinywiki-user',]
@@ -583,8 +595,9 @@ TINYWIKI_DEFAULT_GROUPS = ['tinywiki-user',]
 
 #### TINYWIKI_GROUP_ADMIN
 
-The group to use for *TinyWiki* admins. Admins can create,delete,edit 
-every wiki-page and set the user of every *TinyWiki* page.
+Die Gruppe, die für *TinyWiki*-Administratoren zu nutzen ist. Administratoren
+können alle Seiten erstellen,löschen,editieren und den Nutzer jeder 
+*TinyWwiki*-Seite ändern.
 
 ``` { .python }
 TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
@@ -592,7 +605,8 @@ TINYWIKI_GROUP_ADMIN = "tinywiki-admin"
 
 #### TINYWIKI_GROUP_AUTHOR
 
-The author group allows *TinyWiki*-authors to create and edit wiki-pages.
+Die Gruppe, die für *TinyWiki*-Autoren zu verwenden ist. Autoren können 
+Wiki-Seiten erstellen und editieren.
 
 ``` { .python }
 TINYWIKI_GROUP_AUTHOR = "tinywiki-author"
@@ -600,8 +614,8 @@ TINYWIKI_GROUP_AUTHOR = "tinywiki-author"
 
 #### TINYWIKI_GROUP_USER
 
-The user group lets you edit the wiki-pages that belong to you. Users cannot
-create pages.
+Die Gruppe für *TinyWiki* Nutzer. Nutzer können Seiten, die ihnen gehören,
+editieren. Nutzer können keine eigenen Seiten erstellen.
 
 ``` { .python }
 TINYWIKI_GROUP_USER = "tinywiki-user"
@@ -611,7 +625,7 @@ TINYWIKI_GROUP_USER = "tinywiki-user"
 
 #### TINYWIKI_PERM_ADMIN
 
-This permission gives you you administrative rights for *TinyWiki*.
+Diese Berechtigung gibt ihnen administrative Rechte für *TinyWiki*.
 
 ``` { .python }
 TINYWIKI_PERM_ADMIN = "tinywiki-admin"
@@ -619,7 +633,7 @@ TINYWIKI_PERM_ADMIN = "tinywiki-admin"
 
 #### TINYWIKI_PERM_CREATE_PAGE
 
-This permission allows users to create new *TinyWiki*-pages.
+Diese Berechtigung erlaubt Nutzern das Erstellen von *TinyWiki*-Seiten.
 
 ``` { .python }
 TINYWIKI_PREM_CREATE_PAGE = "tinywiki-create-page"
@@ -627,7 +641,7 @@ TINYWIKI_PREM_CREATE_PAGE = "tinywiki-create-page"
 
 #### TINYWIKI_PERM_DELETE_PAGE
 
-This permission allows users to delete *TinyWiki*-pages.
+Diese Berechtigung erlaubt Nutzern das löschen von *TinyWiki* Seiten
 
 ``` { .python }
 TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
@@ -635,8 +649,8 @@ TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
 
 #### TINYWIKI_PERM_EDIT_PAGE
 
-This permission allows users to edit *TinyWiki*-pages. The page doeas not
-need to belong to the user with this permission.
+Diese Berechtigung erlaubt Nutzern das editieren von *TinyWiki* Seiten. Die
+zu editierenden Setien müssen nicht dem Nutzer mit der Berechtigung gehören.
 
 ``` { .python }
 TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
@@ -644,8 +658,9 @@ TINYWIKI_PERM_EDIT_PAGE = "tinywiki-edit-page"
 
 #### TINYWIKI_PERM_EDIT_USER_PAGE
 
-This permission allows users to edit *TinyWiki*-pages that belong to the user
-with this permission.
+Diese Berechtigung erlaubt Nutzern das Editieren der eigenen Seiten. Wenn
+diese Erlaubnis entzogen wird, können Nutzer die Seiten, die ihnen gehören
+nicht mehr verändern.
 
 ``` { .python }
 TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
@@ -653,8 +668,9 @@ TINYWIKI_PERM_EDIT_USER_PAGE = "tinywiki-edit-user-page"
 
 #### TINYWIKI_USERPERM_ADMIN
 
-This is the read only permission for *TinyWiki* admins. It is used for
-checking user permissions.
+Das ist die Berechtigung für *TinyWiki*-Admins. Diese Berechtigung
+wird nur zum Überprüfen der Nutzerberechtigung gebraucht und kann nur
+gelesen werden. 
 
 ``` { .python }
 TINYIWKI_USERPERM_ADMIN = ".".join((TINYWIKI_APP,TINYWIKI_PERM_ADMIN))
@@ -662,8 +678,8 @@ TINYIWKI_USERPERM_ADMIN = ".".join((TINYWIKI_APP,TINYWIKI_PERM_ADMIN))
 
 #### TINYWIKI_USERPERM_CREATE_PAGE
 
-This is the read only permission used by *TinyWiki* for looking up the user
-permission for creating wiki-pages.
+Diese Berechtigung wird nur zum Überprüfen der Rechte zum Erstellen von
+Wiki-Seiten benötigt. Diese Einstellung kann nur gelesen werden.
 
 ``` { .python }
 TINYWIKI_USERPERM_CREATE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_CREATE_PAGE))
@@ -671,8 +687,8 @@ TINYWIKI_USERPERM_CREATE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_CREATE_PAGE
 
 #### TINYWIKI_USERPERM_DELETE_PAGE
 
-This read only setting defines the permission used by *TinyWiki* for looking up
-the user permission for deleting pages.
+Diese Berechtigung wird nur zum Überprüfen der Rechte zum Wiki-Seiten-Löschen
+herangezogen. Diese Einstellung kann nur gelesen werden.
 
 ``` { .python }
 TINYWIKI_USERPERM_DELETE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_DELETE_PAGE))
@@ -680,8 +696,8 @@ TINYWIKI_USERPERM_DELETE_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_DELETE_PAGE
 
 #### TINYWIKI_USERPERM_EDIT_PAGE
 
-This is the read only permission used by *TinyWiki* to look up the user permission for 
-editing wiki-pages.
+Dies ist die Nutzerberechtigung, die zur Überprüfung der Rechte zum Bearbeiten
+von Wiki-Seiten benötigt wird. Diese Einstellung kann nur gelesen werden.
 
 ``` { .python }
 TINYWIKI_USERPERM_EDIT_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_PAGE))
@@ -689,8 +705,8 @@ TINYWIKI_USERPERM_EDIT_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_PAGE))
 
 #### TINYWIKI_USERPERM_EDIT_USER_PAGE
 
-This setting is read only. It is used by *TinyWiki* to look up the user permission
-for editing pages that belong to the user, for whom the permission is looked up.
+Diese Nutzerberechtigung kann nur gelesen werden. Sie wird beötigt umd die Rechte
+zum Editieren der Seiten, die dem entsprechenden Nutzer göhren, zu überprüfen.
 
 ```
 TINYWIKI_USERPERM_EDIT_USER_PAGE = ".".join((TINYWIKI_APP,TINYWIKI_PERM_EDIT_USER_PAGE))

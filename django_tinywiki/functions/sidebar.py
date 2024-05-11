@@ -2,7 +2,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.utils.module_loading import import_string
 from django.utils.html import escape
-from ..models.wiki import WikiPage
+from ..models import wiki as wiki_models
 
 from .. import settings
 
@@ -96,12 +96,12 @@ def get_right_sidebar(request,*args,page=None,**kwargs):
     if page is not None:
         if isinstance(page,str):
             try:
-                wikipage = WikiPage.objects.get(slug="page")
+                wikipage = wiki_models.WikiPage.objects.get(slug="page")
             except:
                 pass
         elif isinstance(page,int):
             try:
-                wikipage = WikiPage.objects.get(id=page)
+                wikipage = wiki_models.WikiPage.objects.get(id=page)
             except:
                 pass
         else:
@@ -116,12 +116,12 @@ def get_right_sidebar(request,*args,page=None,**kwargs):
             else:
                 desc = wi.alt
                 
-            ret.append("<div class=\"right-sidebar-item\">"
+            ret.append(("<div class=\"right-sidebar-item\">"
                        + "<a class=\"right-sidebar-image-link\" href=\"{original_image_url}\">"
                        + "<img class=\"right-sidebar-image\" src=\"{preview_image_url}\" /><br>"
                        + "{description}</a></div>").format(original_image_url=wi.image.url,
                                                            preview_image_url=wi.image_preview.url,
-                                                           description=escape(desc))
+                                                           description=escape(desc)))
             
     return ret
 

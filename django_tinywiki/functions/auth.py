@@ -1,5 +1,5 @@
 from .. import settings
-from ..models.wiki import WikiPage
+from ..models import wiki as wiki_models
 
 def user_is_superuser(user):
     return (user and user.is_authenticated and user.is_superuser)
@@ -55,13 +55,13 @@ def user_can_edit_page(user,page):
     
     if isinstance(page,str):
         try:
-            p = WikiPage.objects.get(slug=page)
-        except WikiPage.DoesNotExist:
+            p = wiki_models.WikiPage.objects.get(slug=page)
+        except wiki_models.WikiPage.DoesNotExist:
             return False
     elif isinstance(page,int):
         try:
-            p = WikiPage.objects.get(id=page)
-        except WikiPage.DoesNotExist:
+            p = wiki_models.WikiPage.objects.get(id=page)
+        except wiki_models.WikiPage.DoesNotExist:
             return False
     else:
         p = page

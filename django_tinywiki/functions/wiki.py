@@ -1,7 +1,7 @@
 from django.utils.translation import gettext as _
 from django.core.files import File
 from .. import settings
-from ..models import WikiLanguage,WikiPage,WikiPageBackup,WikiImage
+from ..models import wiki  as wiki_models
 import os
 import PIL
 import re
@@ -13,8 +13,8 @@ from django.utils.html import escape
 
 def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",description=None,sidebar=False):
     try: 
-        wi = WikiImage.objects.get(builtin_id=builtin_id)
-    except WikiImage.DoesNotExist:
+        wi = wiki_models.WikiImage.objects.get(builtin_id=builtin_id)
+    except wiki_models.WikiImage.DoesNotExist:
         if not os.path.isfile(file):
             raise FileNotFoundError(_("Image file \"{file}\" for BuiltinID \"{builtin_id}\" not found!").format(file=file,builtin_id=builtin_id))
         
@@ -90,7 +90,7 @@ def install_builtin_image(user,wikipage,file:str,builtin_id:int,alt="Image",desc
                 'uploaded_by':user
             }
 
-            wi = WikiImage.objects.create(**wi_create_kwargs)
+            wi = wiki_models.WikiImage.objects.create(**wi_create_kwargs)
             wi.save()
             
             if sidebar:
@@ -119,7 +119,7 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
         raise FileNotFoundError(_("Markdown file \"{file}\" not found!").format(file=file))
 
     try:
-        wikipage = WikiPage.objects.get(slug=slug)
+        wikipage = wiki_models.WikiPage.objects.get(slug=slug)
         page_changed = False
 
         backup_kwargs = {
@@ -143,7 +143,7 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
             page_changed = True
 
         if page_changed:
-            wikipagebackup = WikiPageBackup.objects.create(**backup_kwargs)
+            wikipagebackup = wiki_models.WikiPageBackup.objects.create(**backup_kwargs)
             wikipagebackup.save()
 
 
@@ -157,7 +157,7 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
             wikipage.editlock = True
             wikipage.save()
             page_mode = PAGE_UPDATED
-    except WikiPage.DoesNotExist:
+    except wiki_models.WikiPage.DoesNotExist:
         with open(file,"r",encoding="utf-8") as contentfile:
             content = contentfile.read()
 
@@ -166,13 +166,13 @@ def install_builtin_wiki_page(user,file,slug,title,language,images=None):
 
         if isinstance(language,str):
             try:
-                wikilang = WikiLanguage.objects.get(code=language)
-            except WikiLanguage.DoesNotExist:
-                wikilang = WikiLanguage.objects.get('en')
+                wikilang = wiki_models.WikiLanguage.objects.get(code=language)
+            except wiki_models.WikiLanguage.DoesNotExist:
+                wikilang = wiki_models.WikiLanguage.objects.get('en')
         else:
             wikilang = language
 
-        wikipage = WikiPage.objects.create(
+        wikipage = wiki_models.WikiPage.objects.create(
             slug=slug,
             title=title,
             language=wikilang,
@@ -238,12 +238,12 @@ def render_right_sidebar(request,*args,page=None,**kwargs):
     if page is not None:
         if isinstance(page,str):
             try:
-                wikipage = WikiPage.objects.get(slug="page")
+                wikipage = wiki_models.WikiPage.objects.get(slug="page")
             except:
                 pass
         elif isinstance(page,int):
             try:
-                wikipage = WikiPage.objects.get(id=page)
+                wikipage = wiki_models.WikiPage.objects.get(id=page)
             except:
                 pass
         else:

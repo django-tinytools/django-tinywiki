@@ -1,5 +1,4 @@
 from django.db import models
-from .. import settings
 
 class WikiLanguage(models.Model):
     code = models.CharField(max_length=16,unique=True,null=False,blank=False)

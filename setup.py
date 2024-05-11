@@ -3,7 +3,7 @@ from setuptools import setup,find_packages
 setup(
     name="django-tinywiki",
     description="A simple wiki app for the django framework",
-    version="0.0.4",
+    version="0.0.6",
     author="Christian Moser",
     author_email="christian@cmoser.eu",
     install_requires=[
@@ -24,7 +24,7 @@ setup(
             'static/django_tinywiki/images/*.png',
             'static/django_tinywiki/images/*.jpg',
             'static/django_tinywiki/videos/*.avi',
-            'static/django_tiynwiki/videos/*.mp4',
+            'static/django_tinywiki/videos/*.mp4',
             'static/django_tinywiki/styles/*.css',
             'static/django_tinywiki/styles/codehilite/*.css',
             'templates/django_tinywiki/*.html',

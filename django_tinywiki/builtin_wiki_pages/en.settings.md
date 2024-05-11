@@ -387,8 +387,9 @@ TINYWIKI_PAGE_OVERVIEW_URL = reverse_lazy("tinywiki:page-overview")
 
 #### TINYWIKI_LOGIN_URL
 
-This is the login url of the wiki. To ```reverse_lazy("tinywiki:auth-login")```
-if TinyWiki is the main application, else it is set to the setting *LOGIN_URL*.
+This is the login url of the wiki. and is set to 
+```reverse_lazy("tinywiki:auth-login")``` if TinyWiki is the main application,
+else it is set to the setting *LOGIN_URL*.
 
 ``` { .python }
 TINYWIKI_LOGIN_URL = "/login/"
@@ -406,7 +407,7 @@ TINYWIKI_LOGOUT_URL = "/logout/"
 
 #### TINYWIKI_SIGNUP_URL
 
-This setting deines the *Sign Up*-URL of the site. If TinyWiki is the main
+This setting defines the *Sign Up*-URL of the site. If TinyWiki is the main
 application it defaults to ```reverse_lazy("tinywiki:auth-signup")```, else
 it it set to the setting *SIGNUP_URL*.
 
@@ -476,7 +477,8 @@ TINYWIKI_PAGE_DELETE_TEMPLATE = "django_tinywiki/wiki/delete.html"
 
 #### TINYWIKI_PAGE_DELETE_DONE_TEMPLATE
 
-This variable sets the template for the delete-confirmation page.
+This variable sets the template for the delete-done page. This page
+is only called, if the deletion of the page is confirmed.
 
 ``` { .python }
 TINYWIKI_PAGE_DELETE_DONE_TEMPLATE = "django_tinywiki/wiki/delete-done.html"
@@ -506,7 +508,8 @@ TINYWIKI_LOGIN_TEMPLATE = "django_tinywiki/auth/login.html"
 
 #### TINYWIKI_SIGNUP_TEMPLATE
 
-This setting set the HTML-template to use when using django_tinywiki.
+This setting sets the HTML-template to use for Sign Up when using 
+*TinyWiki* in standalone mode.
 
 **Note: This setting is only useful when using *django-tinywiki*'s signup view.**
 
@@ -530,7 +533,7 @@ TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = "django_tinywiki/auth/signup-success.html"
 
 #### TINYWIKI_USER
 
-This is the username used to assign the TinyWiki builtin pages to.
+This are the userdata used to assign the TinyWiki builtin pages to.
 Set this to a dictionary that can be used as *kwargs* for creating
 the username with the *AUTH_USER_MODEL* model.
 
@@ -608,7 +611,7 @@ TINYWIKI_PERM_DELETE_PAGE = "tinywiki-delete-page"
 
 #### TINYWIKI_PERM_EDIT_PAGE
 
-This permission allows users to edit *TinyWiki*-pages. The page doeas not
+This permission allows users to edit *TinyWiki*-pages. The page does not
 need to belong to the user with this permission.
 
 ``` { .python }
