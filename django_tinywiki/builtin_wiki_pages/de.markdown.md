@@ -263,7 +263,7 @@ Spalte 1 | Spalte 2 | Spalte 3
 
 **Das Beispiel sieht wie folgt aus:**
 
-Spalte 1 | Spalte 2 | Splate 3
+Spalte 1 | Spalte 2 | Spalte 3
 -------- | -------- | --------
     A1   |    B1    |    C1
     A2   |    B2    |    C2

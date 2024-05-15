@@ -81,7 +81,7 @@ BUILTIN_PAGES = [
     {
         'file': os.path.join(basedir,'de.settings.md'),
         'language':'de',
-        'title': 'TinyWiki Einstellugnen',
+        'title': 'TinyWiki Einstellungen',
         'slug': "de-tinywiki-settings",
     }
 ]

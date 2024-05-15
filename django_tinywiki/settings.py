@@ -119,7 +119,7 @@ if TINYWIKI_IS_MAIN_APP:
     TINYWIKI_LOGIN_URL = getattr(django_settings,
                                 "TINYWIKI_LOGIN_URL",
                                 getattr(django_settings,
-                                        'LOGIN_URL'
+                                        'LOGIN_URL',
                                         reverse_lazy("tinywiki:auth-login")))
     TINYWIKI_SIGNUP_URL = getattr(django_settings,
                                   "TINYWIKI_SIGNUP_URL",

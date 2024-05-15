@@ -223,10 +223,22 @@ main {
     min-width: 400px;
 }
 
+.wiki-links {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+}
+
+.wiki-links li {
+    margin-right: 10px;
+    float:left;
+}
+
 .wiki-linked-image-grid {
     display: inline-grid;
     width: 100%;
-    grid-template-columns: calc((100% - 30px) / 4) calc((100% - 30px) / 4) calc((100% - 30px) / 4) calc((100% - 30px) / 4);
+    grid-template-columns: repeat(4,calc((100% - 30px) / 4));
     justify-content: space-evenly;
     align-content: center;
     gap: 10px;

@@ -1,9 +1,14 @@
+import os
+import sys
+sys.path.insert(0,os.path.dirname(__file__))
+
 from setuptools import setup,find_packages
+from django_tinywiki.version import TINYWIKI_VERSION
 
 setup(
     name="django-tinywiki",
     description="A simple wiki app for the django framework",
-    version="0.0.6",
+    version=TINYWIKI_VERSION,
     author="Christian Moser",
     author_email="christian@cmoser.eu",
     install_requires=[

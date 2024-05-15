@@ -116,6 +116,7 @@ class ViewBase(View):
             'delete_url': delete_url,
             'create_url': self.page_new_url,
             'overview_url': self.overview_url,
+            'page': p,
             'page_url': self.page_view_url,
             'index_url': self.index_url,
             'left_sidebar': left_sidebar,
@@ -126,7 +127,7 @@ class ViewBase(View):
             self.context_callback = import_string(self.context_callback)
 
         if callable(self.context_callback):
-            context.update(self.context_callback(request))
+            context.update(self.context_callback(request,**context))
 
         return context
     

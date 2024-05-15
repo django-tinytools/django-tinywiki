@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-03 14:45+0100\n"
-"PO-Revision-Date: 2024-03-03 14:47+0100\n"
+"POT-Creation-Date: 2024-05-14 03:55+0200\n"
+"PO-Revision-Date: 2024-05-14 03:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -105,7 +105,7 @@ msgstr "Lösche Seite?"
 msgid "Delete Images too?"
 msgstr "Lösche auch Bilder?"
 
-#: django_tinywiki/functions/sidebar.py:12 django_tinywiki/settings.py:14
+#: django_tinywiki/functions/sidebar.py:12 django_tinywiki/settings.py:17
 msgid "TinyWiki"
 msgstr "TinyWiki"
 
@@ -113,7 +113,7 @@ msgstr "TinyWiki"
 msgid "Main Page"
 msgstr "Hauptseite"
 
-#: django_tinywiki/functions/sidebar.py:16 django_tinywiki/settings.py:18
+#: django_tinywiki/functions/sidebar.py:16 django_tinywiki/settings.py:21
 msgid "en-tinywiki-index"
 msgstr "de-tinywiki-index"
 
@@ -158,7 +158,7 @@ msgstr "Bilddatei \"{file}\" hat keine Erweiterung! ÜBERSPRINGE!"
 msgid "Markdown file \"{file}\" not found!"
 msgstr "Markdown-Datei \"{file}\" nicht gefunden!"
 
-#: django_tinywiki/functions/wiki.py:201
+#: django_tinywiki/functions/wiki.py:205
 msgid "language-code"
 msgstr "de"
 
@@ -319,44 +319,57 @@ msgid "Owned by User"
 msgstr "Gehört Nutzer"
 
 #: django_tinywiki/templates/django_tinywiki/wiki/overview.html.py:18
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:13
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:24
 msgid "Unknown User"
 msgstr "Unbekannter Nutzer"
 
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:15
-msgid "Latest edit on:"
-msgstr "Zuletzt bearbeitet am:"
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:8
+msgid "Create new page"
+msgstr "Neue Seite erstellen"
 
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:16
-msgid "Edited by:"
-msgstr "Bearbeitet von:"
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:10
+msgid "Edit page"
+msgstr "Seite bearbeiten"
 
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:17
-msgid "Reason:"
-msgstr "Begründung"
-
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:17
-msgid "No reason given"
-msgstr "Kein Grund angegeben"
-
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:21
-msgid "Linked Images"
-msgstr "Verknüpfte Bilder"
-
-#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:22
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:11
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:34
 msgid "Upload image"
 msgstr "Bild hochladen"
 
-#: django_tinywiki/views/auth.py:96
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:13
+msgid "Delete page"
+msgstr "Seite löschen"
+
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:26
+msgid "Latest edit on:"
+msgstr "Zuletzt bearbeitet am:"
+
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:27
+msgid "Edited by:"
+msgstr "Bearbeitet von:"
+
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:28
+msgid "Reason:"
+msgstr "Begründung"
+
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:28
+msgid "No reason given"
+msgstr "Kein Grund angegeben"
+
+#: django_tinywiki/templates/django_tinywiki/wiki/page.html.py:32
+msgid "Linked Images"
+msgstr "Verknüpfte Bilder"
+
+#: django_tinywiki/views/auth.py:97
 #, python-brace-format
 msgid "Username \"{name}\" exists!"
 msgstr "Nutzername \"{name}\" existiert bereits!"
 
-#: django_tinywiki/views/auth.py:103
+#: django_tinywiki/views/auth.py:104
 #, python-brace-format
 msgid "Email \"{email}\" exists!"
 msgstr "Email \"{email}\" existiert bereits!"
 
-#: django_tinywiki/views/auth.py:113
+#: django_tinywiki/views/auth.py:114
 msgid "Passwords don't match!"
 msgstr "Passwörter stimmen nicht überein!"
