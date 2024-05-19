@@ -235,6 +235,14 @@ main {
     float:left;
 }
 
+.wiki-links li a,
+.wiki-links li a:visited,
+.wiki-links li a:hover {
+    color: blue;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
 .wiki-linked-image-grid {
     display: inline-grid;
     width: 100%;
