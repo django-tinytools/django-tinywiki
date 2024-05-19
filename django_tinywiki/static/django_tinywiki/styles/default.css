@@ -240,7 +240,7 @@ main {
 .wiki-links li a:hover {
     color: blue;
     text-decoration: none;
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 .wiki-linked-image-grid {
