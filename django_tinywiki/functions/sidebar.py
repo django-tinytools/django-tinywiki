@@ -26,6 +26,10 @@ def get_left_sidebar_tinywiki_only(request,*args,**kwargs):
                 {
                     'title': _("Configuration"),
                     'page': _("en-tinywiki-settings"),
+                },
+                {
+                    'title': _("License"),
+                    'page': _('en-tinywiki-license')
                 }
             ]
         },
