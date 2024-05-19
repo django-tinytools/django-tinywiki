@@ -204,7 +204,7 @@ BUILTIN_MARKDOWN_EXTENSIONS = [
 
 # snaitize context callback
 if TINYWIKI_CONTEXT_CALLBACK is None:
-    TINYWIKI_CONTEXT_CALLBACK = lambda self,x: {}
+    TINYWIKI_CONTEXT_CALLBACK = lambda self,x,**kwargs: {}
 elif isinstance(TINYWIKI_CONTEXT_CALLBACK,str):
     TINYWIKI_CONTEXT_CALLBACK = import_string(TINYWIKI_CONTEXT_CALLBACK)
 
