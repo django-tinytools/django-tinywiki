@@ -118,29 +118,17 @@ TINYWIKI_SIGNUP_SUCCESS_TEMPLATE = getattr(django_settings,"TINYWIKI_SIGNUP_SUCC
 if TINYWIKI_IS_MAIN_APP:
     TINYWIKI_LOGIN_URL = getattr(django_settings,
                                 "TINYWIKI_LOGIN_URL",
-                                getattr(django_settings,
-                                        'LOGIN_URL',
-                                        reverse_lazy("tinywiki:auth-login")))
+                                getattr(django_settings,'LOGIN_URL',reverse_lazy("tinywiki:auth-login")))
     TINYWIKI_SIGNUP_URL = getattr(django_settings,
                                   "TINYWIKI_SIGNUP_URL",
-                                  getattr(django_settings,
-                                          "SIGNUP_URL",
-                                          reverse_lazy("tinywiki:auth-signup")))
+                                  getattr(django_settings,"SIGNUP_URL",reverse_lazy("tinywiki:auth-signup")))
     TINYWIKI_LOGOUT_URL = getattr(django_settings,
                                   "TINYWIKI_LOGOUT_URL",
-                                  getattr(django_settings,
-                                          "LOGOUT_URL",
-                                          reverse_lazy("tinywiki:auth-logout")))
+                                  getattr(django_settings,"LOGOUT_URL",reverse_lazy("tinywiki:auth-logout")))
 else:
-    TINYWIKI_LOGIN_URL = getattr(django_settings,
-                                 "TINYWIKI_LOGIN_URL",
-                                 getattr(django_settings,"LOGIN_URL","/login/"))
-    TINYWIKI_SIGNUP_URL = getattr(django_settings,
-                                  "TINYWIKI_SIGNUP_URL",
-                                  getattr(django_settings,"SIGNUP_URL","/logout"))
-    TINYWIKI_LOGOUT_URL = getattr(django_settings,
-                                  "TINYWIKI_LOGOUT_URL",
-                                  getattr(django_settings,"LOGOUT_URL","/signup/"))
+    TINYWIKI_LOGIN_URL = getattr(django_settings,"TINYWIKI_LOGIN_URL",getattr(django_settings,"LOGIN_URL","/login/"))
+    TINYWIKI_SIGNUP_URL = getattr(django_settings,"TINYWIKI_SIGNUP_URL",getattr(django_settings,"SIGNUP_URL","/signup/"))
+    TINYWIKI_LOGOUT_URL = getattr(django_settings,"TINYWIKI_LOGOUT_URL",getattr(django_settings,"LOGOUT_URL","/logout/"))
 
 BUILTIN_TINYWIKI_USER = {"username":"TinyWikiTeam","email":"tinywiki@cmoser.eu","first_name":"TinyWiki","last_name":"Team"}
 TINYWIKI_USER = getattr(django_settings,"TINYWIKI_USER",BUILTIN_TINYWIKI_USER)
