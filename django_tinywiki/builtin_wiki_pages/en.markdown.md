@@ -17,16 +17,6 @@ This short guide gives you an overview of the *Markdown*-syntax.
 *TinyWiki*-pages are fist processed by Django's template prcessor before the
 Markdown is processed. This allows for example emebdding static content.
 
-Wie z.B.:
-
-``` { .markdown }
-{% templatetag openblock %} load static {% templatetag closeblock %}
-
-![Pfau im Schloss Eggenberg]({% templatetag openblock %} static 'django_tinywiki/images/peacock.jpg' {% templatetag closeblock %})
-```
-
-![Pfau im Schloss Eggenberg]({% static 'django_tinywiki/images/peacock.jpg' %})
-
 Like for example:
 
 ``` { .markdown }
@@ -34,7 +24,7 @@ Like for example:
 
 ![Peacock in Eggenberg castle]({% templatetag openblock %} static 'django_tinywiki/images/peacock.jpg' {% templatetag closeblock %})
 ```
-
+{% load static %}
 ![Peacock in Eggenberg castle]({% static 'django_tinywiki/images/peacock.jpg' %})
 
 ### Django Template Tags
