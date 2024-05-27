@@ -5,6 +5,8 @@ can be loaded as an django app, to provide a simple Wiki for your projects.
 
 *TinyWiki* can also be run as a standalone app.
 
+To see how *django-tinywiki* looks like you can visit the [TinyWiki Homepage](https://tinywiki.cmoser.eu).
+
 ## Installing
 
 ### Installing as an App
@@ -18,7 +20,7 @@ pip install django-tinywiki
 
 #### Git install
 
-To install clone the repostiroy from git, cd to the downloaded repositroy
+To install clone the repository from git, cd to the downloaded repositroy
 and install it with pip.
 
 ``` { .sh }
