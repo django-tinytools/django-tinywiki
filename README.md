@@ -25,7 +25,7 @@ and install it with pip.
 
 ``` { .sh }
 # Fetch the repository
-git clone https://github.com/c9moser/django-tinywiki.git
+git clone https://github.com/django-tinywiki/django-tinywiki.git
 
 # cd to the project root
 cd django-tinywiki
@@ -53,7 +53,7 @@ INSTALLED_APPS = [
 To Install *TinyWiki* as a standlone app, the easiest way to do it, is using Git.
 
 ``` { .sh }
-git clone https://github.com/c9moser/django-tinywiki.git
+git clone https://github.com/django-tinywiki/django-tinywiki.git
 ```
 
 Then create a virtual environment and install all requirements.
